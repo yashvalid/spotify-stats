@@ -416,9 +416,8 @@ export default function App() {
                     handleLandingFiles(e.dataTransfer.files);
                   }}
                   onClick={() => landingFileInputRef.current?.click()}
-                  className={`p-5 text-center cursor-pointer transition-colors duration-200 ${
-                    isDraggingLanding ? 'bg-[#FF0000] text-[#FFFFFF]' : 'bg-[#FFFFFF] hover:bg-[#FFFF00]'
-                  }`}
+                  className={`p-5 text-center cursor-pointer transition-colors duration-200 ${isDraggingLanding ? 'bg-[#FF0000] text-[#FFFFFF]' : 'bg-[#FFFFFF] hover:bg-[#FFFF00]'
+                    }`}
                 >
                   <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold text-[#111111]">
                     <Upload className="w-4 h-4 text-[#FF0000]" />
@@ -443,8 +442,11 @@ export default function App() {
 
         {/* Footer */}
         <footer className="border-t-4 border-[#111111] bg-[#FFFFFF]">
-          <div className="mx-auto max-w-[1280px] px-6 py-6 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#808080]">
+          <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-6 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#808080]">
             <span className="text-[#111111] font-bold">STATIFY</span>
+            <span className="text-[#111111]">
+              Made with <span className="text-[#FF0000]">♥</span> by Yash
+            </span>
             <span>CONNECTED VIA SPOTIFY</span>
           </div>
         </footer>
@@ -484,11 +486,10 @@ export default function App() {
             <div className="flex items-center gap-2">
               <span className="text-base sm:text-lg font-bold tracking-tight text-[#111111]">STATIFY</span>
               <span
-                className={`border border-[#111111] px-1.5 sm:px-2 py-0.5 font-mono text-[10px] sm:text-[11px] font-bold ${
-                  sourceMode === 'history'
+                className={`border border-[#111111] px-1.5 sm:px-2 py-0.5 font-mono text-[10px] sm:text-[11px] font-bold ${sourceMode === 'history'
                     ? 'bg-[#0000FF] text-[#FFFFFF]'
                     : 'bg-[#FFFF00] text-[#111111]'
-                }`}
+                  }`}
               >
                 {sourceMode === 'history' ? 'ARCHIVE' : 'LIVE SYNC'}
               </span>
@@ -503,11 +504,10 @@ export default function App() {
                 <button
                   key={tr.id}
                   onClick={() => setTimeRange(tr.id)}
-                  className={`rounded-lg border-2 border-[#111111] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer whitespace-nowrap ${
-                    active
+                  className={`rounded-lg border-2 border-[#111111] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer whitespace-nowrap ${active
                       ? 'bg-[#FF0000] text-[#FFFFFF]'
                       : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
-                  }`}
+                    }`}
                 >
                   <span className="hidden sm:inline">{tr.label}</span>
                   <span className="sm:hidden">{tr.shortLabel}</span>
@@ -520,11 +520,10 @@ export default function App() {
           <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={() => setActiveTab('roast')}
-              className={`inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] px-2.5 sm:px-3.5 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer ${
-                activeTab === 'roast'
+              className={`inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] px-2.5 sm:px-3.5 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer ${activeTab === 'roast'
                   ? 'bg-[#111111] text-[#FFFF00]'
                   : 'bg-[#FFFF00] text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF]'
-              }`}
+                }`}
             >
               <Flame className="w-3.5 h-3.5" />
               <span>ROAST</span>
@@ -567,11 +566,10 @@ export default function App() {
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-lg border border-[#111111] px-2.5 sm:px-3 py-1.5 text-xs font-medium transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
-                      active
+                    className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-lg border border-[#111111] px-2.5 sm:px-3 py-1.5 text-xs font-medium transition-colors duration-200 cursor-pointer whitespace-nowrap shrink-0 ${active
                         ? 'bg-[#111111] text-[#FFFFFF] font-bold'
                         : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
-                    }`}
+                      }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
                     <span>{item.label}</span>
@@ -1198,6 +1196,16 @@ export default function App() {
         {/* TAB 7: SPOTIFY ROAST */}
         {activeTab === 'roast' && <SpotifyRoast stats={stats} />}
       </main>
+
+      {/* Dashboard Footer */}
+      <footer className="border-t-4 border-[#111111] bg-[#FFFFFF] mt-auto">
+        <div className="mx-auto max-w-[1280px] px-4 sm:px-6 py-5 flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[#808080]">
+          <span className="text-[#111111] font-bold">STATIFY</span>
+          <span className="text-[#111111]">
+            Made with <span className="text-[#FF0000]">♥</span> by Yash
+          </span>
+        </div>
+      </footer>
 
       {/* Modals */}
       {showWrappedModal && (

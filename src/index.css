@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-primary: #FF0000;
+    --color-secondary: #0000FF;
+    --color-tertiary: #FFFF00;
+    --color-neutral: #111111;
+    --color-surface: #FFFFFF;
+    --color-accent: #808080;
+  }
+
+  body {
+    background-color: #FFFFFF;
+    color: #111111;
+    font-family: Helvetica, 'Helvetica Neue', Arial, system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, 'Helvetica Neue', Arial, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+}
+
+@keyframes deStijlEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes deStijlShimmer {
+  0% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+
+.animate-destijl-enter {
+  animation: deStijlEnter 420ms ease-out both;
+}
+
+.animate-destijl-shimmer {
+  animation: deStijlShimmer 1200ms ease-out infinite;
+}
+
+/* Touch-optimized smooth scrolling without ugly scrollbars on mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}

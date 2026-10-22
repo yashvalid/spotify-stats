@@ -314,7 +314,7 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
           </div>
         ) : (
           <div className="py-8 text-center font-mono text-xs text-[#808080] border border-[#111111]">
-            Import your Spotify Streaming History JSON/ZIP to populate the 140-day De Stijl matrix.
+            Import your Spotify Streaming History JSON/ZIP to populate the 140-day activity matrix.
           </div>
         )}
       </div>

@@ -17,6 +17,10 @@ import {
   Settings2,
   ArrowRight,
   HelpCircle,
+  TrendingUp,
+  ListPlus,
+  Users,
+  Play,
 } from 'lucide-react';
 import { DataSourceMode, ListeningStats, StreamRecord, TimeRange } from './types';
 import { computeListeningStats } from './utils/analyticsEngine';
@@ -39,8 +43,20 @@ import { DataSourceModal } from './components/DataSourceModal';
 import { ActivityCharts } from './components/ActivityCharts';
 import { SpotifyRoast } from './components/SpotifyRoast';
 import { SpotifyPrivacyGuideModal } from './components/SpotifyPrivacyGuideModal';
+import { PlaylistCreatorModal } from './components/PlaylistCreatorModal';
+import { TasteDrift } from './components/TasteDrift';
+import { ObscurityIndex } from './components/ObscurityIndex';
+import { FriendBlendModal } from './components/FriendBlendModal';
 
-type DashboardTab = 'overview' | 'albums' | 'artists' | 'tracks' | 'genres' | 'activity' | 'roast';
+type DashboardTab =
+  | 'overview'
+  | 'albums'
+  | 'artists'
+  | 'tracks'
+  | 'genres'
+  | 'drift'
+  | 'activity'
+  | 'roast';
 type RankSortMetric = 'minutes' | 'plays';
 
 const TIME_RANGES: { id: TimeRange; label: string; shortLabel: string }[] = [
@@ -85,6 +101,8 @@ export default function App() {
   const [showWrappedModal, setShowWrappedModal] = useState(false);
   const [showSourceModal, setShowSourceModal] = useState(false);
   const [showPrivacyGuide, setShowPrivacyGuide] = useState(false);
+  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+  const [showFriendModal, setShowFriendModal] = useState(false);
 
   // Landing page file upload state
   const [, setUploadingLanding] = useState(false);
@@ -258,14 +276,14 @@ export default function App() {
     }
   };
 
-  // Loading Screen (De Stijl Shimmer)
+  // Loading Screen (Shimmer)
   if (initializing || (sourceMode === 'spotify_api' && loadingLive && !stats)) {
     return (
       <div className="min-h-[100dvh] bg-[#FFFFFF] text-[#111111] flex flex-col justify-center">
         <div className="mx-auto w-full max-w-[1280px] px-6 py-12">
           <div className="border-4 border-[#111111] bg-[#FFFFFF]">
             <div className="grid grid-cols-1 md:grid-cols-12 border-b-4 border-[#111111]">
-              <div className="md:col-span-8 p-8 bg-[#FF0000] text-[#FFFFFF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-destijl-shimmer">
+              <div className="md:col-span-8 p-8 bg-[#FF0000] text-[#FFFFFF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-shimmer">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest block">
                   [CONNECTING TELEMETRY]
                 </span>
@@ -273,14 +291,14 @@ export default function App() {
                   Syncing your Spotify listening data...
                 </h2>
               </div>
-              <div className="md:col-span-4 p-8 bg-[#FFFF00] animate-destijl-shimmer" />
+              <div className="md:col-span-4 p-8 bg-[#FFFF00] animate-shimmer" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12">
-              <div className="md:col-span-5 h-56 bg-[#0000FF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-destijl-shimmer" />
+              <div className="md:col-span-5 h-56 bg-[#0000FF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-shimmer" />
               <div className="md:col-span-7 p-8 space-y-4">
-                <div className="h-6 w-2/3 bg-[#111111] animate-destijl-shimmer" />
-                <div className="h-4 w-1/2 bg-[#808080] animate-destijl-shimmer" />
-                <div className="h-24 w-full border-2 border-[#111111] bg-[#FFFF00] animate-destijl-shimmer" />
+                <div className="h-6 w-2/3 bg-[#111111] animate-shimmer" />
+                <div className="h-4 w-1/2 bg-[#808080] animate-shimmer" />
+                <div className="h-24 w-full border-2 border-[#111111] bg-[#FFFF00] animate-shimmer" />
               </div>
             </div>
           </div>
@@ -322,7 +340,7 @@ export default function App() {
         </header>
 
         {/* Hero Section */}
-        <main className="mx-auto w-full max-w-[1280px] px-3.5 sm:px-6 py-6 sm:py-16 animate-destijl-enter">
+        <main className="mx-auto w-full max-w-[1280px] px-3.5 sm:px-6 py-6 sm:py-16 animate-fade-enter">
           {bannerError && (
             <div className="mb-6 flex items-start justify-between gap-3 rounded-lg border-2 border-[#111111] bg-[#FF0000] p-3.5 sm:p-4 text-xs font-bold text-[#FFFFFF]">
               <div className="flex items-start gap-2.5">
@@ -468,6 +486,7 @@ export default function App() {
   const navItems: { id: DashboardTab; label: string; icon: React.ElementType; count?: number }[] = [
     { id: 'overview', label: 'Overview', icon: Home },
     { id: 'roast', label: 'Roast Critique', icon: Flame },
+    { id: 'drift', label: 'Taste Drift', icon: TrendingUp },
     { id: 'albums', label: 'Top Albums', icon: Disc3, count: stats.topAlbums.length },
     { id: 'artists', label: 'Top Artists', icon: Mic2, count: stats.topArtists.length },
     { id: 'tracks', label: 'Top Tracks', icon: Music2, count: stats.topTracks.length },
@@ -488,10 +507,10 @@ export default function App() {
               <span
                 className={`border border-[#111111] px-1.5 sm:px-2 py-0.5 font-mono text-[10px] sm:text-[11px] font-bold ${sourceMode === 'history'
                   ? 'bg-[#0000FF] text-[#FFFFFF]'
-                  : 'bg-[#FFFF00] text-[#111111]'
+                  : ''
                   }`}
               >
-                {sourceMode === 'history' ? 'ARCHIVE' : 'LIVE SYNC'}
+                {sourceMode === 'history' ? 'ARCHIVE' : ''}
               </span>
             </div>
           </div>
@@ -519,10 +538,28 @@ export default function App() {
           {/* Right Action Controls */}
           <div className="flex items-center gap-1.5 sm:gap-2">
             <button
+              onClick={() => setShowPlaylistModal(true)}
+              title="Save as Spotify Playlist"
+              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#0000FF] hover:bg-[#111111] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
+            >
+              <ListPlus className="w-3.5 h-3.5 text-[#FFFF00]" />
+              <span className="hidden md:inline">PLAYLIST</span>
+            </button>
+
+            <button
+              onClick={() => setShowFriendModal(true)}
+              title="Friend Taste Blend Card"
+              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#FFFF00] hover:bg-[#111111] hover:text-[#FFFFFF] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#111111] transition-colors duration-200 cursor-pointer"
+            >
+              <Users className="w-3.5 h-3.5 text-[#FF0000]" />
+              <span className="hidden md:inline">BLEND</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab('roast')}
               className={`inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] px-2.5 sm:px-3.5 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer ${activeTab === 'roast'
                 ? 'bg-[#111111] text-[#FFFF00]'
-                : 'bg-[#FFFF00] text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF]'
+                : 'bg-[#FF0000] text-[#FFFFFF] hover:bg-[#111111]'
                 }`}
             >
               <Flame className="w-3.5 h-3.5" />
@@ -531,7 +568,7 @@ export default function App() {
 
             <button
               onClick={() => setShowWrappedModal(true)}
-              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#0000FF] hover:bg-[#111111] px-2.5 sm:px-3.5 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#111111] hover:text-[#FFFFFF] px-2.5 sm:px-3.5 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#111111] transition-colors duration-200 cursor-pointer"
             >
               <Share2 className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">POSTER</span>
@@ -613,14 +650,14 @@ export default function App() {
         )}
 
         {loadingLive && (
-          <div className="rounded-lg border-2 border-[#111111] bg-[#FFFF00] px-4 py-2.5 font-mono text-xs font-bold text-[#111111] animate-destijl-shimmer">
+          <div className="rounded-lg border-2 border-[#111111] bg-[#FFFF00] px-4 py-2.5 font-mono text-xs font-bold text-[#111111] animate-shimmer">
             [SYNCING RECENT SPOTIFY DATA...]
           </div>
         )}
 
         {/* Hero & Top Highlights - shown only on Overview tab */}
         {activeTab === 'overview' && (
-          <section className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF] animate-destijl-enter">
+          <section className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF] animate-fade-enter">
             {/* Left: User Profile & Minutes */}
             <div className="lg:col-span-5 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
               <div className="p-6 bg-[#FFFFFF] border-b-4 border-[#111111] flex items-center gap-4">
@@ -962,6 +999,9 @@ export default function App() {
               </div>
             </div>
 
+            {/* Obscurity & Hipster Index Feature */}
+            <ObscurityIndex stats={stats} />
+
             {/* Charts */}
             <ActivityCharts stats={stats} />
           </div>
@@ -1066,9 +1106,22 @@ export default function App() {
                           {track.artist} — {track.album}
                         </p>
                       </div>
-                      <span className="font-mono text-xs font-bold text-[#111111]">
-                        {track.minutes.toLocaleString()} MIN
-                      </span>
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-xs font-bold text-[#111111]">
+                          {track.minutes.toLocaleString()} MIN
+                        </span>
+                        {track.spotifyUrl && (
+                          <a
+                            href={track.spotifyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1.5 rounded border border-[#111111] bg-[#FFFFFF] hover:bg-[#111111] hover:text-[#FFFFFF] text-[#111111] transition-colors"
+                            title="Open on Spotify"
+                          >
+                            <Play className="w-3.5 h-3.5 fill-current" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1148,6 +1201,9 @@ export default function App() {
             </div>
           </div>
         )}
+
+        {/* TAB: TASTE DRIFT */}
+        {activeTab === 'drift' && <TasteDrift stats={stats} />}
 
         {/* TAB 6: CIRCADIAN GRID */}
         {activeTab === 'activity' && (
@@ -1231,6 +1287,19 @@ export default function App() {
       <SpotifyPrivacyGuideModal
         isOpen={showPrivacyGuide}
         onClose={() => setShowPrivacyGuide(false)}
+      />
+
+      <PlaylistCreatorModal
+        stats={stats}
+        spotifyToken={spotifyToken}
+        isOpen={showPlaylistModal}
+        onClose={() => setShowPlaylistModal(false)}
+      />
+
+      <FriendBlendModal
+        stats={stats}
+        isOpen={showFriendModal}
+        onClose={() => setShowFriendModal(false)}
       />
     </div>
   );

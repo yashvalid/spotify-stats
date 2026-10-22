@@ -71,7 +71,7 @@ export const SpotifyPrivacyGuideModal: React.FC<Props> = ({ isOpen, onClose }) =
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-lg border-4 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden animate-destijl-enter">
+      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-lg border-4 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden animate-fade-enter">
         {/* Header - Fixed */}
         <div className="flex items-center justify-between border-b-4 border-[#111111] bg-[#FFFF00] px-4 sm:px-6 py-3.5 shrink-0">
           <div className="flex items-center gap-2.5">
@@ -100,7 +100,7 @@ export const SpotifyPrivacyGuideModal: React.FC<Props> = ({ isOpen, onClose }) =
             </p>
           </div>
 
-          {/* 4 Steps in Compact De Stijl Cards */}
+          {/* 4 Steps in Compact Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {steps.map((s) => (
               <div

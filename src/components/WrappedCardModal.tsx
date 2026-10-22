@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download, Sparkles, X, Disc3, Flame, Clock } from 'lucide-react';
+import { Download, Sparkles, X, Smartphone, Square, Receipt } from 'lucide-react';
 import { ListeningStats } from '../types';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 
 type CardTheme = 'mondrian' | 'red_ochre' | 'cobalt' | 'monolith';
+type CardFormat = 'story' | 'square' | 'receipt';
 
 const THEMES: Record<
   CardTheme,
@@ -51,6 +52,7 @@ const THEMES: Record<
 
 export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
   const [theme, setTheme] = useState<CardTheme>('mondrian');
+  const [format, setFormat] = useState<CardFormat>('story');
   const [downloading, setDownloading] = useState(false);
 
   const currentTheme = THEMES[theme];
@@ -59,155 +61,279 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
     setDownloading(true);
     try {
       const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1350;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Flat White Base
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, 1080, 1350);
+      if (format === 'story') {
+        // 9:16 Instagram Story (1080 x 1920)
+        canvas.width = 1080;
+        canvas.height = 1920;
 
-      // Top Left Primary Block
-      ctx.fillStyle = currentTheme.accentHex;
-      ctx.fillRect(36, 36, 700, 210);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, 1080, 1920);
 
-      // Top Right Yellow Block
-      ctx.fillStyle = '#FFFF00';
-      ctx.fillRect(736, 36, 308, 210);
+        // Header block
+        ctx.fillStyle = currentTheme.accentHex;
+        ctx.fillRect(40, 40, 1000, 240);
 
-      // Middle Minutes Block (Asymmetric 620 / 388)
-      ctx.fillStyle = '#0000FF';
-      ctx.fillRect(36, 246, 620, 220);
+        // Grid lines
+        ctx.strokeStyle = '#111111';
+        ctx.lineWidth = 10;
+        ctx.strokeRect(40, 40, 1000, 1840);
 
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(656, 246, 388, 220);
+        // Header text
+        ctx.fillStyle = currentTheme.accentHex === '#FFFF00' ? '#111111' : '#FFFFFF';
+        ctx.font = 'bold 24px "JetBrains Mono", monospace';
+        ctx.fillText('[STATIFY - INSTAGRAM STORY EDITION]', 80, 100);
 
-      // Bottom Footer Block
-      ctx.fillStyle = '#FFFF00';
-      ctx.fillRect(36, 1180, 700, 134);
-      ctx.fillStyle = '#FF0000';
-      ctx.fillRect(736, 1180, 308, 134);
+        ctx.font = 'bold 64px Helvetica, Arial, sans-serif';
+        ctx.fillText(stats.userName.slice(0, 22), 80, 180);
 
-      // Structural Grid Lines
-      ctx.strokeStyle = '#111111';
-      ctx.lineWidth = 10;
-      ctx.strokeRect(36, 36, 1008, 1278);
-
-      ctx.beginPath();
-      ctx.moveTo(36, 246);
-      ctx.lineTo(1044, 246);
-      ctx.moveTo(736, 36);
-      ctx.lineTo(736, 246);
-      ctx.moveTo(36, 466);
-      ctx.lineTo(1044, 466);
-      ctx.moveTo(656, 246);
-      ctx.lineTo(656, 466);
-      ctx.moveTo(540, 466);
-      ctx.lineTo(540, 960);
-      ctx.moveTo(36, 960);
-      ctx.lineTo(1044, 960);
-      ctx.moveTo(36, 1180);
-      ctx.lineTo(1044, 1180);
-      ctx.moveTo(736, 1180);
-      ctx.lineTo(736, 1314);
-      ctx.stroke();
-
-      // Header Text
-      ctx.fillStyle = currentTheme.accentHex === '#FFFF00' ? '#111111' : '#FFFFFF';
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText('[STATIFY - DE STIJL EDITION]', 72, 92);
-
-      ctx.font = 'bold 54px Helvetica, Arial, sans-serif';
-      ctx.fillText(stats.userName.slice(0, 20), 72, 162);
-
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText(stats.dateRangeLabel.toUpperCase(), 72, 208);
-
-      // Top Right Persona
-      ctx.fillStyle = '#111111';
-      ctx.font = 'bold 20px "JetBrains Mono", monospace';
-      ctx.fillText('[SONIC RATIO]', 768, 92);
-      ctx.font = 'bold 28px Helvetica, Arial, sans-serif';
-      ctx.fillText(stats.vibe.personaTitle.slice(0, 16), 768, 148);
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText(`${stats.totalPlays.toLocaleString()} STREAMS`, 768, 198);
-
-      // Minutes Box (Blue)
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText('[01] MINUTES LISTENED', 72, 298);
-      ctx.font = 'bold 78px Helvetica, Arial, sans-serif';
-      ctx.fillText(`${stats.totalMinutes.toLocaleString()}`, 72, 390);
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText(`${stats.totalHours.toLocaleString()} HRS • ${stats.totalDaysEquivalent} DAYS`, 72, 434);
-
-      // Streak Box (White)
-      ctx.fillStyle = '#111111';
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText('[02] PEAK STREAK', 690, 298);
-      ctx.font = 'bold 68px Helvetica, Arial, sans-serif';
-      ctx.fillText(`${stats.longestStreakDays}D`, 690, 385);
-      ctx.font = 'bold 20px "JetBrains Mono", monospace';
-      ctx.fillText(`ACTIVE: ${stats.currentStreakDays} DAYS`, 690, 434);
-
-      // Top Artists & Top Albums Columns
-      ctx.fillStyle = '#FF0000';
-      ctx.font = 'bold 24px "JetBrains Mono", monospace';
-      ctx.fillText('[03] TOP ARTISTS', 72, 520);
-      ctx.fillStyle = '#0000FF';
-      ctx.fillText('[04] TOP ALBUMS', 576, 520);
-
-      stats.topArtists.slice(0, 5).forEach((ar, i) => {
-        const y = 580 + i * 74;
-        ctx.fillStyle = '#111111';
         ctx.font = 'bold 26px "JetBrains Mono", monospace';
-        ctx.fillText(`0${i + 1}`, 72, y);
-        ctx.font = 'bold 26px Helvetica, Arial, sans-serif';
-        ctx.fillText(ar.name.slice(0, 20), 124, y);
-        ctx.fillStyle = '#808080';
-        ctx.font = '500 19px "JetBrains Mono", monospace';
-        ctx.fillText(`${ar.minutes.toLocaleString()} MIN`, 124, y + 26);
-      });
+        ctx.fillText(stats.dateRangeLabel.toUpperCase(), 80, 240);
 
-      stats.topAlbums.slice(0, 5).forEach((al, i) => {
-        const y = 580 + i * 74;
+        // Blue Minutes Section
+        ctx.fillStyle = '#0000FF';
+        ctx.fillRect(40, 280, 1000, 260);
+        ctx.strokeRect(40, 280, 1000, 260);
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 24px "JetBrains Mono", monospace';
+        ctx.fillText('[01] MINUTES LISTENED', 80, 340);
+        ctx.font = 'bold 96px Helvetica, Arial, sans-serif';
+        ctx.fillText(stats.totalMinutes.toLocaleString(), 80, 445);
+        ctx.font = 'bold 24px "JetBrains Mono", monospace';
+        ctx.fillText(`${stats.totalHours.toLocaleString()} HOURS  •  ${stats.totalPlays.toLocaleString()} STREAMS`, 80, 500);
+
+        // Yellow Persona Section
+        ctx.fillStyle = '#FFFF00';
+        ctx.fillRect(40, 540, 1000, 200);
+        ctx.strokeRect(40, 540, 1000, 200);
+
         ctx.fillStyle = '#111111';
-        ctx.font = 'bold 26px "JetBrains Mono", monospace';
-        ctx.fillText(`0${i + 1}`, 576, y);
-        ctx.font = 'bold 26px Helvetica, Arial, sans-serif';
-        ctx.fillText(al.name.slice(0, 20), 628, y);
-        ctx.fillStyle = '#808080';
-        ctx.font = '500 19px "JetBrains Mono", monospace';
-        ctx.fillText(`${al.artist.slice(0, 16)} • ${al.minutes}M`, 628, y + 26);
-      });
+        ctx.font = 'bold 22px "JetBrains Mono", monospace';
+        ctx.fillText('[02] SONIC RATIO & AURA', 80, 600);
+        ctx.font = 'bold 50px Helvetica, Arial, sans-serif';
+        ctx.fillText(stats.vibe.personaTitle, 80, 670);
 
-      // Top Tracks Row
-      ctx.fillStyle = '#111111';
-      ctx.font = 'bold 22px "JetBrains Mono", monospace';
-      ctx.fillText('[05] TOP TRACKS', 72, 1008);
+        // Top 5 Tracks Section
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(40, 740, 1000, 500);
+        ctx.strokeRect(40, 740, 1000, 500);
 
-      stats.topTracks.slice(0, 3).forEach((tr, i) => {
-        const y = 1052 + i * 40;
+        ctx.fillStyle = '#FF0000';
+        ctx.font = 'bold 24px "JetBrains Mono", monospace';
+        ctx.fillText('[TOP TRACKS]', 80, 800);
+
+        let trackY = 860;
+        stats.topTracks.slice(0, 5).forEach((t, i) => {
+          ctx.fillStyle = '#111111';
+          ctx.font = 'bold 28px Helvetica, Arial, sans-serif';
+          ctx.fillText(`0${i + 1}. ${t.name.slice(0, 32)}`, 80, trackY);
+          ctx.font = '400 22px Helvetica, Arial, sans-serif';
+          ctx.fillStyle = '#808080';
+          ctx.fillText(t.artist.slice(0, 36), 130, trackY + 30);
+          trackY += 75;
+        });
+
+        // Top 5 Artists Section
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(40, 1240, 1000, 480);
+        ctx.strokeRect(40, 1240, 1000, 480);
+
+        ctx.fillStyle = '#0000FF';
+        ctx.font = 'bold 24px "JetBrains Mono", monospace';
+        ctx.fillText('[TOP ARTISTS]', 80, 1300);
+
+        let artistY = 1360;
+        stats.topArtists.slice(0, 5).forEach((a, i) => {
+          ctx.fillStyle = '#111111';
+          ctx.font = 'bold 28px Helvetica, Arial, sans-serif';
+          ctx.fillText(`0${i + 1}. ${a.name.slice(0, 32)}`, 80, artistY);
+          ctx.font = 'bold 22px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#FF0000';
+          ctx.fillText(`${a.minutes.toLocaleString()} MIN`, 800, artistY);
+          artistY += 70;
+        });
+
+        // Footer Bar
         ctx.fillStyle = '#111111';
-        ctx.font = 'bold 23px Helvetica, Arial, sans-serif';
-        ctx.fillText(`0${i + 1}  ${tr.name.slice(0, 32)} — ${tr.artist.slice(0, 20)}`, 72, y);
-        ctx.font = 'bold 21px "JetBrains Mono", monospace';
-        ctx.fillText(`${tr.minutes}M (${tr.plays}X)`, 830, y);
-      });
+        ctx.fillRect(40, 1720, 1000, 160);
+        ctx.strokeRect(40, 1720, 1000, 160);
 
-      // Footer
-      ctx.fillStyle = '#111111';
-      ctx.font = 'bold 24px "JetBrains Mono", monospace';
-      ctx.fillText(`GENRE: ${(stats.topGenres[0]?.name || 'ECLECTIC').toUpperCase()}`, 72, 1258);
+        ctx.fillStyle = '#FFFF00';
+        ctx.font = 'bold 28px "JetBrains Mono", monospace';
+        ctx.fillText('STATIFY // ARCHITECTURE', 80, 1810);
+        ctx.font = 'bold 22px "JetBrains Mono", monospace';
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillText(`MADE WITH ♥ BY YASH`, 740, 1810);
+      } else if (format === 'receipt') {
+        // Receipt Format (800 x 1400)
+        canvas.width = 800;
+        canvas.height = 1400;
 
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillText('UTRECHT 1917', 772, 1258);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, 800, 1400);
+
+        // Dashed receipt border
+        ctx.strokeStyle = '#111111';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(30, 30, 740, 1340);
+
+        ctx.fillStyle = '#111111';
+        ctx.font = 'bold 36px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText('STATIFY RECEIPT', 400, 100);
+        ctx.font = '400 18px "JetBrains Mono", monospace';
+        ctx.fillText(`ORDER #${Math.floor(100000 + Math.random() * 900000)} FOR ${stats.userName.toUpperCase()}`, 400, 140);
+        ctx.fillText(`PERIOD: ${stats.dateRangeLabel.toUpperCase()}`, 400, 170);
+
+        ctx.beginPath();
+        ctx.setLineDash([8, 6]);
+        ctx.moveTo(60, 200);
+        ctx.lineTo(740, 200);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 18px "JetBrains Mono", monospace';
+        ctx.fillText('QTY   ITEM', 60, 240);
+        ctx.textAlign = 'right';
+        ctx.fillText('AMT', 740, 240);
+
+        let itemY = 280;
+        stats.topTracks.slice(0, 10).forEach((t, i) => {
+          ctx.textAlign = 'left';
+          ctx.font = 'bold 16px "JetBrains Mono", monospace';
+          ctx.fillText(`0${i + 1}    ${t.name.slice(0, 24)}`, 60, itemY);
+          ctx.font = '400 14px "JetBrains Mono", monospace';
+          ctx.fillText(`      ${t.artist.slice(0, 24)}`, 60, itemY + 22);
+
+          ctx.textAlign = 'right';
+          ctx.font = 'bold 16px "JetBrains Mono", monospace';
+          ctx.fillText(`${t.minutes}M`, 740, itemY);
+          itemY += 56;
+        });
+
+        ctx.beginPath();
+        ctx.setLineDash([8, 6]);
+        ctx.moveTo(60, itemY + 10);
+        ctx.lineTo(740, itemY + 10);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        itemY += 50;
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 20px "JetBrains Mono", monospace';
+        ctx.fillText('TOTAL MINUTES LISTENED:', 60, itemY);
+        ctx.textAlign = 'right';
+        ctx.fillText(`${stats.totalMinutes.toLocaleString()} MIN`, 740, itemY);
+
+        itemY += 36;
+        ctx.textAlign = 'left';
+        ctx.font = 'bold 16px "JetBrains Mono", monospace';
+        ctx.fillText('TOTAL STREAMS COUNTED:', 60, itemY);
+        ctx.textAlign = 'right';
+        ctx.fillText(`${stats.totalPlays.toLocaleString()}`, 740, itemY);
+
+        itemY += 36;
+        ctx.textAlign = 'left';
+        ctx.fillText('SONIC AURA RATING:', 60, itemY);
+        ctx.textAlign = 'right';
+        ctx.fillText(stats.vibe.personaTitle.slice(0, 18), 740, itemY);
+
+        // Barcode at bottom
+        itemY += 70;
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 36px "JetBrains Mono", monospace';
+        ctx.fillText('||| | ||||| || |||| ||||| |||', 400, itemY);
+        itemY += 40;
+        ctx.font = '14px "JetBrains Mono", monospace';
+        ctx.fillText('THANK YOU FOR LISTENING WITH STATIFY', 400, itemY);
+      } else {
+        // Standard 1080 x 1080 Square
+        canvas.width = 1080;
+        canvas.height = 1080;
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0, 0, 1080, 1080);
+
+        ctx.fillStyle = currentTheme.accentHex;
+        ctx.fillRect(36, 36, 680, 180);
+
+        ctx.fillStyle = '#FFFF00';
+        ctx.fillRect(716, 36, 328, 180);
+
+        ctx.fillStyle = '#0000FF';
+        ctx.fillRect(36, 216, 500, 200);
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(536, 216, 508, 200);
+
+        ctx.strokeStyle = '#111111';
+        ctx.lineWidth = 10;
+        ctx.strokeRect(36, 36, 1008, 1008);
+
+        ctx.beginPath();
+        ctx.moveTo(36, 216);
+        ctx.lineTo(1044, 216);
+        ctx.moveTo(716, 36);
+        ctx.lineTo(716, 216);
+        ctx.moveTo(36, 416);
+        ctx.lineTo(1044, 416);
+        ctx.moveTo(536, 216);
+        ctx.lineTo(536, 416);
+        ctx.moveTo(536, 416);
+        ctx.lineTo(536, 920);
+        ctx.moveTo(36, 920);
+        ctx.lineTo(1044, 920);
+        ctx.stroke();
+
+        ctx.fillStyle = currentTheme.accentHex === '#FFFF00' ? '#111111' : '#FFFFFF';
+        ctx.font = 'bold 22px "JetBrains Mono", monospace';
+        ctx.fillText('[STATIFY - FEED 1:1]', 72, 85);
+        ctx.font = 'bold 54px Helvetica, Arial, sans-serif';
+        ctx.fillText(stats.userName.slice(0, 18), 72, 155);
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 22px "JetBrains Mono", monospace';
+        ctx.fillText('[MINUTES]', 72, 270);
+        ctx.font = 'bold 74px Helvetica, Arial, sans-serif';
+        ctx.fillText(stats.totalMinutes.toLocaleString(), 72, 360);
+
+        ctx.fillStyle = '#111111';
+        ctx.font = 'bold 22px "JetBrains Mono", monospace';
+        ctx.fillText('[TOP SONGS]', 72, 465);
+
+        let tY = 520;
+        stats.topTracks.slice(0, 4).forEach((t, i) => {
+          ctx.fillStyle = '#111111';
+          ctx.font = 'bold 24px Helvetica, Arial, sans-serif';
+          ctx.fillText(`0${i + 1}. ${t.name.slice(0, 22)}`, 72, tY);
+          tY += 56;
+        });
+
+        ctx.fillStyle = '#FF0000';
+        ctx.font = 'bold 22px "JetBrains Mono", monospace';
+        ctx.fillText('[TOP ARTISTS]', 572, 465);
+
+        let aY = 520;
+        stats.topArtists.slice(0, 4).forEach((a, i) => {
+          ctx.fillStyle = '#111111';
+          ctx.font = 'bold 24px Helvetica, Arial, sans-serif';
+          ctx.fillText(`0${i + 1}. ${a.name.slice(0, 20)}`, 572, aY);
+          aY += 56;
+        });
+
+        ctx.fillStyle = '#111111';
+        ctx.font = 'bold 20px "JetBrains Mono", monospace';
+        ctx.fillText(`STATIFY  •  MADE WITH ♥ BY YASH`, 72, 975);
+      }
 
       const dataUrl = canvas.toDataURL('image/png');
       const a = document.createElement('a');
       a.href = dataUrl;
-      a.download = `statify-destijl-${stats.timeRange}.png`;
+      a.download = `statify-${format}-${stats.timeRange}.png`;
       a.click();
     } finally {
       setDownloading(false);
@@ -221,150 +347,133 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-lg border-2 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between border-b-2 border-[#111111] px-6 py-4 shrink-0 bg-[#FFFFFF]">
+      <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-lg border-4 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between border-b-4 border-[#111111] px-5 sm:px-6 py-4 shrink-0 bg-[#FFFF00]">
           <div className="flex items-center gap-2.5">
             <Sparkles className="w-5 h-5 text-[#FF0000]" />
-            <h2 className="text-lg font-bold text-[#111111]">
-              De Stijl Listening Composition Poster
+            <h2 className="text-base sm:text-lg font-bold text-[#111111] uppercase tracking-tight">
+              Export Social Card & Story
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg border border-[#111111] p-1.5 text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
+            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-1.5 text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6 overflow-y-auto flex-1 min-h-0">
+        <div className="p-5 sm:p-6 overflow-y-auto flex-1 min-h-0 space-y-5">
+          {/* Format Selector */}
+          <div>
+            <span className="font-mono text-xs font-bold uppercase text-[#808080] block mb-2">
+              FORMAT PRESET:
+            </span>
+            <div className="grid grid-cols-3 gap-2.5">
+              <button
+                type="button"
+                onClick={() => setFormat('story')}
+                className={`p-3 border-2 border-[#111111] text-center font-mono text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
+                  format === 'story'
+                    ? 'bg-[#111111] text-[#FFFFFF]'
+                    : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
+                }`}
+              >
+                <Smartphone className="w-4 h-4 text-[#FF0000]" />
+                <span>STORY 9:16</span>
+              </button>
 
-        {/* Theme Selector */}
-        <div className="flex flex-wrap items-center gap-2 mb-5">
-          <span className="font-mono text-xs font-bold uppercase text-[#808080] mr-2">
-            COMPOSITION:
-          </span>
-          {(Object.keys(THEMES) as CardTheme[]).map((tKey) => (
-            <button
-              key={tKey}
-              onClick={() => setTheme(tKey)}
-              className={`px-3.5 py-1.5 rounded-lg font-mono text-xs font-bold transition-colors duration-200 border-2 border-[#111111] cursor-pointer ${
-                theme === tKey
-                  ? 'bg-[#111111] text-[#FFFFFF]'
-                  : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
-              }`}
-            >
-              {THEMES[tKey].label}
-            </button>
-          ))}
-        </div>
+              <button
+                type="button"
+                onClick={() => setFormat('square')}
+                className={`p-3 border-2 border-[#111111] text-center font-mono text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
+                  format === 'square'
+                    ? 'bg-[#111111] text-[#FFFFFF]'
+                    : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
+                }`}
+              >
+                <Square className="w-4 h-4 text-[#0000FF]" />
+                <span>FEED 1:1</span>
+              </button>
 
-        {/* Live De Stijl Poster Preview */}
-        <div className="border-4 border-[#111111] bg-[#FFFFFF]">
-          {/* Header Split */}
-          <div className="grid grid-cols-1 sm:grid-cols-12 border-b-4 border-[#111111]">
-            <div className={`sm:col-span-8 p-5 ${currentTheme.headerBg} ${currentTheme.headerText} border-b-4 sm:border-b-0 sm:border-r-4 border-[#111111]`}>
-              <p className="font-mono text-xs font-bold uppercase tracking-widest">
-                [STATIFY - DE STIJL EDITION]
-              </p>
-              <h3 className="text-2xl sm:text-3xl font-bold mt-1">{stats.userName}</h3>
-              <p className="font-mono text-xs mt-1 opacity-90">{stats.dateRangeLabel}</p>
+              <button
+                type="button"
+                onClick={() => setFormat('receipt')}
+                className={`p-3 border-2 border-[#111111] text-center font-mono text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
+                  format === 'receipt'
+                    ? 'bg-[#111111] text-[#FFFFFF]'
+                    : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
+                }`}
+              >
+                <Receipt className="w-4 h-4 text-[#FFFF00]" />
+                <span>RECEIPT</span>
+              </button>
             </div>
-            <div className="sm:col-span-4 p-5 bg-[#FFFF00] text-[#111111] flex flex-col justify-between">
-              <span className="font-mono text-[11px] font-bold uppercase">[SONIC RATIO]</span>
-              <p className="text-base font-bold leading-snug mt-1">{stats.vibe.personaTitle}</p>
-              <span className="font-mono text-xs font-bold mt-2">
-                {stats.totalPlays.toLocaleString()} STREAMS
+          </div>
+
+          {/* Theme Selector (for story & square) */}
+          {format !== 'receipt' && (
+            <div>
+              <span className="font-mono text-xs font-bold uppercase text-[#808080] block mb-2">
+                COLOR PALETTE:
               </span>
-            </div>
-          </div>
-
-          {/* Asymmetric KPI Split (7 cols / 5 cols) */}
-          <div className="grid grid-cols-1 sm:grid-cols-12 border-b-4 border-[#111111]">
-            <div className="sm:col-span-7 p-5 bg-[#0000FF] text-[#FFFFFF] border-b-4 sm:border-b-0 sm:border-r-4 border-[#111111]">
-              <div className="flex items-center gap-1.5 font-mono text-xs font-bold uppercase">
-                <Clock className="w-3.5 h-3.5" />
-                <span>[01] MINUTES LISTENED</span>
-              </div>
-              <p className="text-3xl sm:text-4xl font-bold mt-1">
-                {stats.totalMinutes.toLocaleString()}
-              </p>
-              <p className="font-mono text-xs mt-1">
-                {stats.totalHours.toLocaleString()} HRS • {stats.totalDaysEquivalent} DAYS
-              </p>
-            </div>
-
-            <div className="sm:col-span-5 p-5 bg-[#FFFFFF] text-[#111111]">
-              <div className="flex items-center gap-1.5 font-mono text-xs font-bold uppercase text-[#FF0000]">
-                <Flame className="w-3.5 h-3.5" />
-                <span>[02] PEAK STREAK</span>
-              </div>
-              <p className="text-3xl font-bold mt-1">{stats.longestStreakDays} DAYS</p>
-              <p className="font-mono text-xs text-[#808080] mt-1">
-                ACTIVE: {stats.currentStreakDays} DAYS
-              </p>
-            </div>
-          </div>
-
-          {/* Top 5 Artists & Top 5 Albums */}
-          <div className="grid grid-cols-1 sm:grid-cols-12">
-            <div className="sm:col-span-6 p-5 border-b-4 sm:border-b-0 sm:border-r-4 border-[#111111]">
-              <h4 className="font-mono text-xs font-bold uppercase text-[#FF0000] mb-3">
-                [03] TOP ARTISTS
-              </h4>
-              <div className="space-y-2">
-                {stats.topArtists.slice(0, 5).map((ar, idx) => (
-                  <div key={ar.id} className="flex items-center justify-between gap-2 text-xs">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-mono font-bold text-[#111111] w-5">0{idx + 1}</span>
-                      <span className="font-bold text-[#111111] truncate">{ar.name}</span>
-                    </div>
-                    <span className="font-mono text-[#808080] shrink-0">
-                      {ar.minutes.toLocaleString()}m
-                    </span>
-                  </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {(Object.keys(THEMES) as CardTheme[]).map((tKey) => (
+                  <button
+                    key={tKey}
+                    onClick={() => setTheme(tKey)}
+                    className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-colors border-2 border-[#111111] cursor-pointer ${
+                      theme === tKey
+                        ? 'bg-[#111111] text-[#FFFFFF]'
+                        : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
+                    }`}
+                  >
+                    {THEMES[tKey].label}
+                  </button>
                 ))}
               </div>
             </div>
+          )}
 
-            <div className="sm:col-span-6 p-5">
-              <h4 className="font-mono text-xs font-bold uppercase text-[#0000FF] mb-3 flex items-center gap-1.5">
-                <Disc3 className="w-3.5 h-3.5" />
-                <span>[04] TOP ALBUMS</span>
-              </h4>
-              <div className="space-y-2">
-                {stats.topAlbums.slice(0, 5).map((al, idx) => (
-                  <div key={al.id} className="flex items-center justify-between gap-2 text-xs">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="font-mono font-bold text-[#111111] w-5">0{idx + 1}</span>
-                      <span className="font-bold text-[#111111] truncate">{al.name}</span>
-                    </div>
-                    <span className="font-mono text-[#808080] shrink-0">
-                      {al.minutes.toLocaleString()}m
-                    </span>
-                  </div>
-                ))}
+          {/* Live Preview Box */}
+          <div className="border-4 border-[#111111] bg-[#FFFFFF] p-4 text-center">
+            <span className="font-mono text-xs font-bold text-[#808080] block mb-2">
+              PREVIEW READY FOR {format.toUpperCase()} EXPORT
+            </span>
+            <div className="border-2 border-[#111111] p-4 max-w-sm mx-auto bg-[#F7F7F7] space-y-2 font-mono text-xs text-left">
+              <div className="flex justify-between font-bold text-[#111111]">
+                <span>{stats.userName}</span>
+                <span className="text-[#FF0000]">{stats.totalMinutes.toLocaleString()} MIN</span>
+              </div>
+              <div className="text-[11px] text-[#808080]">
+                Top Artist: {stats.topArtists[0]?.name || 'Artist'} • Aura: {stats.vibe.personaTitle}
               </div>
             </div>
           </div>
         </div>
-        </div>
 
-        <div className="border-t-2 border-[#111111] px-6 py-4 flex items-center justify-end gap-3 shrink-0 bg-[#FFFFFF]">
-          <button
-            onClick={onClose}
-            className="rounded-lg border-2 border-[#808080] px-4 py-2.5 text-xs font-bold text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
-          >
-            CLOSE
-          </button>
-          <button
-            onClick={handleDownloadPng}
-            disabled={downloading}
-            className="inline-flex items-center gap-2 rounded-lg border-2 border-[#111111] bg-[#FF0000] hover:bg-[#111111] px-5 py-2.5 text-xs font-bold text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
-          >
-            <Download className="w-4 h-4" />
-            <span>{downloading ? 'RENDERING...' : 'DOWNLOAD 1080x1350 POSTER'}</span>
-          </button>
+        {/* Footer */}
+        <div className="border-t-4 border-[#111111] px-5 sm:px-6 py-4 flex items-center justify-between gap-3 shrink-0 bg-[#FFFFFF]">
+          <span className="font-mono text-xs text-[#808080]">
+            Exported as lossless PNG
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={onClose}
+              className="rounded-lg border-2 border-[#808080] px-4 py-2 text-xs font-bold text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF] cursor-pointer"
+            >
+              CLOSE
+            </button>
+            <button
+              onClick={handleDownloadPng}
+              disabled={downloading}
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-[#111111] bg-[#FF0000] hover:bg-[#111111] px-5 py-2 text-xs font-bold text-[#FFFFFF] transition-colors cursor-pointer"
+            >
+              <Download className="w-4 h-4" />
+              <span>{downloading ? 'RENDERING...' : `DOWNLOAD ${format.toUpperCase()} PNG`}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

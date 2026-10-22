@@ -84,7 +84,8 @@ export async function startSpotifyLogin(clientId: string): Promise<void> {
     client_id: cleanId,
     response_type: 'code',
     redirect_uri: getRedirectUri(),
-    scope: 'user-top-read user-read-recently-played user-read-private',
+    scope:
+      'user-top-read user-read-recently-played user-read-private playlist-modify-public playlist-modify-private',
     code_challenge_method: 'S256',
     code_challenge: challenge,
     state: statePayload,
@@ -300,6 +301,7 @@ export async function fetchLiveSpotifyStats(
         t.album?.images?.[0]?.url ||
         generateCoverArt(t.album?.name || t.name, t.artists?.[0]?.name || '', 'album'),
       spotifyUrl: t.external_urls?.spotify,
+      uri: t.id ? `spotify:track:${t.id}` : undefined,
       popularity: t.popularity,
     };
   });
@@ -550,5 +552,90 @@ export async function fetchLiveSpotifyStats(
           'album'
         ),
     })),
+  };
+}
+
+export async function createSpotifyPlaylist(
+  token: string,
+  name: string,
+  description: string,
+  trackUris: string[]
+): Promise<{ id: string; url: string }> {
+  // Use POST /me/playlists (Spotify deprecated /users/{user_id}/playlists)
+  const playlistRes = await fetch('https://api.spotify.com/v1/me/playlists', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name,
+      description,
+      public: false,
+    }),
+  });
+
+  if (!playlistRes.ok) {
+    const errText = await playlistRes.text();
+    // If token lacked playlist-modify scopes because user logged in earlier, detect and warn
+    if (playlistRes.status === 403) {
+      throw new Error(
+        'Spotify permission needed: Please click LOG OUT and sign in again so Spotify can grant playlist write permissions.'
+      );
+    }
+    throw new Error(`Failed to create playlist (${playlistRes.status}): ${errText}`);
+  }
+
+  const playlistData = (await playlistRes.json()) as { id: string; external_urls: { spotify: string } };
+
+  // Add tracks in batches using POST /v1/playlists/{playlist_id}/tracks
+  // (with automatic fallback to /items if required by Spotify version)
+  const validUris = trackUris
+    .map((u) => u.trim())
+    .filter((u) => u && (u.startsWith('spotify:track:') || /^[0-9A-Za-z]{22}$/.test(u)))
+    .map((u) => (u.startsWith('spotify:track:') ? u : `spotify:track:${u}`));
+
+  if (validUris.length === 0) {
+    throw new Error('No valid Spotify track IDs found to add to the playlist.');
+  }
+
+  const batch = validUris.slice(0, 100);
+
+  // Use POST /v1/playlists/{playlist_id}/items as primary (Spotify deprecated /tracks)
+  let addRes = await fetch(`https://api.spotify.com/v1/playlists/${playlistData.id}/items`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ uris: batch }),
+  });
+
+  // If /items returned an error, fallback to legacy /tracks
+  if (!addRes.ok) {
+    const fallbackRes = await fetch(`https://api.spotify.com/v1/playlists/${playlistData.id}/tracks`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ uris: batch }),
+    });
+
+    if (fallbackRes.ok) {
+      addRes = fallbackRes;
+    }
+  }
+
+  if (!addRes.ok) {
+    const addErr = await addRes.text();
+    throw new Error(
+      `Playlist was created, but adding ${batch.length} tracks failed (${addRes.status}): ${addErr}`
+    );
+  }
+
+  return {
+    id: playlistData.id,
+    url: playlistData.external_urls?.spotify || `https://open.spotify.com/playlist/${playlistData.id}`,
   };
 }

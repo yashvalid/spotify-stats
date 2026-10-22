@@ -24,6 +24,7 @@ export interface RankedTrack {
   plays: number;
   coverUrl: string;
   spotifyUrl?: string;
+  uri?: string;
   popularity?: number;
 }
 

@@ -1,7 +1,7 @@
 ---
 version: "alpha"
-name: "De Stijl Abstrato"
-description: "De Stijl abstract landing page. Ideal for landing pages, saas. AI-ready template."
+name: "Geometric Abstrato"
+description: "Abstract geometric design system. Ideal for landing pages, saas. AI-ready template."
 colors:
   primary: "#FF0000"
   secondary: "#0000FF"
@@ -31,18 +31,18 @@ components:
 
 ## Overview
 
-De Stijl abstract landing page. Ideal for landing pages, saas. AI-ready template. In 1917, a group of Dutch artists and architects decided that art had too much ego. Theo van Doesburg launched De Stijl magazine, and alongside Piet Mondrian, proposed something radical: reduce everything to horizontals, verticals, and the three primary colors plus black and white. That's it. No curves, no gradients, no compromise. They believed this vocabulary was universal — a visual Esperanto that needed no cultural translation.
+Abstract geometric design system. Ideal for landing pages, saas. AI-ready template. In the early 20th century, avant-garde artists and architects proposed something radical: reduce everything to horizontals, verticals, and the three primary colors plus black and white. That's it. No curves, no gradients, no compromise. They believed this vocabulary was universal — a visual Esperanto that needed no cultural translation.
 
-Mondrian's compositions look deceptively simple. A black grid, rectangles of red, yellow, blue, white. But spend time with them and you notice the tension. The asymmetry is deliberate. Weight shifts. Proportions breathe. He was solving the same problem we solve today: how to create dynamic balance within a rigid structure.
+Compositions look deceptively simple. A black grid, rectangles of red, yellow, blue, white. But spend time with them and you notice the tension. The asymmetry is deliberate. Weight shifts. Proportions breathe. The goal: how to create dynamic balance within a rigid structure.
 
-The movement's DNA runs through everything we build now. CSS Grid is, at its core, a De Stijl machine. The 12-column layout, the modular spacing system, the idea that constraint breeds creativity — Mondrian figured that out a century before we wrote our first media query. Gerrit Rietveld's furniture and architecture proved the system worked in three dimensions. The Bauhaus absorbed it. Swiss typography refined it. And every time you align elements to a baseline grid, you're channeling Utrecht, 1917.
+The movement's DNA runs through modern UI design. CSS Grid is, at its core, a grid machine. The 12-column layout, the modular spacing system, the idea that constraint breeds creativity — architectural masters figured that out a century before we wrote our first media query. Gerrit Rietveld's furniture and architecture proved the system worked in three dimensions. The Bauhaus absorbed it. Swiss typography refined it.
 
 - Density: 3/10 — Airy
 - Variance: 7/10 — Dynamic
 - Motion: 4/10 — Subtle
 
 - **Style:** Geometric, Minimalist, Structured
-- **Keywords:** de stijl, abstract, geometric, minimalist, structured, primary colors, grid, bold lines, asymmetrical, neoplasticism
+- **Keywords:** abstract, geometric, minimalist, structured, primary colors, grid, bold lines, asymmetrical, neoplasticism
 - **Era:** Early 20th Century, Neoplasticism
 - **Light/Dark:** ✓ Full / ✗ No
 
@@ -134,4 +134,4 @@ Base corner radius: 8px. See rounded tokens in front matter for the full scale.
 
 Landing pages, SaaS
 
-<!-- Source: https://designmd.app/library/de-stijl-abstrato · designmd.app -->
+<!-- Source: https://designmd.app · designmd.app -->

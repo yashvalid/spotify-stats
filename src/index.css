@@ -29,7 +29,7 @@
   }
 }
 
-@keyframes deStijlEnter {
+@keyframes fadeSlideEnter {
   from {
     opacity: 0;
     transform: translateY(16px);
@@ -40,7 +40,7 @@
   }
 }
 
-@keyframes deStijlShimmer {
+@keyframes pulseShimmer {
   0% {
     opacity: 0.35;
   }
@@ -52,12 +52,12 @@
   }
 }
 
-.animate-destijl-enter {
-  animation: deStijlEnter 420ms ease-out both;
+.animate-fade-enter {
+  animation: fadeSlideEnter 420ms ease-out both;
 }
 
-.animate-destijl-shimmer {
-  animation: deStijlShimmer 1200ms ease-out infinite;
+.animate-shimmer {
+  animation: pulseShimmer 1200ms ease-out infinite;
 }
 
 /* Touch-optimized smooth scrolling without ugly scrollbars on mobile */

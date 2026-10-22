@@ -79,6 +79,7 @@ export function computeListeningStats(
       ms: number;
       plays: number;
       coverUrl?: string;
+      uri?: string;
     }
   >();
 
@@ -150,6 +151,7 @@ export function computeListeningStats(
       existingTrack.ms += rec.msPlayed;
       if (isMeaningfulPlay) existingTrack.plays += 1;
       if (!existingTrack.coverUrl && rec.coverUrl) existingTrack.coverUrl = rec.coverUrl;
+      if (!existingTrack.uri && rec.trackUri) existingTrack.uri = rec.trackUri;
     } else {
       trackMap.set(trackKey, {
         name: rec.trackName,
@@ -158,6 +160,7 @@ export function computeListeningStats(
         ms: rec.msPlayed,
         plays: isMeaningfulPlay ? 1 : 0,
         coverUrl: rec.coverUrl,
+        uri: rec.trackUri,
       });
     }
 
@@ -216,6 +219,7 @@ export function computeListeningStats(
       minutes: Math.max(1, Math.round(t.ms / 60_000)),
       plays: Math.max(1, t.plays),
       coverUrl: t.coverUrl || generateCoverArt(t.album || t.name, t.artist, 'album'),
+      uri: t.uri,
     }))
     .sort((a, b) => b.minutes - a.minutes || b.plays - a.plays)
     .slice(0, 50);

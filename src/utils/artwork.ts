@@ -1,6 +1,6 @@
-// Deterministic De Stijl / Mondrian SVG artwork generator + genre mapping for offline/history records
+// Deterministic geometric SVG artwork generator + genre mapping for offline/history records
 
-const DE_STIJL_ACCENTS = ['#FF0000', '#0000FF', '#FFFF00'];
+const PRIMARY_ACCENTS = ['#FF0000', '#0000FF', '#FFFF00'];
 
 function hashString(str: string): number {
   let h = 2166136261;
@@ -17,9 +17,9 @@ export function generateCoverArt(
   _variant: 'album' | 'artist' = 'album'
 ): string {
   const hash = hashString(`${title}:${subtitle}`);
-  const c1 = DE_STIJL_ACCENTS[hash % 3];
-  const c2 = DE_STIJL_ACCENTS[(hash + 1) % 3];
-  const c3 = DE_STIJL_ACCENTS[(hash + 2) % 3];
+  const c1 = PRIMARY_ACCENTS[hash % 3];
+  const c2 = PRIMARY_ACCENTS[(hash + 1) % 3];
+  const c3 = PRIMARY_ACCENTS[(hash + 2) % 3];
 
   const vSplit = 76 + (hash % 72); // vertical line X between 76 and 148
   const hSplit = 72 + ((hash >> 3) % 76); // horizontal line Y between 72 and 148

@@ -300,7 +300,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Flat De Stijl Canvas Composition
+    // Flat Canvas Composition
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, 1080, 1350);
 
@@ -394,7 +394,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
   };
 
   return (
-    <div className="space-y-8 animate-destijl-enter">
+    <div className="space-y-8 animate-fade-enter">
       {/* Asymmetric Top Header Block (8 cols / 4 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         <div className="lg:col-span-8 p-5 sm:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] bg-[#FF0000] text-[#FFFFFF]">

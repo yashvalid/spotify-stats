@@ -1,8 +1,8 @@
 # STATIFY
 
-> **Your Spotify listening history, decoded into De Stijl art.**
+> **Your Spotify listening history, decoded.**
 
-A client-side Spotify analytics dashboard and AI-style roast generator inspired by the **De Stijl** neoplasticism movement (Piet Mondrian, Theo van Doesburg). Statify transforms your streaming data into bold primary colors, stark grid compositions, and deep musical insights.
+A client-side Spotify analytics dashboard and AI-style roast generator. Statify transforms your streaming data into bold primary colors, stark grid compositions, and deep musical insights.
 
 ---
 
@@ -30,7 +30,7 @@ A client-side Spotify analytics dashboard and AI-style roast generator inspired 
   - A brutally honest, witty algorithmic critique of your music taste, obsessive track repeats, and questionable late-night listening habits.
 
 - **🖼️ Shareable Wrapped Cards**
-  - Generate exportable, De Stijl-composed summary cards featuring your top artists and tracks.
+  - Generate exportable summary cards featuring your top artists and tracks.
 
 - **🔒 100% Private & Serverless**
   - Zero listening data or Spotify tokens ever leave your browser.
@@ -38,9 +38,9 @@ A client-side Spotify analytics dashboard and AI-style roast generator inspired 
 
 ---
 
-## 🧱 Design Philosophy: De Stijl Abstrato
+## 🧱 Design Philosophy: Geometric Minimalism
 
-Statify embraces the radical visual language of the 1917 Dutch neoplasticism movement:
+Statify embraces a bold, geometric design language:
 - **Primary Color Palette**: Cadmium Red (`#FF0000`), Cobalt Blue (`#0000FF`), and Primary Yellow (`#FFFF00`) anchored by Pure White and Deep Charcoal/Black (`#111111`).
 - **Asymmetric Grid Balance**: Heavy horizontal and vertical borders with dynamic CSS Grid hierarchy.
 - **Precision Typography**: Clean grotesque headlines paired with JetBrains Mono for data readouts and metrics.

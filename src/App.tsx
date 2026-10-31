@@ -105,6 +105,13 @@ export default function App() {
   const [showFriendModal, setShowFriendModal] = useState(false);
   const [dismissApiNotice, setDismissApiNotice] = useState(false);
 
+  // If in Web API mode, redirect away from tabs that require full historical stream files
+  useEffect(() => {
+    if (sourceMode === 'spotify_api' && (activeTab === 'drift' || activeTab === 'activity')) {
+      setActiveTab('overview');
+    }
+  }, [sourceMode, activeTab]);
+
   // Landing page file upload state
   const [, setUploadingLanding] = useState(false);
   const [isDraggingLanding, setIsDraggingLanding] = useState(false);
@@ -491,12 +498,12 @@ export default function App() {
   const navItems: { id: DashboardTab; label: string; icon: React.ElementType; count?: number }[] = [
     { id: 'overview', label: 'Overview', icon: Home },
     { id: 'roast', label: 'Taste Roast', icon: Flame },
-    { id: 'drift', label: 'Taste Trends', icon: TrendingUp },
+    ...(sourceMode === 'history' ? [{ id: 'drift' as DashboardTab, label: 'Taste Trends', icon: TrendingUp }] : []),
     { id: 'albums', label: 'Top Albums', icon: Disc3, count: stats.topAlbums.length },
     { id: 'artists', label: 'Top Artists', icon: Mic2, count: stats.topArtists.length },
     { id: 'tracks', label: 'Top Tracks', icon: Music2, count: stats.topTracks.length },
     { id: 'genres', label: 'Top Genres', icon: BarChart3 },
-    { id: 'activity', label: 'Listening Clock', icon: History },
+    ...(sourceMode === 'history' ? [{ id: 'activity' as DashboardTab, label: 'Listening Clock', icon: History }] : []),
   ];
 
   return (
@@ -770,33 +777,52 @@ export default function App() {
                       {stats.userName}
                     </h1>
                     <span className="font-mono text-[11px] sm:text-xs text-[#808080] block mt-0.5 truncate">
-                      {stats.isExactMinutes ? '100% Exact Stream History' : 'Live Spotify Account (Estimated Data)'}
+                      {stats.sourceMode === 'history' ? '100% Exact Stream History' : 'Live Spotify Account'}
                     </span>
                   </div>
                 </div>
 
-                <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
-                  <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
-                    <span>[MINUTES LISTENED]</span>
-                    {!stats.isExactMinutes && (
+                {stats.sourceMode === 'history' ? (
+                  <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
+                    <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
+                      <span>[MINUTES LISTENED]</span>
+                    </div>
+                    <div className="my-3 sm:my-4">
+                      <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
+                        {stats.totalMinutes.toLocaleString()}
+                      </p>
+                      <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2 break-words">
+                        {stats.totalHours.toLocaleString()} HOURS • {stats.totalDaysEquivalent} FULL DAYS
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-[#FFFFFF]/40 flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
+                      <span>DAILY AVG: {stats.dailyAverageMinutes}M</span>
+                      <span>{stats.totalPlays.toLocaleString()} STREAMS</span>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
+                    <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
+                      <span>[LIVE CATALOG SNAPSHOT]</span>
                       <span className="text-[10px] bg-[#FFFFFF] text-[#FF0000] font-mono font-bold px-1.5 py-0.5 border border-[#FFFFFF]">
-                        ESTIMATED
+                        VERIFIED
                       </span>
-                    )}
+                    </div>
+                    <div className="my-3 sm:my-4">
+                      <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
+                        TOP 50
+                      </p>
+                      <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2 break-words">
+                        OFFICIAL SPOTIFY RANKINGS
+                      </p>
+                    </div>
+                    <div className="pt-3 border-t border-[#FFFFFF]/40 flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
+                      <span>{stats.topTracks.length} SONGS</span>
+                      <span>{stats.topArtists.length} ARTISTS</span>
+                      <span>{stats.topGenres.length} GENRES</span>
+                    </div>
                   </div>
-                  <div className="my-3 sm:my-4">
-                    <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
-                      {stats.totalMinutes.toLocaleString()}
-                    </p>
-                    <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2 break-words">
-                      {stats.totalHours.toLocaleString()} HOURS • {stats.totalDaysEquivalent} FULL DAYS
-                    </p>
-                  </div>
-                  <div className="pt-3 border-t border-[#FFFFFF]/40 flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
-                    <span>DAILY AVG: {stats.dailyAverageMinutes}M</span>
-                    <span>{stats.totalPlays.toLocaleString()} STREAMS</span>
-                  </div>
-                </div>
+                )}
               </div>
 
             {/* Right: Highlights Grid */}
@@ -822,7 +848,9 @@ export default function App() {
                       </p>
                       <p className="text-xs text-[#808080] truncate">{stats.topAlbums[0].artist}</p>
                       <p className="font-mono text-xs font-bold text-[#0000FF] mt-1">
-                        {stats.topAlbums[0].minutes.toLocaleString()} MIN
+                        {stats.sourceMode === 'history'
+                          ? `${stats.topAlbums[0].minutes.toLocaleString()} MIN`
+                          : `${stats.topAlbums[0].uniqueTracksPlayed} SONGS IN TOP 50`}
                       </p>
                     </div>
                   </div>
@@ -898,7 +926,9 @@ export default function App() {
                     <div className="min-w-0 flex-1">
                       <p className="text-sm sm:text-base font-bold truncate">{stats.topArtists[0].name}</p>
                       <p className="font-mono text-xs text-[#FFFF00] mt-0.5">
-                        {stats.topArtists[0].minutes.toLocaleString()} MIN
+                        {stats.sourceMode === 'history'
+                          ? `${stats.topArtists[0].minutes.toLocaleString()} MIN`
+                          : '#1 TOP ARTIST'}
                       </p>
                     </div>
                   </div>
@@ -929,7 +959,11 @@ export default function App() {
                     </div>
                     <div className="text-right shrink-0">
                       <span className="font-mono text-base sm:text-lg font-bold text-[#FF0000] block">
-                        {stats.topTracks[0].minutes.toLocaleString()}M
+                        {stats.sourceMode === 'history'
+                          ? `${stats.topTracks[0].minutes.toLocaleString()}M`
+                          : stats.topTracks[0].popularity !== undefined
+                          ? `${stats.topTracks[0].popularity}% POP`
+                          : '#1 TRACK'}
                       </span>
                     </div>
                   </div>
@@ -981,7 +1015,9 @@ export default function App() {
                         <h3 className="text-sm font-bold text-[#111111] truncate">{album.name}</h3>
                         <p className="text-xs text-[#808080] truncate">{album.artist}</p>
                         <p className="font-mono text-xs font-bold text-[#111111] mt-0.5">
-                          {album.minutes.toLocaleString()} MIN
+                          {stats.sourceMode === 'history'
+                            ? `${album.minutes.toLocaleString()} MIN`
+                            : `${album.uniqueTracksPlayed} songs in Top 50`}
                         </p>
                       </div>
                     </div>
@@ -1026,7 +1062,9 @@ export default function App() {
                         </div>
                       </div>
                       <span className="font-mono text-xs font-bold text-[#FF0000] shrink-0">
-                        {artist.minutes.toLocaleString()}M
+                        {stats.sourceMode === 'history'
+                          ? `${artist.minutes.toLocaleString()}M`
+                          : `#${idx + 1}`}
                       </span>
                     </div>
                   ))}
@@ -1038,7 +1076,9 @@ export default function App() {
             <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
               <div className="lg:col-span-8 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
                 <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b-2 border-[#111111] mb-4">
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">Most Streamed Songs</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">
+                    {stats.sourceMode === 'history' ? 'Most Streamed Songs' : 'Top Tracks'}
+                  </h2>
                   <button
                     onClick={() => setActiveTab('tracks')}
                     className="rounded-lg border border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] px-3 py-1 font-mono text-xs font-bold text-[#111111] cursor-pointer"
@@ -1065,7 +1105,11 @@ export default function App() {
                         <div className="flex items-center justify-between gap-2">
                           <p className="text-sm font-bold text-[#111111] truncate">{track.name}</p>
                           <span className="font-mono text-xs font-bold text-[#111111] shrink-0">
-                            {track.minutes.toLocaleString()} MIN
+                            {stats.sourceMode === 'history'
+                              ? `${track.minutes.toLocaleString()} MIN`
+                              : track.popularity !== undefined
+                              ? `${track.popularity}% POP`
+                              : `#${idx + 1}`}
                           </span>
                         </div>
                         <p className="text-xs text-[#808080] truncate">
@@ -1096,7 +1140,11 @@ export default function App() {
                           <span className="font-bold text-[#111111] truncate pr-2">
                             0{idx + 1} {genre.name}
                           </span>
-                          <span className="text-[#808080] shrink-0">{genre.minutes.toLocaleString()}M</span>
+                          <span className="text-[#808080] shrink-0">
+                            {stats.sourceMode === 'history'
+                              ? `${genre.minutes.toLocaleString()}M`
+                              : `${genre.percentage}%`}
+                          </span>
                         </div>
                         <div className="h-2.5 w-full border border-[#111111] bg-[#FFFFFF]">
                           <div
@@ -1126,8 +1174,53 @@ export default function App() {
             {/* Obscurity & Hipster Index Feature */}
             <ObscurityIndex stats={stats} />
 
-            {/* Charts */}
-            <ActivityCharts stats={stats} />
+            {/* Charts: History mode has full activity matrix; Web API mode shows real recent stream log */}
+            {stats.sourceMode === 'history' ? (
+              <ActivityCharts stats={stats} />
+            ) : stats.recentPlays && stats.recentPlays.length > 0 ? (
+              <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
+                <div className="flex items-center justify-between pb-4 border-b-2 border-[#111111] mb-5">
+                  <div>
+                    <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
+                      <History className="w-4 h-4" />
+                      <span>[LIVE RECENT ACTIVITY]</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-[#111111] mt-1">Recently Played Songs</h3>
+                  </div>
+                  <span className="font-mono text-xs bg-[#0000FF] text-[#FFFFFF] px-2.5 py-1 font-bold">
+                    {stats.recentPlays.length} TRACKS
+                  </span>
+                </div>
+                <div className="divide-y border-2 border-[#111111] divide-[#111111]">
+                  {stats.recentPlays.slice(0, 10).map((r, i) => (
+                    <div
+                      key={`${r.trackName}-${r.playedAt}-${i}`}
+                      className="p-2.5 sm:p-3 flex items-center justify-between gap-3 bg-[#FFFFFF] hover:bg-[#FFFF00]/30 transition-colors"
+                    >
+                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                        <span className="font-mono text-xs font-bold text-[#808080] w-5 shrink-0">
+                          {String(i + 1).padStart(2, '0')}
+                        </span>
+                        <img
+                          src={r.coverUrl}
+                          alt={r.trackName}
+                          className="w-10 h-10 object-cover border border-[#111111] shrink-0"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-bold text-[#111111] truncate">{r.trackName}</p>
+                          <p className="text-xs text-[#808080] truncate">
+                            {r.artistName} — {r.albumName}
+                          </p>
+                        </div>
+                      </div>
+                      <span className="font-mono text-[11px] text-[#808080] shrink-0">
+                        {new Date(r.playedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         )}
 
@@ -1156,7 +1249,9 @@ export default function App() {
                     <h3 className="text-sm font-bold text-[#111111] truncate">{album.name}</h3>
                     <p className="text-xs text-[#808080] truncate">{album.artist}</p>
                     <span className="text-xs font-bold text-[#FF0000] font-mono mt-1 block">
-                      {album.minutes.toLocaleString()} MIN
+                      {stats.sourceMode === 'history'
+                        ? `${album.minutes.toLocaleString()} MIN`
+                        : `${album.uniqueTracksPlayed} songs in Top 50`}
                     </span>
                   </div>
                 </div>
@@ -1192,7 +1287,9 @@ export default function App() {
                       {artist.genres.join(' • ') || 'Artist'}
                     </p>
                     <span className="text-xs font-bold text-[#0000FF] font-mono mt-1 block">
-                      {artist.minutes.toLocaleString()} MIN
+                      {stats.sourceMode === 'history'
+                        ? `${artist.minutes.toLocaleString()} MIN`
+                        : `#${idx + 1} Top Artist`}
                     </span>
                   </div>
                 </div>
@@ -1232,7 +1329,11 @@ export default function App() {
                       </div>
                       <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-start sm:self-auto">
                         <span className="font-mono text-xs font-bold text-[#111111]">
-                          {track.minutes.toLocaleString()} MIN
+                          {stats.sourceMode === 'history'
+                            ? `${track.minutes.toLocaleString()} MIN`
+                            : track.popularity !== undefined
+                            ? `${track.popularity}% POPULARITY`
+                            : `#${idx + 1}`}
                         </span>
                         {track.spotifyUrl && (
                           <a
@@ -1268,7 +1369,11 @@ export default function App() {
                       <span className="font-bold text-[#111111] truncate pr-2">
                         0{idx + 1} - {g.name.toUpperCase()}
                       </span>
-                      <span className="font-bold text-[#0000FF] shrink-0">{g.minutes.toLocaleString()}M</span>
+                      <span className="font-bold text-[#0000FF] shrink-0">
+                        {stats.sourceMode === 'history'
+                          ? `${g.minutes.toLocaleString()}M`
+                          : `${g.percentage}% OF ROTATION`}
+                      </span>
                     </div>
                     <div className="h-3 w-full border border-[#111111] bg-[#FFFFFF] mb-2">
                       <div
@@ -1300,37 +1405,43 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="space-y-4">
-                  {[
-                    { label: 'ENERGY', val: stats.vibe.energy, bg: 'bg-[#FF0000]' },
-                    { label: 'DANCEABILITY', val: stats.vibe.danceability, bg: 'bg-[#0000FF]' },
-                    { label: 'MOOD (HAPPINESS)', val: stats.vibe.valence, bg: 'bg-[#FFFF00]' },
-                    { label: 'ACOUSTIC SOUNDS', val: stats.vibe.acousticness, bg: 'bg-[#111111]' },
-                  ].map((item) => (
-                    <div key={item.label}>
-                      <div className="flex items-center justify-between font-mono text-xs mb-1">
-                        <span className="font-bold text-[#111111] truncate pr-2">{item.label}</span>
-                        <span className="font-bold text-[#111111] shrink-0">{item.val}%</span>
+                {stats.sourceMode === 'history' ? (
+                  <div className="space-y-4">
+                    {[
+                      { label: 'ENERGY', val: stats.vibe.energy, bg: 'bg-[#FF0000]' },
+                      { label: 'DANCEABILITY', val: stats.vibe.danceability, bg: 'bg-[#0000FF]' },
+                      { label: 'MOOD (HAPPINESS)', val: stats.vibe.valence, bg: 'bg-[#FFFF00]' },
+                      { label: 'ACOUSTIC SOUNDS', val: stats.vibe.acousticness, bg: 'bg-[#111111]' },
+                    ].map((item) => (
+                      <div key={item.label}>
+                        <div className="flex items-center justify-between font-mono text-xs mb-1">
+                          <span className="font-bold text-[#111111] truncate pr-2">{item.label}</span>
+                          <span className="font-bold text-[#111111] shrink-0">{item.val}%</span>
+                        </div>
+                        <div className="h-3 w-full border border-[#111111] bg-[#FFFFFF]">
+                          <div
+                            style={{ width: `${item.val}%` }}
+                            className={`h-full ${item.bg}`}
+                          />
+                        </div>
                       </div>
-                      <div className="h-3 w-full border border-[#111111] bg-[#FFFFFF]">
-                        <div
-                          style={{ width: `${item.val}%` }}
-                          className={`h-full ${item.bg}`}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="border border-[#111111] bg-[#F7F7F7] p-3.5 text-xs text-[#808080] font-mono leading-relaxed">
+                    Genre distribution computed directly from your {stats.topArtists.length} top artists on Spotify.
+                  </div>
+                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* TAB: TASTE DRIFT */}
-        {activeTab === 'drift' && <TasteDrift stats={stats} />}
+        {/* TAB: TASTE DRIFT (Only for History mode where full timeline data exists) */}
+        {activeTab === 'drift' && stats.sourceMode === 'history' && <TasteDrift stats={stats} />}
 
-        {/* TAB 6: CIRCADIAN GRID */}
-        {activeTab === 'activity' && (
+        {/* TAB 6: CIRCADIAN GRID (Only for History mode where full timeline data exists) */}
+        {activeTab === 'activity' && stats.sourceMode === 'history' && (
           <div className="space-y-6 sm:space-y-8">
             <ActivityCharts stats={stats} />
 

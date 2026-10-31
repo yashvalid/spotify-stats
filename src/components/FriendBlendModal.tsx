@@ -76,7 +76,7 @@ See your Spotify stats at ${window.location.origin}`;
                 <h3 className="text-lg sm:text-xl font-bold truncate">{stats.userName}</h3>
               </div>
               <span className="font-mono text-xs font-bold px-2 py-1 bg-[#111111] text-[#FFFFFF] shrink-0">
-                {stats.totalMinutes.toLocaleString()} MIN
+                {stats.sourceMode === 'history' ? `${stats.totalMinutes.toLocaleString()} MIN` : 'TOP 50 SYNC'}
               </span>
             </div>
 

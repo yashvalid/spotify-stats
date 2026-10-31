@@ -99,11 +99,19 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
 
         ctx.fillStyle = '#FFFFFF';
         ctx.font = 'bold 24px "JetBrains Mono", monospace';
-        ctx.fillText(stats.isExactMinutes ? '[01] MINUTES LISTENED' : '[01] MINUTES LISTENED (EST.)', 80, 340);
-        ctx.font = 'bold 96px Helvetica, Arial, sans-serif';
-        ctx.fillText(stats.totalMinutes.toLocaleString(), 80, 445);
-        ctx.font = 'bold 24px "JetBrains Mono", monospace';
-        ctx.fillText(`${stats.totalHours.toLocaleString()} HOURS  •  ${stats.totalPlays.toLocaleString()} STREAMS`, 80, 500);
+        if (stats.sourceMode === 'history') {
+          ctx.fillText('[01] MINUTES LISTENED', 80, 340);
+          ctx.font = 'bold 96px Helvetica, Arial, sans-serif';
+          ctx.fillText(stats.totalMinutes.toLocaleString(), 80, 445);
+          ctx.font = 'bold 24px "JetBrains Mono", monospace';
+          ctx.fillText(`${stats.totalHours.toLocaleString()} HOURS  •  ${stats.totalPlays.toLocaleString()} STREAMS`, 80, 500);
+        } else {
+          ctx.fillText('[01] TOP MUSIC CATALOG', 80, 340);
+          ctx.font = 'bold 88px Helvetica, Arial, sans-serif';
+          ctx.fillText('TOP 50', 80, 445);
+          ctx.font = 'bold 24px "JetBrains Mono", monospace';
+          ctx.fillText(`OFFICIAL SPOTIFY RANKINGS • ${stats.topGenres.length} GENRES`, 80, 500);
+        }
 
         // Yellow Persona Section
         ctx.fillStyle = '#FFFF00';
@@ -225,20 +233,33 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
         itemY += 50;
         ctx.textAlign = 'left';
         ctx.font = 'bold 20px "JetBrains Mono", monospace';
-        ctx.fillText(stats.isExactMinutes ? 'TOTAL MINUTES LISTENED:' : 'TOTAL MINUTES (EST.):', 60, itemY);
-        ctx.textAlign = 'right';
-        ctx.fillText(`${stats.totalMinutes.toLocaleString()} MIN`, 740, itemY);
+        if (stats.sourceMode === 'history') {
+          ctx.fillText('TOTAL MINUTES LISTENED:', 60, itemY);
+          ctx.textAlign = 'right';
+          ctx.fillText(`${stats.totalMinutes.toLocaleString()} MIN`, 740, itemY);
+
+          itemY += 36;
+          ctx.textAlign = 'left';
+          ctx.font = 'bold 16px "JetBrains Mono", monospace';
+          ctx.fillText('TOTAL STREAMS COUNTED:', 60, itemY);
+          ctx.textAlign = 'right';
+          ctx.fillText(`${stats.totalPlays.toLocaleString()}`, 740, itemY);
+        } else {
+          ctx.fillText('CATALOG TRACKS RANKED:', 60, itemY);
+          ctx.textAlign = 'right';
+          ctx.fillText(`${stats.topTracks.length} SONGS`, 740, itemY);
+
+          itemY += 36;
+          ctx.textAlign = 'left';
+          ctx.font = 'bold 16px "JetBrains Mono", monospace';
+          ctx.fillText('TOP ARTISTS RANKED:', 60, itemY);
+          ctx.textAlign = 'right';
+          ctx.fillText(`${stats.topArtists.length} ARTISTS`, 740, itemY);
+        }
 
         itemY += 36;
         ctx.textAlign = 'left';
-        ctx.font = 'bold 16px "JetBrains Mono", monospace';
-        ctx.fillText('TOTAL STREAMS COUNTED:', 60, itemY);
-        ctx.textAlign = 'right';
-        ctx.fillText(`${stats.totalPlays.toLocaleString()}`, 740, itemY);
-
-        itemY += 36;
-        ctx.textAlign = 'left';
-        ctx.fillText('SONIC AURA RATING:', 60, itemY);
+        ctx.fillText('MUSIC VIBE:', 60, itemY);
         ctx.textAlign = 'right';
         ctx.fillText(stats.vibe.personaTitle.slice(0, 18), 740, itemY);
 
@@ -297,9 +318,15 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
 
         ctx.fillStyle = '#FFFFFF';
         ctx.font = 'bold 22px "JetBrains Mono", monospace';
-        ctx.fillText('[MINUTES]', 72, 270);
-        ctx.font = 'bold 74px Helvetica, Arial, sans-serif';
-        ctx.fillText(stats.totalMinutes.toLocaleString(), 72, 360);
+        if (stats.sourceMode === 'history') {
+          ctx.fillText('[MINUTES]', 72, 270);
+          ctx.font = 'bold 74px Helvetica, Arial, sans-serif';
+          ctx.fillText(stats.totalMinutes.toLocaleString(), 72, 360);
+        } else {
+          ctx.fillText('[CATALOG]', 72, 270);
+          ctx.font = 'bold 64px Helvetica, Arial, sans-serif';
+          ctx.fillText('TOP 50', 72, 360);
+        }
 
         ctx.fillStyle = '#111111';
         ctx.font = 'bold 22px "JetBrains Mono", monospace';
@@ -445,7 +472,9 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
               <div className="flex justify-between font-bold text-[#111111]">
                 <span className="truncate pr-2">{stats.userName}</span>
                 <span className="text-[#FF0000] shrink-0">
-                  {stats.totalMinutes.toLocaleString()} MIN {!stats.isExactMinutes && '(EST.)'}
+                  {stats.sourceMode === 'history'
+                    ? `${stats.totalMinutes.toLocaleString()} MIN`
+                    : 'TOP 50 CATALOG'}
                 </span>
               </div>
               <div className="text-[11px] text-[#808080] break-words">

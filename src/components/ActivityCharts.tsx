@@ -164,6 +164,11 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#111111]">
                 <Clock className="w-4 h-4 text-[#FF0000] shrink-0" />
                 <span>[GRID 03] CIRCADIAN AXIS (24H)</span>
+                {stats.sourceMode === 'spotify_api' && (
+                  <span className="text-[10px] font-mono text-[#0000FF] bg-[#0000FF]/10 border border-[#0000FF]/30 px-1.5 py-0.5">
+                    RECENT PLAYS
+                  </span>
+                )}
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">Listening by Hour of Day</h3>
             </div>
@@ -246,8 +251,8 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      {/* Row 3: 20-Week Mondrian Daily Consistency Matrix (Only for Extended Streaming Archive History) */}
-      {stats.sourceMode === 'history' && (
+      {/* Row 3: 20-Week Mondrian Daily Consistency Matrix or API Notice */}
+      {stats.sourceMode === 'history' ? (
         <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-4 border-b-2 border-[#111111] mb-6">
             <div className="min-w-0">
@@ -327,6 +332,23 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
               Import your Spotify Streaming History JSON/ZIP to populate the 140-day activity matrix.
             </div>
           )}
+        </div>
+      ) : (
+        <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6 border-l-8 border-l-[#0000FF]">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
+                <Flame className="w-4 h-4 text-[#808080] shrink-0" />
+                <span>[API LIMITATION] DAILY STREAK MATRIX UNAVAILABLE</span>
+              </div>
+              <h3 className="text-base sm:text-lg font-bold text-[#111111] mt-1">
+                Looking for your 140-day streak matrix & exact temporal patterns?
+              </h3>
+              <p className="text-xs text-[#808080] mt-1 max-w-2xl leading-relaxed">
+                The Spotify Web API only grants access to recent playback events. Active streak calculations, longest streaks, and the daily activity heatmap require importing your official Spotify Extended Streaming History archive (<code className="font-mono font-bold text-[#111111]">.zip</code>).
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>

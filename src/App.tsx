@@ -103,6 +103,7 @@ export default function App() {
   const [showPrivacyGuide, setShowPrivacyGuide] = useState(false);
   const [showPlaylistModal, setShowPlaylistModal] = useState(false);
   const [showFriendModal, setShowFriendModal] = useState(false);
+  const [dismissApiNotice, setDismissApiNotice] = useState(false);
 
   // Landing page file upload state
   const [, setUploadingLanding] = useState(false);
@@ -390,6 +391,9 @@ export default function App() {
                   <span>• No credentials stored</span>
                   <span>• 100% private</span>
                 </div>
+                <p className="mt-3 text-[11px] font-mono text-[#808080] leading-relaxed">
+                  * Note: Spotify's Web API limits access to Top 50 rankings and recent plays (minutes are estimated; streaks are unavailable). For 100% exact historical listening data, drop your Spotify archive (.zip) above.
+                </p>
               </div>
             </div>
 
@@ -716,48 +720,84 @@ export default function App() {
 
         {/* Hero & Top Highlights - shown only on Overview tab */}
         {activeTab === 'overview' && (
-          <section className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF] animate-fade-enter">
-            {/* Left: User Profile & Minutes */}
-            <div className="lg:col-span-5 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
-              <div className="p-4 sm:p-6 bg-[#FFFFFF] border-b-4 border-[#111111] flex items-center gap-3 sm:gap-4">
-                {heroAvatar && (
-                  <img
-                    src={heroAvatar}
-                    alt={stats.userName}
-                    className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
-                  />
-                )}
-                <div className="min-w-0 flex-1">
-                  <span className="font-mono text-xs font-bold uppercase text-[#0000FF] block truncate">
-                    [{stats.dateRangeLabel}]
-                  </span>
-                  <h1 className="text-xl sm:text-2xl font-bold text-[#111111] truncate mt-0.5">
-                    {stats.userName}
-                  </h1>
-                  <span className="font-mono text-[11px] sm:text-xs text-[#808080] block mt-0.5 truncate">
-                    {stats.isExactMinutes ? '100% Exact Stream History' : 'Live Spotify Account'}
-                  </span>
+          <div className="space-y-4">
+            {stats.sourceMode === 'spotify_api' && !dismissApiNotice && (
+              <div className="rounded-lg border-2 border-[#111111] bg-[#FFFF00]/30 border-l-8 border-l-[#0000FF] p-3.5 sm:p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                <div className="flex items-start gap-2.5 min-w-0">
+                  <AlertCircle className="w-4 h-4 text-[#0000FF] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-mono font-bold uppercase text-[#0000FF] block sm:inline sm:mr-2">
+                      [DATA LIMITATION NOTICE • SPOTIFY WEB API]
+                    </span>
+                    <span className="text-[#111111] leading-relaxed">
+                      Spotify's Web API only provides top 50 rankings and recent plays. Total listening minutes are estimated, and historical features like daily streak matrices require importing an Extended History archive (<code className="font-mono font-bold">.zip</code>).
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">
+                  <button
+                    onClick={() => setShowSourceModal(true)}
+                    className="px-2.5 py-1.5 rounded-lg border border-[#111111] bg-[#FFFFFF] hover:bg-[#111111] hover:text-[#FFFFFF] font-mono text-[11px] font-bold text-[#111111] transition-colors cursor-pointer"
+                  >
+                    IMPORT ARCHIVE
+                  </button>
+                  <button
+                    onClick={() => setDismissApiNotice(true)}
+                    className="px-2 py-1 font-mono text-[11px] text-[#808080] hover:text-[#111111] underline cursor-pointer"
+                  >
+                    DISMISS
+                  </button>
                 </div>
               </div>
+            )}
 
-              <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
-                <span className="font-mono text-xs font-bold uppercase tracking-widest">
-                  [MINUTES LISTENED]
-                </span>
-                <div className="my-3 sm:my-4">
-                  <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
-                    {stats.totalMinutes.toLocaleString()}
-                  </p>
-                  <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2 break-words">
-                    {stats.totalHours.toLocaleString()} HOURS • {stats.totalDaysEquivalent} FULL DAYS
-                  </p>
+            <section className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF] animate-fade-enter">
+              {/* Left: User Profile & Minutes */}
+              <div className="lg:col-span-5 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
+                <div className="p-4 sm:p-6 bg-[#FFFFFF] border-b-4 border-[#111111] flex items-center gap-3 sm:gap-4">
+                  {heroAvatar && (
+                    <img
+                      src={heroAvatar}
+                      alt={stats.userName}
+                      className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
+                    />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <span className="font-mono text-xs font-bold uppercase text-[#0000FF] block truncate">
+                      [{stats.dateRangeLabel}]
+                    </span>
+                    <h1 className="text-xl sm:text-2xl font-bold text-[#111111] truncate mt-0.5">
+                      {stats.userName}
+                    </h1>
+                    <span className="font-mono text-[11px] sm:text-xs text-[#808080] block mt-0.5 truncate">
+                      {stats.isExactMinutes ? '100% Exact Stream History' : 'Live Spotify Account (Estimated Data)'}
+                    </span>
+                  </div>
                 </div>
-                <div className="pt-3 border-t border-[#FFFFFF]/40 flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
-                  <span>DAILY AVG: {stats.dailyAverageMinutes}M</span>
-                  <span>{stats.totalPlays.toLocaleString()} STREAMS</span>
+
+                <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
+                  <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
+                    <span>[MINUTES LISTENED]</span>
+                    {!stats.isExactMinutes && (
+                      <span className="text-[10px] bg-[#FFFFFF] text-[#FF0000] font-mono font-bold px-1.5 py-0.5 border border-[#FFFFFF]">
+                        ESTIMATED
+                      </span>
+                    )}
+                  </div>
+                  <div className="my-3 sm:my-4">
+                    <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
+                      {stats.totalMinutes.toLocaleString()}
+                    </p>
+                    <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2 break-words">
+                      {stats.totalHours.toLocaleString()} HOURS • {stats.totalDaysEquivalent} FULL DAYS
+                    </p>
+                  </div>
+                  <div className="pt-3 border-t border-[#FFFFFF]/40 flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
+                    <span>DAILY AVG: {stats.dailyAverageMinutes}M</span>
+                    <span>{stats.totalPlays.toLocaleString()} STREAMS</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
             {/* Right: Highlights Grid */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-12">
@@ -901,7 +941,8 @@ export default function App() {
               </div>
             </div>
           </section>
-        )}
+        </div>
+      )}
 
         {/* TAB 1: OVERVIEW */}
         {activeTab === 'overview' && (

@@ -120,6 +120,12 @@ export const DataSourceModal: React.FC<Props> = ({
                 <p className="text-xs text-[#808080] mt-1 leading-relaxed">
                   Real-time sync of your Top 50 Songs, Artists, and Albums across 4 weeks, 6 months, and all time.
                 </p>
+                <div className="mt-3 p-2.5 bg-[#FFFF00]/30 border border-[#111111] text-[11px] leading-relaxed">
+                  <span className="font-mono font-bold text-[#0000FF] block mb-0.5">[API LIMITATION]</span>
+                  <span className="text-[#111111]">
+                    Spotify's Web API only provides top 50 rankings and 50 recent plays. Total minutes are estimates, and features like daily streaks & multi-month heatmaps are unavailable.
+                  </span>
+                </div>
               </div>
 
               <div className="mt-5 sm:mt-6 pt-4 border-t border-[#111111] flex flex-wrap items-center justify-between gap-2">
@@ -175,9 +181,9 @@ export const DataSourceModal: React.FC<Props> = ({
                     </span>
                   )}
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-[#111111]">Streaming History</h3>
+                <h3 className="text-base sm:text-lg font-bold text-[#111111]">Streaming History Archive</h3>
                 <p className="text-xs text-[#808080] mt-1 leading-relaxed">
-                  Upload your Spotify privacy export (<code className="font-mono font-bold">.zip</code> or <code className="font-mono font-bold">.json</code>) for exact historical minutes.
+                  Upload your Spotify privacy export (<code className="font-mono font-bold">.zip</code> or <code className="font-mono font-bold">.json</code>) for 100% exact historical minutes, full play counts, and complete streak matrices.
                 </p>
                 <button
                   type="button"

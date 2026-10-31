@@ -99,7 +99,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
 
         ctx.fillStyle = '#FFFFFF';
         ctx.font = 'bold 24px "JetBrains Mono", monospace';
-        ctx.fillText('[01] MINUTES LISTENED', 80, 340);
+        ctx.fillText(stats.isExactMinutes ? '[01] MINUTES LISTENED' : '[01] MINUTES LISTENED (EST.)', 80, 340);
         ctx.font = 'bold 96px Helvetica, Arial, sans-serif';
         ctx.fillText(stats.totalMinutes.toLocaleString(), 80, 445);
         ctx.font = 'bold 24px "JetBrains Mono", monospace';
@@ -225,7 +225,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
         itemY += 50;
         ctx.textAlign = 'left';
         ctx.font = 'bold 20px "JetBrains Mono", monospace';
-        ctx.fillText('TOTAL MINUTES LISTENED:', 60, itemY);
+        ctx.fillText(stats.isExactMinutes ? 'TOTAL MINUTES LISTENED:' : 'TOTAL MINUTES (EST.):', 60, itemY);
         ctx.textAlign = 'right';
         ctx.fillText(`${stats.totalMinutes.toLocaleString()} MIN`, 740, itemY);
 
@@ -444,7 +444,9 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
             <div className="border-2 border-[#111111] p-3.5 sm:p-4 max-w-sm mx-auto bg-[#F7F7F7] space-y-2 font-mono text-xs text-left">
               <div className="flex justify-between font-bold text-[#111111]">
                 <span className="truncate pr-2">{stats.userName}</span>
-                <span className="text-[#FF0000] shrink-0">{stats.totalMinutes.toLocaleString()} MIN</span>
+                <span className="text-[#FF0000] shrink-0">
+                  {stats.totalMinutes.toLocaleString()} MIN {!stats.isExactMinutes && '(EST.)'}
+                </span>
               </div>
               <div className="text-[11px] text-[#808080] break-words">
                 Top Artist: {stats.topArtists[0]?.name || 'Artist'} • Aura: {stats.vibe.personaTitle}

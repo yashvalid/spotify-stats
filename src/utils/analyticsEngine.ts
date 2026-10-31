@@ -458,27 +458,27 @@ function computeVibeProfile(params: {
     Math.max(1, Math.min(10, topAlbums.length));
   const albumCompleteness = Math.min(98, Math.max(30, Math.round(avgTracksPerTopAlbum * 14)));
 
-  let personaTitle = 'Sonic Architect';
-  let personaSubtitle = 'Balanced between deep album cuts and high-replay anthems.';
+  let personaTitle = 'Balanced Listener';
+  let personaSubtitle = 'You enjoy a mix of full albums and favorite repeat songs.';
   const personaTags: string[] = [];
 
   if (nightRatio > 0.28 && albumCompleteness >= 65) {
-    personaTitle = 'Nocturnal Album Purist';
-    personaSubtitle = 'You spin full-length records deep into the late-night hours with low skip rates.';
+    personaTitle = 'Late Night Album Fan';
+    personaSubtitle = 'You love playing complete albums late into the night without skipping.';
   } else if (exploratoryScore >= 65) {
-    personaTitle = 'Crate-Digging Maverick';
-    personaSubtitle = 'Constantly hunting fresh catalog cuts and jumping across genres.';
+    personaTitle = 'Musical Explorer';
+    personaSubtitle = 'Always discovering new tracks and hopping between different genres.';
   } else if (energy >= 74) {
-    personaTitle = 'High-Voltage Catalyst';
-    personaSubtitle = 'Driven by propulsive beats, synth textures, and peak-hour momentum.';
+    personaTitle = 'High Energy Listener';
+    personaSubtitle = 'Drawn to upbeat tempos, driving rhythms, and lively songs.';
   } else {
-    personaTitle = 'Velvet Grooves Curator';
-    personaSubtitle = 'Loyal to rich melodies, cohesive albums, and immersive replay sessions.';
+    personaTitle = 'Melody & Mood Lover';
+    personaSubtitle = 'Drawn to warm melodies, cohesive albums, and favorite comfort songs.';
   }
 
-  personaTags.push(nightRatio > 0.25 ? 'Night Owl Listener' : 'Daylight Listener');
-  personaTags.push(albumCompleteness >= 60 ? 'Full-Album Devotee' : 'Playlist Curator');
-  personaTags.push(skipRate < 15 ? 'Patient Listener' : 'Selective Skipper');
+  personaTags.push(nightRatio > 0.25 ? 'Night Owl' : 'Daytime Listener');
+  personaTags.push(albumCompleteness >= 60 ? 'Full-Album Listener' : 'Playlist Listener');
+  personaTags.push(skipRate < 15 ? 'Listens Songs Through' : 'Frequent Skipper');
 
   return {
     energy,

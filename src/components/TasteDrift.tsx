@@ -21,24 +21,24 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
     .filter((_, idx) => idx < 6)
     .map((a, i) => ({
       ...a,
-      velocity: `+${8 - i * 1.2} rank jump`,
-      note: i === 0 ? 'Current #1 obsession' : 'Heavy rotation this cycle',
+      velocity: `+${8 - i * 1.2} spots`,
+      note: i === 0 ? 'Your #1 played artist' : 'Frequently played recently',
     }));
 
   const coreConstants = currentArtists
     .slice(4, 10)
     .map((a) => ({
       ...a,
-      stability: 'Anchor Artist',
-      note: 'Foundational listening baseline',
+      stability: 'Regular Favorite',
+      note: 'Always in your rotation',
     }));
 
   const dropping = currentArtists
     .slice(12, 18)
     .map((a, i) => ({
       ...a,
-      velocity: `-${i + 2} rank drift`,
-      note: 'Lower playback frequency vs previous cycle',
+      velocity: `-${i + 2} spots`,
+      note: 'Played less frequently lately',
     }));
 
   return (
@@ -48,43 +48,43 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-8 p-4 sm:p-8 bg-[#FFFF00] border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
           <div className="inline-flex items-center gap-2 border border-[#111111] bg-[#111111] text-[#FFFF00] px-3 py-1 font-mono text-xs font-bold uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>[TEMPORAL TASTE EVOLUTION]</span>
+            <span>[TASTE TRENDS]</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-[#111111] tracking-tight">
-            Taste Drift & Velocity
+            How Your Taste is Changing
           </h2>
           <p className="text-xs sm:text-sm text-[#111111] mt-2 max-w-2xl font-medium leading-relaxed break-words">
-            How your listening taste is shifting over time. Track which artists are surging into your daily queue, which remain your immutable core, and which are cooling off.
+            Track how your music habits change over time. Discover which artists you are playing on repeat, which stay your regular go-to favorites, and which you've been listening to less.
           </p>
         </div>
 
         <div className="lg:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
           <div>
             <span className="font-mono text-xs font-bold uppercase text-[#808080] block">
-              CURRENT TIMEFRAME
+              SELECTED TIMEFRAME
             </span>
             <p className="font-mono text-xl font-bold text-[#0000FF] mt-1 break-words">
               {stats.dateRangeLabel.toUpperCase()}
             </p>
           </div>
           <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between font-mono text-xs gap-2">
-            <span className="text-[#808080] shrink-0">ROTATION INDEX:</span>
-            <span className="font-bold text-[#111111] text-right">{stats.uniqueArtists} ARTISTS ACTIVE</span>
+            <span className="text-[#808080] shrink-0">IN ROTATION:</span>
+            <span className="font-bold text-[#111111] text-right">{stats.uniqueArtists} TOTAL ARTISTS</span>
           </div>
         </div>
       </div>
 
-      {/* 3-Column Velocity Breakdown */}
+      {/* 3-Column Breakdown */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Surging Artists */}
         <div className="border-4 border-[#111111] bg-[#FFFFFF] flex flex-col justify-between">
           <div className="p-4 bg-[#FF0000] text-[#FFFFFF] border-b-4 border-[#111111] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-[#FFFF00]" />
-              <h3 className="font-bold text-sm tracking-wide">SURGING OBSESSIONS</h3>
+              <h3 className="font-bold text-sm tracking-wide">ON REPEAT</h3>
             </div>
             <span className="font-mono text-xs font-bold bg-[#111111] px-2 py-0.5 text-[#FFFF00]">
-              FASTEST RISE
+              TRENDING UP
             </span>
           </div>
 
@@ -113,7 +113,7 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
           </div>
 
           <div className="p-3 border-t-2 border-[#111111] bg-[#F7F7F7] font-mono text-[11px] text-[#808080] text-center">
-            Dominated recent streaming hours
+            Heavily played recently
           </div>
         </div>
 
@@ -122,10 +122,10 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
           <div className="p-4 bg-[#0000FF] text-[#FFFFFF] border-b-4 border-[#111111] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Repeat2 className="w-5 h-5 text-[#FFFFFF]" />
-              <h3 className="font-bold text-sm tracking-wide">THE ANCHORS</h3>
+              <h3 className="font-bold text-sm tracking-wide">GO-TO FAVORITES</h3>
             </div>
             <span className="font-mono text-xs font-bold bg-[#FFFFFF] text-[#111111] px-2 py-0.5">
-              IMMUTABLE
+              STEADY
             </span>
           </div>
 
@@ -154,7 +154,7 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
           </div>
 
           <div className="p-3 border-t-2 border-[#111111] bg-[#F7F7F7] font-mono text-[11px] text-[#808080] text-center">
-            Consistent across all cycles
+            Consistent favorites over time
           </div>
         </div>
 
@@ -163,10 +163,10 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
           <div className="p-4 bg-[#111111] text-[#FFFFFF] border-b-4 border-[#111111] flex items-center justify-between">
             <div className="flex items-center gap-2">
               <TrendingDown className="w-5 h-5 text-[#FF0000]" />
-              <h3 className="font-bold text-sm tracking-wide">COOLING OFF</h3>
+              <h3 className="font-bold text-sm tracking-wide">PLAYED LESS</h3>
             </div>
             <span className="font-mono text-xs font-bold bg-[#FF0000] text-[#FFFFFF] px-2 py-0.5">
-              FADING
+              SLOWING DOWN
             </span>
           </div>
 
@@ -195,7 +195,7 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
           </div>
 
           <div className="p-3 border-t-2 border-[#111111] bg-[#F7F7F7] font-mono text-[11px] text-[#808080] text-center">
-            Reduced playtime this cycle
+            Less playtime lately
           </div>
         </div>
       </div>

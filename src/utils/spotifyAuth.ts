@@ -534,9 +534,9 @@ export async function fetchLiveSpotifyStats(
       acousticness: 39,
       exploratoryScore: Math.min(96, Math.max(40, topArtists.length * 2)),
       albumCompleteness: Math.min(95, Math.max(45, topAlbums.length * 2)),
-      personaTitle: 'Live Spotify Curator',
-      personaSubtitle: `Synced directly with ${profile.display_name || 'your'}'s live Spotify account.`,
-      personaTags: ['Live Spotify Sync', 'Top 50 Catalog', topGenres[0]?.name || 'Music Lover'],
+      personaTitle: 'Active Music Listener',
+      personaSubtitle: `Based on your recent Spotify listening activity.`,
+      personaTags: ['Live Spotify', 'Top 50 Songs', topGenres[0]?.name || 'Music Lover'],
     },
     recentPlays: recent.slice(0, 25).map((r) => ({
       trackName: r.track?.name || 'Track',

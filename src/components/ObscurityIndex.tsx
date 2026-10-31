@@ -42,21 +42,21 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
   const getTier = (score: number) => {
     if (score >= 75) {
       return {
-        title: 'Crate Digger / Underground Purist',
-        desc: 'You consistently bypass algorithmic top 40 playlists to uncover niche releases and underground gems.',
+        title: 'Indie & Underground Fan',
+        desc: 'You mostly listen to indie and lesser-known tracks rather than mainstream chart hits.',
         badgeBg: 'bg-[#0000FF] text-[#FFFFFF]',
       };
     }
     if (score >= 45) {
       return {
-        title: 'Eclectic Curator',
-        desc: 'A balanced equilibrium: you enjoy certified anthems without losing touch with indie depth.',
+        title: 'Balanced Taste',
+        desc: 'A healthy mix of popular hits and lesser-known tracks.',
         badgeBg: 'bg-[#FFFF00] text-[#111111]',
       };
     }
     return {
-      title: 'Global Radio Loyalist',
-      desc: 'Your rotation aligns heavily with worldwide trending charts and verified billboard staples.',
+      title: 'Top 40 & Hit Lover',
+      desc: 'You love worldwide chart-toppers, radio hits, and trending songs.',
       badgeBg: 'bg-[#FF0000] text-[#FFFFFF]',
     };
   };
@@ -70,7 +70,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
         <div className="min-w-0">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#111111]">
             <Gem className="w-4 h-4 text-[#FF0000] shrink-0" />
-            <span>[OBSCURITY & HIPSTER INDEX]</span>
+            <span>[UNDERGROUND METER]</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1 break-words">
             How Underground Is Your Taste?
@@ -89,7 +89,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
         <div className="md:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
           <div>
             <span className="font-mono text-xs font-bold uppercase text-[#808080] block">
-              OBSCURITY SCORE
+              UNDERGROUND SCORE
             </span>
             <div className="flex items-baseline gap-2 mt-2">
               <span className="text-4xl sm:text-5xl font-bold font-mono text-[#111111]">
@@ -98,7 +98,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
               <span className="font-mono text-base sm:text-lg text-[#808080]">/ 100</span>
             </div>
             <p className="text-xs text-[#808080] mt-1 font-mono">
-              (Higher = more indie & underground)
+              (Higher = more indie & lesser-known songs)
             </p>
           </div>
 
@@ -126,7 +126,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between pb-2 border-b-2 border-[#111111]">
               <span className="font-mono text-xs font-bold uppercase text-[#0000FF] flex items-center gap-1.5 truncate pr-2">
                 <Gem className="w-3.5 h-3.5 shrink-0" />
-                <span className="truncate">#1 HIDDEN GEM</span>
+                <span className="truncate">#1 DEEP CUT</span>
               </span>
               {mostUndergroundTrack?.popularity !== undefined && (
                 <span className="font-mono text-xs font-bold px-1.5 bg-[#111111] text-[#FFFF00] shrink-0">
@@ -158,7 +158,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
           </div>
 
           <p className="text-xs text-[#808080] font-mono border-t border-[#111111] pt-3">
-            Your rarest high-rotation song compared to global listener volume.
+            Your most-played song that has the lowest worldwide popularity score.
           </p>
         </div>
 
@@ -168,7 +168,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between pb-2 border-b-2 border-[#111111]">
               <span className="font-mono text-xs font-bold uppercase text-[#FF0000] flex items-center gap-1.5 truncate pr-2">
                 <Flame className="w-3.5 h-3.5 shrink-0" />
-                <span className="truncate">GUILTIEST MAINSTREAM HIT</span>
+                <span className="truncate">#1 CHART HIT</span>
               </span>
               {guiltiestHit?.popularity !== undefined && (
                 <span className="font-mono text-xs font-bold px-1.5 bg-[#FF0000] text-[#FFFFFF] shrink-0">
@@ -200,7 +200,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
           </div>
 
           <p className="text-xs text-[#808080] font-mono border-t border-[#111111] pt-3">
-            Your most popular track that millions of other Spotify users are also blasting.
+            Your most-played song that is also a global chart hit with millions of streams.
           </p>
         </div>
       </div>

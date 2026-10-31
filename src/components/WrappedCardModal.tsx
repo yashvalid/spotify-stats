@@ -112,7 +112,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
 
         ctx.fillStyle = '#111111';
         ctx.font = 'bold 22px "JetBrains Mono", monospace';
-        ctx.fillText('[02] SONIC RATIO & AURA', 80, 600);
+        ctx.fillText('[02] YOUR MUSIC VIBE', 80, 600);
         ctx.font = 'bold 50px Helvetica, Arial, sans-serif';
         ctx.fillText(stats.vibe.personaTitle, 80, 670);
 
@@ -353,7 +353,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
           <div className="flex items-center gap-2.5 min-w-0 pr-2">
             <Sparkles className="w-5 h-5 text-[#FF0000] shrink-0" />
             <h2 className="text-base sm:text-lg font-bold text-[#111111] uppercase tracking-tight truncate">
-              Export Social Card & Story
+              Share Your Stats Card
             </h2>
           </div>
           <button
@@ -368,7 +368,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
           {/* Format Selector */}
           <div>
             <span className="font-mono text-xs font-bold uppercase text-[#808080] block mb-2">
-              FORMAT PRESET:
+              CARD FORMAT:
             </span>
             <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
               <button
@@ -416,7 +416,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
           {format !== 'receipt' && (
             <div>
               <span className="font-mono text-xs font-bold uppercase text-[#808080] block mb-2">
-                COLOR PALETTE:
+                COLOR THEME:
               </span>
               <div className="flex flex-wrap items-center gap-2">
                 {(Object.keys(THEMES) as CardTheme[]).map((tKey) => (
@@ -449,7 +449,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
                 </span>
               </div>
               <div className="text-[11px] text-[#808080] break-words">
-                Top Artist: {stats.topArtists[0]?.name || 'Artist'} • Aura: {stats.vibe.personaTitle}
+                Top Artist: {stats.topArtists[0]?.name || 'Artist'} • Vibe: {stats.vibe.personaTitle}
               </div>
             </div>
           </div>

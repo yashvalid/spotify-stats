@@ -447,10 +447,10 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
       {/* Tone Selector Bar */}
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1 sm:mx-0 sm:px-0 sm:flex-wrap">
         {[
-          { id: 'ruthless', label: 'RUTHLESS VERDICT', icon: Skull, activeBg: 'bg-[#FF0000] text-[#FFFFFF]' },
-          { id: 'pitchfork', label: 'AVANT-GARDE CRITIC', icon: Glasses, activeBg: 'bg-[#0000FF] text-[#FFFFFF]' },
-          { id: 'therapist', label: 'CLINICAL NOTES', icon: HeartCrack, activeBg: 'bg-[#FFFF00] text-[#111111]' },
-          { id: 'mild', label: 'MILD OBSERVATION', icon: Sparkles, activeBg: 'bg-[#111111] text-[#FFFFFF]' },
+          { id: 'ruthless', label: 'RUTHLESS', icon: Skull, activeBg: 'bg-[#FF0000] text-[#FFFFFF]' },
+          { id: 'pitchfork', label: 'SNOBBY CRITIC', icon: Glasses, activeBg: 'bg-[#0000FF] text-[#FFFFFF]' },
+          { id: 'therapist', label: 'THERAPIST', icon: HeartCrack, activeBg: 'bg-[#FFFF00] text-[#111111]' },
+          { id: 'mild', label: 'GENTLE', icon: Sparkles, activeBg: 'bg-[#111111] text-[#FFFFFF]' },
         ].map((item) => {
           const Icon = item.icon;
           const active = tone === item.id;
@@ -476,7 +476,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-8 p-4 sm:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] space-y-4 sm:space-y-6">
           <div>
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#0000FF]">
-              [OFFICIAL DIAGNOSIS]
+              [THE VERDICT]
             </span>
             <h3 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#111111] mt-2 leading-tight break-words">
               &ldquo;{roast.headline}&rdquo;
@@ -494,7 +494,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
             <Flame className="w-5 h-5 text-[#FF0000] shrink-0 mt-0.5" />
             <div className="min-w-0">
               <span className="font-mono text-[10px] sm:text-xs font-bold uppercase text-[#111111] block">
-                PRIMARY AUDIO RED FLAG
+                BIGGEST LISTENING HABIT
               </span>
               <p className="text-sm font-bold text-[#111111] mt-0.5 break-words">{roast.redFlagLevel}</p>
             </div>
@@ -505,14 +505,14 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-4 flex flex-col justify-between divide-y-2 divide-[#111111]">
           <div className="p-4 sm:p-6 bg-[#0000FF] text-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest block opacity-80">
-              [CRITICAL RATING]
+              [TASTE RATING]
             </span>
             <p className="font-mono text-xl sm:text-2xl font-bold mt-2 break-words">{roast.tasteRating}</p>
           </div>
 
           <div className="p-4 sm:p-6 bg-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest text-[#808080] block">
-              [ALGORITHMIC CONFORMITY]
+              [MAINSTREAM SCORE]
             </span>
             <p className="font-mono text-2xl sm:text-3xl font-bold text-[#111111] mt-1">
               {roast.basicScore}% MAINSTREAM
@@ -527,14 +527,14 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
 
           <div className="p-4 sm:p-6 bg-[#111111] text-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest text-[#FFFF00] block">
-              [DIRECTIVE]
+              [THE RECOMMENDATION]
             </span>
             <p className="font-mono text-xs leading-relaxed mt-2 break-words">{roast.prescription}</p>
           </div>
         </div>
       </div>
 
-      {/* Asymmetric Artist Indictments (5 cols / 7 cols split instead of 3 equal columns) */}
+      {/* Asymmetric Artist Indictments */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         {/* #1 Artist Featured Indictment (5 cols) */}
         {roast.artistRoasts[0] && (
@@ -543,7 +543,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
               <div className="flex items-center justify-between pb-3 border-b-2 border-[#111111]">
                 <span className="font-mono text-xs font-bold uppercase text-[#111111] flex items-center gap-1.5 truncate pr-2">
                   <Mic2 className="w-4 h-4 text-[#FF0000] shrink-0" />
-                  <span className="truncate">[EXHIBIT 01 - PRIMARY ARTIST]</span>
+                  <span className="truncate">[YOUR #1 ARTIST]</span>
                 </span>
                 <span className="font-mono text-xs font-bold bg-[#111111] text-[#FFFFFF] px-2 py-0.5 shrink-0">
                   #1
@@ -594,13 +594,13 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-7 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#FF0000]">
             <Music2 className="w-4 h-4" />
-            <span>[TRACK REPETITION & ALBUM FIXATION]</span>
+            <span>[SONG REPEATS]</span>
           </div>
           <p className="text-xs sm:text-sm text-[#111111] leading-relaxed">{roast.trackRoast}</p>
           <div className="pt-3 border-t border-[#111111]">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#0000FF] mb-1">
               <Disc3 className="w-4 h-4" />
-              <span>[GENRE SPECTRUM]</span>
+              <span>[YOUR GENRES]</span>
             </div>
             <p className="text-xs sm:text-sm text-[#808080] leading-relaxed">{roast.genreRoast}</p>
           </div>
@@ -609,7 +609,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-5 p-4 sm:p-6 bg-[#111111] text-[#FFFFFF] flex flex-col justify-between">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#FFFF00]">
             <Clock className="w-4 h-4" />
-            <span>[CIRCADIAN ANOMALY]</span>
+            <span>[LISTENING HOURS]</span>
           </div>
           <p className="text-sm leading-relaxed my-4">{roast.clockRoast}</p>
           <div className="h-3 w-full bg-[#FF0000] border border-[#FFFFFF]" />

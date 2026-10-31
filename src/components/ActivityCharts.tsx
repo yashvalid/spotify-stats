@@ -51,9 +51,9 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
             <div>
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FF0000]">
                 <TrendingUp className="w-4 h-4" />
-                <span>[GRID 01] TEMPORAL VOLUME</span>
+                <span>[CHART 01] MONTHLY LISTENING</span>
               </div>
-              <h3 className="text-xl font-bold text-[#111111] mt-1">Monthly Minutes Listened</h3>
+              <h3 className="text-xl font-bold text-[#111111] mt-1">Minutes Listened per Month</h3>
             </div>
             <span className="font-mono text-xs bg-[#FFFF00] text-[#111111] border border-[#111111] px-2.5 py-1 font-bold">
               AVG: {stats.dailyAverageMinutes} MIN/DAY
@@ -102,7 +102,7 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
             <div className="flex items-center justify-between pb-4 border-b border-[#111111]">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
                 <Sparkles className="w-4 h-4" />
-                <span>[GRID 02] SONIC RATIO</span>
+                <span>[CHART 02] LISTENING STYLE</span>
               </div>
               <span className="w-4 h-4 bg-[#0000FF] border border-[#111111] inline-block" />
             </div>
@@ -132,11 +132,11 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
 
           <div className="mt-6 space-y-3 pt-4 border-t border-[#111111]">
             {[
-              { label: 'ENERGY & DRIVE', val: stats.vibe.energy, color: 'bg-[#FF0000]' },
-              { label: 'RHYTHMIC CADENCE', val: stats.vibe.danceability, color: 'bg-[#0000FF]' },
-              { label: 'TONAL VALENCE', val: stats.vibe.valence, color: 'bg-[#FFFF00]' },
-              { label: 'ALBUM STRUCTURE', val: stats.vibe.albumCompleteness, color: 'bg-[#111111]' },
-              { label: 'CATALOG BREADTH', val: stats.vibe.exploratoryScore, color: 'bg-[#FF0000]' },
+              { label: 'ENERGY', val: stats.vibe.energy, color: 'bg-[#FF0000]' },
+              { label: 'DANCEABILITY', val: stats.vibe.danceability, color: 'bg-[#0000FF]' },
+              { label: 'HAPPINESS (MOOD)', val: stats.vibe.valence, color: 'bg-[#FFFF00]' },
+              { label: 'FULL ALBUM LISTENING', val: stats.vibe.albumCompleteness, color: 'bg-[#111111]' },
+              { label: 'VARIETY OF ARTISTS', val: stats.vibe.exploratoryScore, color: 'bg-[#FF0000]' },
             ].map((metric) => (
               <div key={metric.label}>
                 <div className="flex justify-between font-mono text-xs mb-1">
@@ -163,7 +163,7 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
             <div>
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#111111]">
                 <Clock className="w-4 h-4 text-[#FF0000] shrink-0" />
-                <span>[GRID 03] CIRCADIAN AXIS (24H)</span>
+                <span>[CHART 03] LISTENING BY HOUR</span>
                 {stats.sourceMode === 'spotify_api' && (
                   <span className="text-[10px] font-mono text-[#0000FF] bg-[#0000FF]/10 border border-[#0000FF]/30 px-1.5 py-0.5">
                     RECENT PLAYS
@@ -216,7 +216,7 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
             <div>
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
                 <Calendar className="w-4 h-4 shrink-0" />
-                <span>[GRID 04] 7-DAY CADENCE</span>
+                <span>[CHART 04] DAYS OF THE WEEK</span>
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">Day of Week</h3>
             </div>
@@ -251,17 +251,17 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      {/* Row 3: 20-Week Mondrian Daily Consistency Matrix or API Notice */}
+      {/* Row 3: Daily Consistency Heatmap or API Notice */}
       {stats.sourceMode === 'history' ? (
         <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-4 border-b-2 border-[#111111] mb-6">
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FF0000]">
                 <Flame className="w-4 h-4 shrink-0" />
-                <span>[GRID 05] DAILY LISTENING STREAK MATRIX</span>
+                <span>[CHART 05] DAILY LISTENING STREAKS</span>
               </div>
               <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">
-                Daily Listening Grid (140 Days)
+                Daily Listening Heatmap (140 Days)
               </h3>
             </div>
 
@@ -339,13 +339,13 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
             <div>
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
                 <Flame className="w-4 h-4 text-[#808080] shrink-0" />
-                <span>[API LIMITATION] DAILY STREAK MATRIX UNAVAILABLE</span>
+                <span>[API LIMITATION] DAILY STREAKS UNAVAILABLE</span>
               </div>
               <h3 className="text-base sm:text-lg font-bold text-[#111111] mt-1">
-                Looking for your 140-day streak matrix & exact temporal patterns?
+                Want to see your daily streaks and listening heatmap?
               </h3>
               <p className="text-xs text-[#808080] mt-1 max-w-2xl leading-relaxed">
-                The Spotify Web API only grants access to recent playback events. Active streak calculations, longest streaks, and the daily activity heatmap require importing your official Spotify Extended Streaming History archive (<code className="font-mono font-bold text-[#111111]">.zip</code>).
+                The Spotify Web API only provides recent playback events. Daily streak tracking and the 140-day listening heatmap require importing your Spotify streaming history archive (<code className="font-mono font-bold text-[#111111]">.zip</code>).
               </p>
             </div>
           </div>

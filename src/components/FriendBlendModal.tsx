@@ -30,9 +30,9 @@ export const FriendBlendModal: React.FC<Props & { isOpen: boolean; onClose: () =
 
   const shareText = `🎵 STATIFY TASTE CARD for ${stats.userName}
 Top Artists: ${tasteProfile.a.slice(0, 3).join(', ')}
-Genre DNA: ${tasteProfile.g.join(' • ')}
-Sonic Persona: ${tasteProfile.v}
-Compare your Spotify taste with mine at ${window.location.origin}`;
+Top Genres: ${tasteProfile.g.join(' • ')}
+Music Vibe: ${tasteProfile.v}
+See your Spotify stats at ${window.location.origin}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareText);
@@ -53,7 +53,7 @@ Compare your Spotify taste with mine at ${window.location.origin}`;
           <div className="flex items-center gap-2 min-w-0 pr-2">
             <Users className="w-5 h-5 text-[#FF0000] shrink-0" />
             <h2 className="text-base sm:text-lg font-bold uppercase tracking-tight text-[#111111] truncate">
-              Friend Taste Compatibility & Blend
+              Share Taste Card with Friends
             </h2>
           </div>
           <button
@@ -71,7 +71,7 @@ Compare your Spotify taste with mine at ${window.location.origin}`;
             <div className="p-3.5 sm:p-4 bg-[#FF0000] text-[#FFFFFF] flex items-center justify-between gap-2">
               <div className="min-w-0 flex-1">
                 <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FFFF00] block truncate">
-                  [STATIFY COMPATIBILITY CARD]
+                  [STATIFY TASTE CARD]
                 </span>
                 <h3 className="text-lg sm:text-xl font-bold truncate">{stats.userName}</h3>
               </div>
@@ -92,14 +92,14 @@ Compare your Spotify taste with mine at ${window.location.origin}`;
 
               <div className="border-t border-[#111111] pt-2">
                 <span className="font-mono text-[11px] font-bold text-[#808080] uppercase">
-                  SONIC AURA:
+                  MUSIC VIBE:
                 </span>
                 <p className="font-bold text-sm text-[#0000FF] break-words">{stats.vibe.personaTitle}</p>
               </div>
 
               <div className="border-t border-[#111111] pt-2">
                 <span className="font-mono text-[11px] font-bold text-[#808080] uppercase">
-                  PRIMARY GENRES:
+                  TOP GENRES:
                 </span>
                 <p className="font-mono text-xs text-[#111111] break-words">
                   {stats.topGenres.slice(0, 3).map((g) => g.name).join(', ')}

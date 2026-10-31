@@ -364,15 +364,15 @@ export default function App() {
             <div className="lg:col-span-7 p-5 sm:p-8 md:p-12 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
               <div>
                 <span className="inline-block border-2 border-[#111111] bg-[#FFFF00] px-3 py-1 font-mono text-xs font-bold uppercase text-[#111111] mb-5 sm:mb-6">
-                  [PERSONAL SPOTIFY ANALYTICS]
+                  [SPOTIFY STATS & ANALYTICS]
                 </span>
 
                 <h1 className="text-[clamp(2.2rem,5vw,4.2rem)] font-bold tracking-tight text-[#111111] leading-[1.05]">
-                  Your listening history, decoded.
+                  Your listening history, simplified.
                 </h1>
 
                 <p className="text-sm sm:text-base md:text-lg text-[#808080] mt-4 sm:mt-5 max-w-[56ch] leading-relaxed">
-                  Sign in with Spotify to instantly view your Top Tracks, Top Artists, Top Albums, Circadian Clock, and get roasted by our AI critic.
+                  Sign in with Spotify to instantly view your top songs, artists, albums, daily listening habits, and get a lighthearted roast of your music taste.
                 </p>
               </div>
 
@@ -401,12 +401,12 @@ export default function App() {
             <div className="lg:col-span-5 flex flex-col divide-y-4 divide-[#111111] bg-[#FFFFFF]">
               <div className="p-5 sm:p-8 bg-[#0000FF] text-[#FFFFFF] flex-1 flex flex-col justify-between">
                 <span className="font-mono text-xs font-bold uppercase opacity-80">
-                  [01 - CATALOG]
+                  [01 - TOP MUSIC]
                 </span>
                 <div className="my-4 sm:my-6">
                   <h3 className="text-xl sm:text-2xl font-bold">Top Songs & Albums</h3>
                   <p className="text-xs sm:text-sm opacity-90 mt-2">
-                    Ranked across 4 Weeks, 6 Months, and All Time with album aggregation and direct links.
+                    Ranked across 4 weeks, 6 months, and all time with direct links and album groupings.
                   </p>
                 </div>
                 <div className="h-2 w-16 bg-[#FFFF00]" />
@@ -414,12 +414,12 @@ export default function App() {
 
               <div className="p-5 sm:p-8 bg-[#FFFF00] text-[#111111] flex-1 flex flex-col justify-between">
                 <span className="font-mono text-xs font-bold uppercase text-[#FF0000]">
-                  [02 - TASTE CRITIQUE]
+                  [02 - TASTE ROAST]
                 </span>
                 <div className="my-4 sm:my-6">
-                  <h3 className="text-xl sm:text-2xl font-bold">Roast My Spotify</h3>
+                  <h3 className="text-xl sm:text-2xl font-bold">Roast My Taste</h3>
                   <p className="text-xs sm:text-sm mt-2 text-[#111111]">
-                    Brutally honest critique of your top artists, track loops, and 2 AM listening schedule.
+                    A fun, honest critique of your top artists, repeated tracks, and late-night listening habits.
                   </p>
                 </div>
                 <div className="h-2 w-16 bg-[#FF0000]" />
@@ -490,13 +490,13 @@ export default function App() {
 
   const navItems: { id: DashboardTab; label: string; icon: React.ElementType; count?: number }[] = [
     { id: 'overview', label: 'Overview', icon: Home },
-    { id: 'roast', label: 'Roast Critique', icon: Flame },
-    { id: 'drift', label: 'Taste Drift', icon: TrendingUp },
+    { id: 'roast', label: 'Taste Roast', icon: Flame },
+    { id: 'drift', label: 'Taste Trends', icon: TrendingUp },
     { id: 'albums', label: 'Top Albums', icon: Disc3, count: stats.topAlbums.length },
     { id: 'artists', label: 'Top Artists', icon: Mic2, count: stats.topArtists.length },
     { id: 'tracks', label: 'Top Tracks', icon: Music2, count: stats.topTracks.length },
-    { id: 'genres', label: 'Genres & Ratio', icon: BarChart3 },
-    { id: 'activity', label: 'Circadian Grid', icon: History },
+    { id: 'genres', label: 'Top Genres', icon: BarChart3 },
+    { id: 'activity', label: 'Listening Clock', icon: History },
   ];
 
   return (
@@ -1113,7 +1113,7 @@ export default function App() {
 
                 <div className="mt-6 border-2 border-[#111111] bg-[#FFFF00] p-4">
                   <span className="font-mono text-[10px] font-bold uppercase text-[#111111] block">
-                    [AURA]
+                    [YOUR MUSIC VIBE]
                   </span>
                   <p className="text-base font-bold text-[#111111] mt-0.5 break-words">
                     {stats.vibe.personaTitle}
@@ -1290,7 +1290,7 @@ export default function App() {
               <div>
                 <div className="border-2 border-[#111111] bg-[#FFFF00] p-4 sm:p-5 mb-6">
                   <span className="font-mono text-xs font-bold uppercase text-[#111111]">
-                    [SONIC DNA]
+                    [YOUR MUSIC VIBE]
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1 break-words">
                     {stats.vibe.personaTitle}
@@ -1302,10 +1302,10 @@ export default function App() {
 
                 <div className="space-y-4">
                   {[
-                    { label: 'ENERGY & MOMENTUM', val: stats.vibe.energy, bg: 'bg-[#FF0000]' },
-                    { label: 'GROOVE & CADENCE', val: stats.vibe.danceability, bg: 'bg-[#0000FF]' },
-                    { label: 'MOOD VALENCE', val: stats.vibe.valence, bg: 'bg-[#FFFF00]' },
-                    { label: 'ORGANIC TEXTURE', val: stats.vibe.acousticness, bg: 'bg-[#111111]' },
+                    { label: 'ENERGY', val: stats.vibe.energy, bg: 'bg-[#FF0000]' },
+                    { label: 'DANCEABILITY', val: stats.vibe.danceability, bg: 'bg-[#0000FF]' },
+                    { label: 'MOOD (HAPPINESS)', val: stats.vibe.valence, bg: 'bg-[#FFFF00]' },
+                    { label: 'ACOUSTIC SOUNDS', val: stats.vibe.acousticness, bg: 'bg-[#111111]' },
                   ].map((item) => (
                     <div key={item.label}>
                       <div className="flex items-center justify-between font-mono text-xs mb-1">

@@ -246,87 +246,89 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      {/* Row 3: 20-Week Mondrian Daily Consistency Matrix */}
-      <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-4 border-b-2 border-[#111111] mb-6">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FF0000]">
-              <Flame className="w-4 h-4 shrink-0" />
-              <span>[GRID 05] DAILY LISTENING STREAK MATRIX</span>
+      {/* Row 3: 20-Week Mondrian Daily Consistency Matrix (Only for Extended Streaming Archive History) */}
+      {stats.sourceMode === 'history' && (
+        <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-4 border-b-2 border-[#111111] mb-6">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FF0000]">
+                <Flame className="w-4 h-4 shrink-0" />
+                <span>[GRID 05] DAILY LISTENING STREAK MATRIX</span>
+              </div>
+              <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">
+                Daily Listening Grid (140 Days)
+              </h3>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">
-              Daily Listening Grid (140 Days)
-            </h3>
-          </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
-            <div className="border-2 border-[#111111] bg-[#FFFF00] px-3 sm:px-4 py-2 flex-1 sm:flex-initial">
-              <span className="font-mono text-[10px] font-bold uppercase text-[#111111] block">
-                ACTIVE STREAK
-              </span>
-              <span className="font-mono text-base sm:text-lg font-bold text-[#111111]">
-                {stats.currentStreakDays} DAYS
-              </span>
-            </div>
-            <div className="border-2 border-[#111111] bg-[#FF0000] text-[#FFFFFF] px-3 sm:px-4 py-2 flex-1 sm:flex-initial min-w-0">
-              <span className="font-mono text-[10px] font-bold uppercase block truncate">
-                PEAK STREAK
-              </span>
-              <span className="font-mono text-base sm:text-lg font-bold">
-                {stats.longestStreakDays} DAYS
-              </span>
-              {stats.longestStreakRange && (
-                <span className="font-mono text-[9px] opacity-80 block truncate mt-0.5">
-                  {stats.longestStreakRange}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <div className="border-2 border-[#111111] bg-[#FFFF00] px-3 sm:px-4 py-2 flex-1 sm:flex-initial">
+                <span className="font-mono text-[10px] font-bold uppercase text-[#111111] block">
+                  ACTIVE STREAK
                 </span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {stats.dailyActivity.length > 0 ? (
-          <div className="overflow-x-auto pb-2">
-            <div className="grid grid-rows-7 grid-flow-col gap-1.5 min-w-[660px]">
-              {heatmapDays.map((cell) => {
-                const ratio = cell.minutes / maxDailyMin;
-                const colorClass =
-                  cell.minutes === 0
-                    ? 'bg-[#FFFFFF]'
-                    : ratio < 0.3
-                    ? 'bg-[#FFFF00]'
-                    : ratio < 0.65
-                    ? 'bg-[#0000FF]'
-                    : 'bg-[#FF0000]';
-                return (
-                  <div
-                    key={cell.date}
-                    title={`${cell.date}: ${cell.minutes} minutes listened`}
-                    className={`w-4 h-4 border border-[#111111] ${colorClass} transition-transform duration-200 hover:scale-125`}
-                  />
-                );
-              })}
-            </div>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 font-mono text-xs text-[#808080] mt-4 pt-3 border-t border-[#111111]">
-              <span className="inline-flex items-center gap-1.5 text-[#111111]">
-                <Activity className="w-3.5 h-3.5 text-[#FF0000] shrink-0" />
-                <span>Inspect any rectangle for daily minutes</span>
-              </span>
-              <div className="flex items-center gap-2 text-[#111111] font-bold self-end sm:self-auto">
-                <span>0M</span>
-                <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FFFFFF] inline-block" />
-                <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FFFF00] inline-block" />
-                <span className="w-3.5 h-3.5 border border-[#111111] bg-[#0000FF] inline-block" />
-                <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FF0000] inline-block" />
-                <span>PEAK</span>
+                <span className="font-mono text-base sm:text-lg font-bold text-[#111111]">
+                  {stats.currentStreakDays} DAYS
+                </span>
+              </div>
+              <div className="border-2 border-[#111111] bg-[#FF0000] text-[#FFFFFF] px-3 sm:px-4 py-2 flex-1 sm:flex-initial min-w-0">
+                <span className="font-mono text-[10px] font-bold uppercase block truncate">
+                  PEAK STREAK
+                </span>
+                <span className="font-mono text-base sm:text-lg font-bold">
+                  {stats.longestStreakDays} DAYS
+                </span>
+                {stats.longestStreakRange && (
+                  <span className="font-mono text-[9px] opacity-80 block truncate mt-0.5">
+                    {stats.longestStreakRange}
+                  </span>
+                )}
               </div>
             </div>
           </div>
-        ) : (
-          <div className="py-8 text-center font-mono text-xs text-[#808080] border border-[#111111]">
-            Import your Spotify Streaming History JSON/ZIP to populate the 140-day activity matrix.
-          </div>
-        )}
-      </div>
+
+          {stats.dailyActivity.length > 0 ? (
+            <div className="overflow-x-auto pb-2">
+              <div className="grid grid-rows-7 grid-flow-col gap-1.5 min-w-[660px]">
+                {heatmapDays.map((cell) => {
+                  const ratio = cell.minutes / maxDailyMin;
+                  const colorClass =
+                    cell.minutes === 0
+                      ? 'bg-[#FFFFFF]'
+                      : ratio < 0.3
+                      ? 'bg-[#FFFF00]'
+                      : ratio < 0.65
+                      ? 'bg-[#0000FF]'
+                      : 'bg-[#FF0000]';
+                  return (
+                    <div
+                      key={cell.date}
+                      title={`${cell.date}: ${cell.minutes} minutes listened`}
+                      className={`w-4 h-4 border border-[#111111] ${colorClass} transition-transform duration-200 hover:scale-125`}
+                    />
+                  );
+                })}
+              </div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 font-mono text-xs text-[#808080] mt-4 pt-3 border-t border-[#111111]">
+                <span className="inline-flex items-center gap-1.5 text-[#111111]">
+                  <Activity className="w-3.5 h-3.5 text-[#FF0000] shrink-0" />
+                  <span>Inspect any rectangle for daily minutes</span>
+                </span>
+                <div className="flex items-center gap-2 text-[#111111] font-bold self-end sm:self-auto">
+                  <span>0M</span>
+                  <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FFFFFF] inline-block" />
+                  <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FFFF00] inline-block" />
+                  <span className="w-3.5 h-3.5 border border-[#111111] bg-[#0000FF] inline-block" />
+                  <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FF0000] inline-block" />
+                  <span>PEAK</span>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="py-8 text-center font-mono text-xs text-[#808080] border border-[#111111]">
+              Import your Spotify Streaming History JSON/ZIP to populate the 140-day activity matrix.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

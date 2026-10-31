@@ -514,9 +514,9 @@ export async function fetchLiveSpotifyStats(
         totalMinutes / (apiRange === 'short_term' ? 28 : apiRange === 'medium_term' ? 180 : 365)
       )
     ),
-    currentStreakDays: Math.max(1, dailyActivity.length),
-    longestStreakDays: Math.max(1, dailyActivity.length),
-    longestStreakRange: 'Recent Spotify Activity',
+    currentStreakDays: 0,
+    longestStreakDays: 0,
+    longestStreakRange: 'N/A',
     peakHour,
     peakWeekday,
     topTracks,

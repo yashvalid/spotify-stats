@@ -795,26 +795,50 @@ export default function App() {
                 </div>
               </div>
 
-              <div
-                onClick={() => setActiveTab('activity')}
-                className="sm:col-span-5 p-4 sm:p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] cursor-pointer flex flex-col justify-between"
-              >
-                <div className="flex items-center justify-between font-mono text-xs font-bold">
-                  <span>[STREAK]</span>
-                  <Flame className="w-4 h-4 text-[#FF0000]" />
-                </div>
-                <div className="my-3 sm:my-4">
-                  <p className="text-2xl sm:text-3xl font-bold">
-                    {stats.longestStreakDays} DAYS
+              {stats.sourceMode === 'history' ? (
+                <div
+                  onClick={() => setActiveTab('activity')}
+                  className="sm:col-span-5 p-4 sm:p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] cursor-pointer flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between font-mono text-xs font-bold">
+                    <span>[STREAK]</span>
+                    <Flame className="w-4 h-4 text-[#FF0000]" />
+                  </div>
+                  <div className="my-3 sm:my-4">
+                    <p className="text-2xl sm:text-3xl font-bold">
+                      {stats.longestStreakDays} DAYS
+                    </p>
+                    <p className="font-mono text-xs font-bold mt-1">
+                      CURRENT: {stats.currentStreakDays} DAYS
+                    </p>
+                  </div>
+                  <p className="font-mono text-[11px] truncate border-t border-[#111111] pt-2">
+                    {stats.longestStreakRange}
                   </p>
-                  <p className="font-mono text-xs font-bold mt-1">
-                    CURRENT: {stats.currentStreakDays} DAYS
-                  </p>
                 </div>
-                <p className="font-mono text-[11px] truncate border-t border-[#111111] pt-2">
-                  {stats.longestStreakRange}
-                </p>
-              </div>
+              ) : (
+                <div
+                  onClick={() => setActiveTab('genres')}
+                  className="sm:col-span-5 p-4 sm:p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] hover:bg-[#ffed4a] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
+                >
+                  <div className="flex items-center justify-between font-mono text-xs font-bold">
+                    <span>[TOP GENRE]</span>
+                    <BarChart3 className="w-4 h-4 text-[#0000FF]" />
+                  </div>
+                  <div className="my-3 sm:my-4">
+                    <p className="text-xl sm:text-2xl font-bold uppercase truncate">
+                      {stats.topGenres[0]?.name || 'ECLECTIC'}
+                    </p>
+                    <p className="font-mono text-xs font-bold mt-1 text-[#111111]">
+                      {stats.topGenres[0] ? `${stats.topGenres[0].percentage}% OF ROTATION` : 'VARIED TASTE'}
+                    </p>
+                  </div>
+                  <div className="font-mono text-xs font-bold flex flex-wrap items-center justify-between gap-1 pt-2 border-t border-[#111111]">
+                    <span>{stats.topGenres.length} GENRES</span>
+                    <span>VIEW ALL →</span>
+                  </div>
+                </div>
+              )}
 
               <div
                 onClick={() => setActiveTab('artists')}

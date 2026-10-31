@@ -48,7 +48,7 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-8 p-4 sm:p-8 bg-[#FFFF00] border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
           <div className="inline-flex items-center gap-2 border border-[#111111] bg-[#111111] text-[#FFFF00] px-3 py-1 font-mono text-xs font-bold uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>[TASTE TRENDS]</span>
+            <span>TASTE TRENDS</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-[#111111] tracking-tight">
             How Your Taste is Changing

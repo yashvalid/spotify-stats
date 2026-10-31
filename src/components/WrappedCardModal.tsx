@@ -7,7 +7,7 @@ interface Props {
   onClose: () => void;
 }
 
-type CardTheme = 'mondrian' | 'red_ochre' | 'cobalt' | 'monolith';
+type CardTheme = 'classic' | 'red_ochre' | 'cobalt' | 'monolith';
 type CardFormat = 'story' | 'square' | 'receipt';
 
 const THEMES: Record<
@@ -20,8 +20,8 @@ const THEMES: Record<
     secondaryHex: string;
   }
 > = {
-  mondrian: {
-    label: 'Utrecht 1917 (Triad)',
+  classic: {
+    label: 'Primary Triad',
     headerBg: 'bg-[#FF0000]',
     headerText: 'text-[#FFFFFF]',
     accentHex: '#FF0000',
@@ -42,7 +42,7 @@ const THEMES: Record<
     secondaryHex: '#FFFF00',
   },
   monolith: {
-    label: 'Neoplastic Yellow',
+    label: 'Primary Yellow',
     headerBg: 'bg-[#FFFF00]',
     headerText: 'text-[#111111]',
     accentHex: '#FFFF00',
@@ -51,7 +51,7 @@ const THEMES: Record<
 };
 
 export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
-  const [theme, setTheme] = useState<CardTheme>('mondrian');
+  const [theme, setTheme] = useState<CardTheme>('classic');
   const [format, setFormat] = useState<CardFormat>('story');
   const [downloading, setDownloading] = useState(false);
 
@@ -171,7 +171,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
 
         ctx.fillStyle = '#FFFF00';
         ctx.font = 'bold 28px "JetBrains Mono", monospace';
-        ctx.fillText('STATIFY // ARCHITECTURE', 80, 1810);
+        ctx.fillText('STATIFY // STATS', 80, 1810);
         ctx.font = 'bold 22px "JetBrains Mono", monospace';
         ctx.fillStyle = '#FFFFFF';
         ctx.fillText(`MADE WITH ♥ BY YASH`, 740, 1810);

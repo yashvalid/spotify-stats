@@ -300,7 +300,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Flat Canvas Composition
+    // Canvas Background
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, 1080, 1350);
 
@@ -385,7 +385,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
 
     ctx.fillStyle = '#FFFFFF';
     ctx.font = 'bold 24px "JetBrains Mono", monospace';
-    ctx.fillText('STATIFY 1917', 760, 1250);
+    ctx.fillText('STATIFY ROAST', 760, 1250);
 
     const link = document.createElement('a');
     link.download = `spotify-roast-${stats.userName.toLowerCase().replace(/\s+/g, '-')}.png`;
@@ -395,24 +395,24 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
 
   return (
     <div className="space-y-8 animate-fade-enter">
-      {/* Asymmetric Top Header Block (8 cols / 4 cols) */}
+      {/* Top Header Block */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         <div className="lg:col-span-8 p-5 sm:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] bg-[#FF0000] text-[#FFFFFF]">
           <div className="inline-flex items-center gap-2 border border-[#111111] bg-[#111111] text-[#FFFF00] px-3 py-1 font-mono text-xs font-bold uppercase mb-3">
             <Flame className="w-3.5 h-3.5" />
-            <span>[SPOTIFY TASTE CRITIQUE]</span>
+            <span>Taste Roast</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold tracking-tight">
             How Bad Is Your Spotify?
           </h2>
           <p className="text-xs sm:text-sm text-[#FFFFFF] mt-2 max-w-2xl">
-            Structural critique of your actual Top Artists, Top Tracks, Genres, and Circadian Listening Axis.
+            A fun critique of your actual listening habits, top tracks, and artists.
           </p>
         </div>
 
         <div className="lg:col-span-4 p-5 sm:p-6 bg-[#FFFF00] flex flex-col justify-between gap-4">
           <span className="font-mono text-xs font-bold uppercase text-[#111111]">
-            [ACTIONS & EXPORT]
+            Export
           </span>
           <div className="flex flex-col gap-2.5">
             <button
@@ -476,7 +476,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-8 p-4 sm:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] space-y-4 sm:space-y-6">
           <div>
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#0000FF]">
-              [THE VERDICT]
+              THE VERDICT
             </span>
             <h3 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#111111] mt-2 leading-tight break-words">
               &ldquo;{roast.headline}&rdquo;
@@ -505,14 +505,14 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-4 flex flex-col justify-between divide-y-2 divide-[#111111]">
           <div className="p-4 sm:p-6 bg-[#0000FF] text-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest block opacity-80">
-              [TASTE RATING]
+              TASTE RATING
             </span>
             <p className="font-mono text-xl sm:text-2xl font-bold mt-2 break-words">{roast.tasteRating}</p>
           </div>
 
           <div className="p-4 sm:p-6 bg-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest text-[#808080] block">
-              [MAINSTREAM SCORE]
+              MAINSTREAM SCORE
             </span>
             <p className="font-mono text-2xl sm:text-3xl font-bold text-[#111111] mt-1">
               {roast.basicScore}% MAINSTREAM
@@ -527,14 +527,14 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
 
           <div className="p-4 sm:p-6 bg-[#111111] text-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest text-[#FFFF00] block">
-              [THE RECOMMENDATION]
+              PRESCRIPTION
             </span>
             <p className="font-mono text-xs leading-relaxed mt-2 break-words">{roast.prescription}</p>
           </div>
         </div>
       </div>
 
-      {/* Asymmetric Artist Indictments */}
+      {/* Artist Indictments */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         {/* #1 Artist Featured Indictment (5 cols) */}
         {roast.artistRoasts[0] && (
@@ -543,7 +543,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
               <div className="flex items-center justify-between pb-3 border-b-2 border-[#111111]">
                 <span className="font-mono text-xs font-bold uppercase text-[#111111] flex items-center gap-1.5 truncate pr-2">
                   <Mic2 className="w-4 h-4 text-[#FF0000] shrink-0" />
-                  <span className="truncate">[YOUR #1 ARTIST]</span>
+                  <span className="truncate">TOP ARTIST</span>
                 </span>
                 <span className="font-mono text-xs font-bold bg-[#111111] text-[#FFFFFF] px-2 py-0.5 shrink-0">
                   #1
@@ -589,18 +589,18 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         </div>
       </div>
 
-      {/* Asymmetric Breakdown Row (7 cols / 5 cols) */}
+      {/* Breakdown Row */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         <div className="lg:col-span-7 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] space-y-4">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#FF0000]">
             <Music2 className="w-4 h-4" />
-            <span>[SONG REPEATS]</span>
+            <span>SONG REPEATS</span>
           </div>
           <p className="text-xs sm:text-sm text-[#111111] leading-relaxed">{roast.trackRoast}</p>
           <div className="pt-3 border-t border-[#111111]">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#0000FF] mb-1">
               <Disc3 className="w-4 h-4" />
-              <span>[YOUR GENRES]</span>
+              <span>TOP GENRES</span>
             </div>
             <p className="text-xs sm:text-sm text-[#808080] leading-relaxed">{roast.genreRoast}</p>
           </div>
@@ -609,7 +609,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         <div className="lg:col-span-5 p-4 sm:p-6 bg-[#111111] text-[#FFFFFF] flex flex-col justify-between">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#FFFF00]">
             <Clock className="w-4 h-4" />
-            <span>[LISTENING HOURS]</span>
+            <span>LISTENING HOURS</span>
           </div>
           <p className="text-sm leading-relaxed my-4">{roast.clockRoast}</p>
           <div className="h-3 w-full bg-[#FF0000] border border-[#FFFFFF]" />

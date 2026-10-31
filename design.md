@@ -1,7 +1,7 @@
 ---
 version: "alpha"
-name: "Geometric Abstrato"
-description: "Abstract geometric design system. Ideal for landing pages, saas. AI-ready template."
+name: "Statify UI Spec"
+description: "UI component and layout specifications for Statify."
 colors:
   primary: "#FF0000"
   secondary: "#0000FF"
@@ -31,19 +31,14 @@ components:
 
 ## Overview
 
-Abstract geometric design system. Ideal for landing pages, saas. AI-ready template. In the early 20th century, avant-garde artists and architects proposed something radical: reduce everything to horizontals, verticals, and the three primary colors plus black and white. That's it. No curves, no gradients, no compromise. They believed this vocabulary was universal — a visual Esperanto that needed no cultural translation.
-
-Compositions look deceptively simple. A black grid, rectangles of red, yellow, blue, white. But spend time with them and you notice the tension. The asymmetry is deliberate. Weight shifts. Proportions breathe. The goal: how to create dynamic balance within a rigid structure.
-
-The movement's DNA runs through modern UI design. CSS Grid is, at its core, a grid machine. The 12-column layout, the modular spacing system, the idea that constraint breeds creativity — architectural masters figured that out a century before we wrote our first media query. Gerrit Rietveld's furniture and architecture proved the system worked in three dimensions. The Bauhaus absorbed it. Swiss typography refined it.
+UI style tokens and layout specifications for Statify components and dashboard views.
 
 - Density: 3/10 — Airy
 - Variance: 7/10 — Dynamic
 - Motion: 4/10 — Subtle
 
-- **Style:** Geometric, Minimalist, Structured
-- **Keywords:** abstract, geometric, minimalist, structured, primary colors, grid, bold lines, asymmetrical, neoplasticism
-- **Era:** Early 20th Century, Neoplasticism
+- **Style:** Structured, Functional
+- **Keywords:** primary colors, grid, bold lines
 - **Light/Dark:** ✓ Full / ✗ No
 
 ## Colors

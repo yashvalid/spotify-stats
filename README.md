@@ -2,7 +2,7 @@
 
 > **Your Spotify listening history, decoded.**
 
-A client-side Spotify analytics dashboard and AI-style roast generator. Statify transforms your streaming data into bold primary colors, stark grid compositions, and deep musical insights.
+A client-side Spotify analytics dashboard and roast generator. Statify transforms your streaming data into visual breakdowns and musical insights.
 
 ---
 
@@ -38,14 +38,6 @@ A client-side Spotify analytics dashboard and AI-style roast generator. Statify 
 
 ---
 
-## 🧱 Design Philosophy: Geometric Minimalism
-
-Statify embraces a bold, geometric design language:
-- **Primary Color Palette**: Cadmium Red (`#FF0000`), Cobalt Blue (`#0000FF`), and Primary Yellow (`#FFFF00`) anchored by Pure White and Deep Charcoal/Black (`#111111`).
-- **Asymmetric Grid Balance**: Heavy horizontal and vertical borders with dynamic CSS Grid hierarchy.
-- **Precision Typography**: Clean grotesque headlines paired with JetBrains Mono for data readouts and metrics.
-
----
 
 ## 🛠️ Tech Stack
 

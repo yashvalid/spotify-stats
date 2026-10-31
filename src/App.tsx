@@ -66,7 +66,7 @@ const TIME_RANGES: { id: TimeRange; label: string; shortLabel: string }[] = [
   { id: 'all_time', label: 'All Time', shortLabel: 'ALL' },
 ];
 
-function MondrianMark({ className = 'w-7 h-7' }: { className?: string }) {
+function StatifyLogo({ className = 'w-7 h-7' }: { className?: string }) {
   return (
     <svg viewBox="0 0 32 32" className={className} aria-hidden="true">
       <rect x="1" y="1" width="30" height="30" fill="#FFFFFF" stroke="#111111" strokeWidth="2.5" />
@@ -323,7 +323,7 @@ export default function App() {
         <header className="border-b-4 border-[#111111] bg-[#FFFFFF]">
           <div className="mx-auto max-w-[1280px] px-3.5 sm:px-6 h-16 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
-              <MondrianMark className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
+              <StatifyLogo className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
               <span className="text-lg sm:text-xl font-bold tracking-tight text-[#111111]">
                 STATIFY
               </span>
@@ -365,13 +365,13 @@ export default function App() {
             </div>
           )}
 
-          {/* Clean Asymmetric Hero: 7 cols Manifesto + 1-Click Action / 5 cols Features */}
+          {/* Landing Hero: 7 cols Action / 5 cols Features */}
           <div className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF]">
             {/* Left 7 Columns: Direct 1-Click Sign In */}
             <div className="lg:col-span-7 p-5 sm:p-8 md:p-12 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
               <div>
                 <span className="inline-block border-2 border-[#111111] bg-[#FFFF00] px-3 py-1 font-mono text-xs font-bold uppercase text-[#111111] mb-5 sm:mb-6">
-                  [SPOTIFY STATS & ANALYTICS]
+                  Spotify Stats
                 </span>
 
                 <h1 className="text-[clamp(2.2rem,5vw,4.2rem)] font-bold tracking-tight text-[#111111] leading-[1.05]">
@@ -379,7 +379,7 @@ export default function App() {
                 </h1>
 
                 <p className="text-sm sm:text-base md:text-lg text-[#808080] mt-4 sm:mt-5 max-w-[56ch] leading-relaxed">
-                  Sign in with Spotify to instantly view your top songs, artists, albums, daily listening habits, and get a lighthearted roast of your music taste.
+                  Sign in to explore your top songs, artists, genres, and roast your music taste.
                 </p>
               </div>
 
@@ -399,16 +399,16 @@ export default function App() {
                   <span>• 100% private</span>
                 </div>
                 <p className="mt-3 text-[11px] font-mono text-[#808080] leading-relaxed">
-                  * Note: Spotify's Web API limits access to Top 50 rankings and recent plays (minutes are estimated; streaks are unavailable). For 100% exact historical listening data, drop your Spotify archive (.zip) above.
+                  * Web API syncs your live Top 50 and recent plays. Drop a Spotify .zip for lifetime stats.
                 </p>
               </div>
             </div>
 
-            {/* Right 5 Columns: Visual Mondrian Blocks */}
+            {/* Right 5 Columns: Feature Highlights */}
             <div className="lg:col-span-5 flex flex-col divide-y-4 divide-[#111111] bg-[#FFFFFF]">
               <div className="p-5 sm:p-8 bg-[#0000FF] text-[#FFFFFF] flex-1 flex flex-col justify-between">
                 <span className="font-mono text-xs font-bold uppercase opacity-80">
-                  [01 - TOP MUSIC]
+                  TOP MUSIC
                 </span>
                 <div className="my-4 sm:my-6">
                   <h3 className="text-xl sm:text-2xl font-bold">Top Songs & Albums</h3>
@@ -421,7 +421,7 @@ export default function App() {
 
               <div className="p-5 sm:p-8 bg-[#FFFF00] text-[#111111] flex-1 flex flex-col justify-between">
                 <span className="font-mono text-xs font-bold uppercase text-[#FF0000]">
-                  [02 - TASTE ROAST]
+                  TASTE ROAST
                 </span>
                 <div className="my-4 sm:my-6">
                   <h3 className="text-xl sm:text-2xl font-bold">Roast My Taste</h3>
@@ -515,7 +515,7 @@ export default function App() {
           <div className="flex items-center justify-between gap-2 w-full md:w-auto">
             {/* Brand + Status */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-              <MondrianMark className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
+              <StatifyLogo className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <span className="text-base sm:text-lg font-bold tracking-tight text-[#111111]">STATIFY</span>
                 <span
@@ -721,7 +721,7 @@ export default function App() {
 
         {loadingLive && (
           <div className="rounded-lg border-2 border-[#111111] bg-[#FFFF00] px-4 py-2.5 font-mono text-xs font-bold text-[#111111] animate-shimmer">
-            [SYNCING RECENT SPOTIFY DATA...]
+            Syncing recent Spotify data...
           </div>
         )}
 
@@ -734,10 +734,10 @@ export default function App() {
                   <AlertCircle className="w-4 h-4 text-[#0000FF] shrink-0 mt-0.5" />
                   <div>
                     <span className="font-mono font-bold uppercase text-[#0000FF] block sm:inline sm:mr-2">
-                      [DATA LIMITATION NOTICE • SPOTIFY WEB API]
+                      NOTE: SPOTIFY WEB API
                     </span>
                     <span className="text-[#111111] leading-relaxed">
-                      Spotify's Web API only provides top 50 rankings and recent plays. Total listening minutes are estimated, and historical features like daily streak matrices require importing an Extended History archive (<code className="font-mono font-bold">.zip</code>).
+                      Showing live Top 50 rankings and recent plays. Drop your Spotify <code className="font-mono font-bold">.zip</code> archive anytime for complete historical stats.
                     </span>
                   </div>
                 </div>
@@ -771,7 +771,7 @@ export default function App() {
                   )}
                   <div className="min-w-0 flex-1">
                     <span className="font-mono text-xs font-bold uppercase text-[#0000FF] block truncate">
-                      [{stats.dateRangeLabel}]
+                      {stats.dateRangeLabel}
                     </span>
                     <h1 className="text-xl sm:text-2xl font-bold text-[#111111] truncate mt-0.5">
                       {stats.userName}
@@ -785,7 +785,7 @@ export default function App() {
                 {stats.sourceMode === 'history' ? (
                   <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
                     <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
-                      <span>[MINUTES LISTENED]</span>
+                      <span>MINUTES LISTENED</span>
                     </div>
                     <div className="my-3 sm:my-4">
                       <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
@@ -803,10 +803,7 @@ export default function App() {
                 ) : (
                   <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
                     <div className="flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
-                      <span>[LIVE CATALOG SNAPSHOT]</span>
-                      <span className="text-[10px] bg-[#FFFFFF] text-[#FF0000] font-mono font-bold px-1.5 py-0.5 border border-[#FFFFFF]">
-                        VERIFIED
-                      </span>
+                      <span>CATALOG SNAPSHOT</span>
                     </div>
                     <div className="my-3 sm:my-4">
                       <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
@@ -832,7 +829,7 @@ export default function App() {
                 className="sm:col-span-7 p-4 sm:p-6 border-b-4 sm:border-r-4 border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold text-[#111111]">
-                  <span>[TOP ALBUM]</span>
+                  <span>TOP ALBUM</span>
                   <Disc3 className="w-4 h-4 text-[#FF0000]" />
                 </div>
                 {stats.topAlbums[0] ? (
@@ -869,7 +866,7 @@ export default function App() {
                   className="sm:col-span-5 p-4 sm:p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] cursor-pointer flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between font-mono text-xs font-bold">
-                    <span>[STREAK]</span>
+                    <span>STREAK</span>
                     <Flame className="w-4 h-4 text-[#FF0000]" />
                   </div>
                   <div className="my-3 sm:my-4">
@@ -890,7 +887,7 @@ export default function App() {
                   className="sm:col-span-5 p-4 sm:p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] hover:bg-[#ffed4a] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between font-mono text-xs font-bold">
-                    <span>[TOP GENRE]</span>
+                    <span>TOP GENRE</span>
                     <BarChart3 className="w-4 h-4 text-[#0000FF]" />
                   </div>
                   <div className="my-3 sm:my-4">
@@ -913,7 +910,7 @@ export default function App() {
                 className="sm:col-span-5 p-4 sm:p-6 border-b-4 sm:border-b-0 sm:border-r-4 border-[#111111] bg-[#0000FF] text-[#FFFFFF] cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold">
-                  <span>[TOP ARTIST]</span>
+                  <span>TOP ARTIST</span>
                   <Mic2 className="w-4 h-4 text-[#FFFF00]" />
                 </div>
                 {stats.topArtists[0] ? (
@@ -946,7 +943,7 @@ export default function App() {
                 className="sm:col-span-7 p-4 sm:p-6 bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold text-[#111111]">
-                  <span>[#1 TRACK]</span>
+                  <span>#1 TRACK</span>
                   <Layers className="w-4 h-4 text-[#0000FF]" />
                 </div>
                 {stats.topTracks[0] ? (
@@ -1161,7 +1158,7 @@ export default function App() {
 
                 <div className="mt-6 border-2 border-[#111111] bg-[#FFFF00] p-4">
                   <span className="font-mono text-[10px] font-bold uppercase text-[#111111] block">
-                    [YOUR MUSIC VIBE]
+                    MUSIC VIBE
                   </span>
                   <p className="text-base font-bold text-[#111111] mt-0.5 break-words">
                     {stats.vibe.personaTitle}
@@ -1183,7 +1180,7 @@ export default function App() {
                   <div>
                     <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
                       <History className="w-4 h-4" />
-                      <span>[LIVE RECENT ACTIVITY]</span>
+                      <span>RECENT ACTIVITY</span>
                     </div>
                     <h3 className="text-xl font-bold text-[#111111] mt-1">Recently Played Songs</h3>
                   </div>
@@ -1395,7 +1392,7 @@ export default function App() {
               <div>
                 <div className="border-2 border-[#111111] bg-[#FFFF00] p-4 sm:p-5 mb-6">
                   <span className="font-mono text-xs font-bold uppercase text-[#111111]">
-                    [YOUR MUSIC VIBE]
+                    MUSIC VIBE
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1 break-words">
                     {stats.vibe.personaTitle}

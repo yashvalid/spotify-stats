@@ -70,7 +70,7 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
         <div className="min-w-0">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#111111]">
             <Gem className="w-4 h-4 text-[#FF0000] shrink-0" />
-            <span>[UNDERGROUND METER]</span>
+            <span>UNDERGROUND METER</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1 break-words">
             How Underground Is Your Taste?
@@ -97,9 +97,6 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
               </span>
               <span className="font-mono text-base sm:text-lg text-[#808080]">/ 100</span>
             </div>
-            <p className="text-xs text-[#808080] mt-1 font-mono">
-              (Higher = more indie & lesser-known songs)
-            </p>
           </div>
 
           <div className="my-5 sm:my-6">
@@ -150,7 +147,9 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
                     {mostUndergroundTrack.artist}
                   </p>
                   <p className="font-mono text-[11px] text-[#0000FF] font-bold mt-1 truncate">
-                    {mostUndergroundTrack.minutes.toLocaleString()} MIN PLAYED
+                    {stats.sourceMode === 'history'
+                      ? `${mostUndergroundTrack.minutes.toLocaleString()} MIN PLAYED`
+                      : `${mostUndergroundTrack.popularity ?? 0}% POPULARITY`}
                   </p>
                 </div>
               </div>
@@ -192,7 +191,9 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
                     {guiltiestHit.artist}
                   </p>
                   <p className="font-mono text-[11px] text-[#FF0000] font-bold mt-1 truncate">
-                    {guiltiestHit.minutes.toLocaleString()} MIN PLAYED
+                    {stats.sourceMode === 'history'
+                      ? `${guiltiestHit.minutes.toLocaleString()} MIN PLAYED`
+                      : `${guiltiestHit.popularity ?? 0}% POPULARITY`}
                   </p>
                 </div>
               </div>

@@ -26,7 +26,7 @@ export const PlaylistCreatorModal: React.FC<Props & { isOpen: boolean; onClose: 
 }) => {
   const [playlistType, setPlaylistType] = useState<'top50' | 'deep_cuts' | 'night_owl'>('top50');
   const [customName, setCustomName] = useState(
-    `STATIFY // Top 50 [${stats.dateRangeLabel}]`
+    `Statify: Top 50 (${stats.dateRangeLabel})`
   );
   const [loading, setLoading] = useState(false);
   const [successUrl, setSuccessUrl] = useState<string | null>(null);

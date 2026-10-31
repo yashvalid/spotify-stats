@@ -43,7 +43,7 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
 
   return (
     <div className="space-y-6 sm:space-y-8">
-      {/* Asymmetric Row 1 (7 cols / 5 cols): Monthly Listening Volume + Sonic Composition */}
+      {/* Row 1: Monthly Listening Volume */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         {/* Monthly Timeline (7 cols) */}
         <div className="lg:col-span-7 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">

@@ -103,23 +103,23 @@ export const PlaylistCreatorModal: React.FC<Props & { isOpen: boolean; onClose: 
     >
       <div className="relative w-full max-w-xl max-h-[90vh] flex flex-col rounded-lg border-4 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden animate-fade-enter">
         {/* Header */}
-        <div className="flex items-center justify-between border-b-4 border-[#111111] bg-[#0000FF] text-[#FFFFFF] px-5 py-4 shrink-0">
-          <div className="flex items-center gap-2">
-            <ListPlus className="w-5 h-5 text-[#FFFF00]" />
-            <h2 className="text-lg font-bold uppercase tracking-tight">
+        <div className="flex items-center justify-between border-b-4 border-[#111111] bg-[#0000FF] text-[#FFFFFF] px-4 sm:px-5 py-3.5 sm:py-4 shrink-0">
+          <div className="flex items-center gap-2 min-w-0 pr-2">
+            <ListPlus className="w-5 h-5 text-[#FFFF00] shrink-0" />
+            <h2 className="text-base sm:text-lg font-bold uppercase tracking-tight truncate">
               Export Playlist to Spotify
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] px-2 py-1 text-xs font-bold text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] cursor-pointer"
+            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] px-2.5 py-1 text-xs font-bold text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] cursor-pointer shrink-0"
           >
             ✕
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-5 sm:p-6 space-y-5 overflow-y-auto flex-1 min-h-0">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto flex-1 min-h-0">
           {error && (
             <div className="p-3.5 border-2 border-[#111111] bg-[#FF0000] text-xs font-bold text-[#FFFFFF] space-y-2">
               <div className="flex items-start gap-2">
@@ -282,14 +282,14 @@ export const PlaylistCreatorModal: React.FC<Props & { isOpen: boolean; onClose: 
 
         {/* Footer */}
         {!successUrl && (
-          <div className="border-t-4 border-[#111111] bg-[#FFFFFF] px-5 py-3 shrink-0 flex items-center justify-between gap-3">
-            <span className="font-mono text-[11px] text-[#808080]">
+          <div className="border-t-4 border-[#111111] bg-[#FFFFFF] px-4 sm:px-5 py-3 shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3">
+            <span className="font-mono text-[11px] text-[#808080] text-center sm:text-left">
               Direct 1-click sync to your Spotify account
             </span>
             <button
               onClick={handleCreate}
               disabled={loading}
-              className="px-5 py-2.5 rounded-lg border-2 border-[#111111] bg-[#0000FF] hover:bg-[#111111] text-[#FFFFFF] font-mono text-xs font-bold transition-colors cursor-pointer flex items-center gap-2"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-lg border-2 border-[#111111] bg-[#0000FF] hover:bg-[#111111] text-[#FFFFFF] font-mono text-xs font-bold transition-colors cursor-pointer flex items-center justify-center gap-2 shrink-0"
             >
               {loading ? (
                 <>

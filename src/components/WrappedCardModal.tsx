@@ -349,32 +349,32 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
     >
       <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-lg border-4 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between border-b-4 border-[#111111] px-5 sm:px-6 py-4 shrink-0 bg-[#FFFF00]">
-          <div className="flex items-center gap-2.5">
-            <Sparkles className="w-5 h-5 text-[#FF0000]" />
-            <h2 className="text-base sm:text-lg font-bold text-[#111111] uppercase tracking-tight">
+        <div className="flex items-center justify-between border-b-4 border-[#111111] px-4 sm:px-6 py-3.5 sm:py-4 shrink-0 bg-[#FFFF00]">
+          <div className="flex items-center gap-2.5 min-w-0 pr-2">
+            <Sparkles className="w-5 h-5 text-[#FF0000] shrink-0" />
+            <h2 className="text-base sm:text-lg font-bold text-[#111111] uppercase tracking-tight truncate">
               Export Social Card & Story
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-1.5 text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
+            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-1.5 text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-5 sm:p-6 overflow-y-auto flex-1 min-h-0 space-y-5">
+        <div className="p-4 sm:p-6 overflow-y-auto flex-1 min-h-0 space-y-5">
           {/* Format Selector */}
           <div>
             <span className="font-mono text-xs font-bold uppercase text-[#808080] block mb-2">
               FORMAT PRESET:
             </span>
-            <div className="grid grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-3 gap-2 sm:gap-2.5">
               <button
                 type="button"
                 onClick={() => setFormat('story')}
-                className={`p-3 border-2 border-[#111111] text-center font-mono text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
+                className={`p-2.5 sm:p-3 border-2 border-[#111111] text-center font-mono text-[11px] sm:text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
                   format === 'story'
                     ? 'bg-[#111111] text-[#FFFFFF]'
                     : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
@@ -387,7 +387,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
               <button
                 type="button"
                 onClick={() => setFormat('square')}
-                className={`p-3 border-2 border-[#111111] text-center font-mono text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
+                className={`p-2.5 sm:p-3 border-2 border-[#111111] text-center font-mono text-[11px] sm:text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
                   format === 'square'
                     ? 'bg-[#111111] text-[#FFFFFF]'
                     : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
@@ -400,7 +400,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
               <button
                 type="button"
                 onClick={() => setFormat('receipt')}
-                className={`p-3 border-2 border-[#111111] text-center font-mono text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
+                className={`p-2.5 sm:p-3 border-2 border-[#111111] text-center font-mono text-[11px] sm:text-xs font-bold transition-colors cursor-pointer flex flex-col items-center gap-1.5 ${
                   format === 'receipt'
                     ? 'bg-[#111111] text-[#FFFFFF]'
                     : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
@@ -423,7 +423,7 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
                   <button
                     key={tKey}
                     onClick={() => setTheme(tKey)}
-                    className={`px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-colors border-2 border-[#111111] cursor-pointer ${
+                    className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-mono text-xs font-bold transition-colors border-2 border-[#111111] cursor-pointer ${
                       theme === tKey
                         ? 'bg-[#111111] text-[#FFFFFF]'
                         : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
@@ -437,16 +437,16 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
           )}
 
           {/* Live Preview Box */}
-          <div className="border-4 border-[#111111] bg-[#FFFFFF] p-4 text-center">
+          <div className="border-4 border-[#111111] bg-[#FFFFFF] p-3.5 sm:p-4 text-center">
             <span className="font-mono text-xs font-bold text-[#808080] block mb-2">
               PREVIEW READY FOR {format.toUpperCase()} EXPORT
             </span>
-            <div className="border-2 border-[#111111] p-4 max-w-sm mx-auto bg-[#F7F7F7] space-y-2 font-mono text-xs text-left">
+            <div className="border-2 border-[#111111] p-3.5 sm:p-4 max-w-sm mx-auto bg-[#F7F7F7] space-y-2 font-mono text-xs text-left">
               <div className="flex justify-between font-bold text-[#111111]">
-                <span>{stats.userName}</span>
-                <span className="text-[#FF0000]">{stats.totalMinutes.toLocaleString()} MIN</span>
+                <span className="truncate pr-2">{stats.userName}</span>
+                <span className="text-[#FF0000] shrink-0">{stats.totalMinutes.toLocaleString()} MIN</span>
               </div>
-              <div className="text-[11px] text-[#808080]">
+              <div className="text-[11px] text-[#808080] break-words">
                 Top Artist: {stats.topArtists[0]?.name || 'Artist'} • Aura: {stats.vibe.personaTitle}
               </div>
             </div>
@@ -454,24 +454,24 @@ export const WrappedCardModal: React.FC<Props> = ({ stats, onClose }) => {
         </div>
 
         {/* Footer */}
-        <div className="border-t-4 border-[#111111] px-5 sm:px-6 py-4 flex items-center justify-between gap-3 shrink-0 bg-[#FFFFFF]">
-          <span className="font-mono text-xs text-[#808080]">
+        <div className="border-t-4 border-[#111111] px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-3 shrink-0 bg-[#FFFFFF]">
+          <span className="font-mono text-xs text-[#808080] text-center sm:text-left">
             Exported as lossless PNG
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="rounded-lg border-2 border-[#808080] px-4 py-2 text-xs font-bold text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF] cursor-pointer"
+              className="flex-1 sm:flex-initial rounded-lg border-2 border-[#808080] px-3 sm:px-4 py-2 text-xs font-bold text-[#111111] hover:bg-[#111111] hover:text-[#FFFFFF] cursor-pointer"
             >
               CLOSE
             </button>
             <button
               onClick={handleDownloadPng}
               disabled={downloading}
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-[#111111] bg-[#FF0000] hover:bg-[#111111] px-5 py-2 text-xs font-bold text-[#FFFFFF] transition-colors cursor-pointer"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-lg border-2 border-[#111111] bg-[#FF0000] hover:bg-[#111111] px-4 sm:px-5 py-2 text-xs font-bold text-[#FFFFFF] transition-colors cursor-pointer"
             >
-              <Download className="w-4 h-4" />
-              <span>{downloading ? 'RENDERING...' : `DOWNLOAD ${format.toUpperCase()} PNG`}</span>
+              <Download className="w-4 h-4 shrink-0" />
+              <span className="truncate">{downloading ? 'RENDERING...' : `DOWNLOAD ${format.toUpperCase()}`}</span>
             </button>
           </div>
         </div>

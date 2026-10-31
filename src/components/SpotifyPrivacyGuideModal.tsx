@@ -129,7 +129,7 @@ export const SpotifyPrivacyGuideModal: React.FC<Props> = ({ isOpen, onClose }) =
                   </p>
 
                   {s.detail && (
-                    <div className="p-2 bg-[#F7F7F7] border border-[#111111] text-[11px] font-mono text-[#555555] whitespace-pre-line leading-relaxed">
+                    <div className="p-2 bg-[#F7F7F7] border border-[#111111] text-[11px] font-mono text-[#555555] whitespace-pre-line leading-relaxed break-words">
                       {s.detail}
                     </div>
                   )}

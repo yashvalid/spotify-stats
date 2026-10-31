@@ -66,18 +66,18 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
   return (
     <div className="border-4 border-[#111111] bg-[#FFFFFF] animate-fade-enter">
       {/* Header bar */}
-      <div className="p-5 sm:p-6 bg-[#FFFF00] border-b-4 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
+      <div className="p-4 sm:p-6 bg-[#FFFF00] border-b-4 border-[#111111] flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="min-w-0">
           <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase text-[#111111]">
-            <Gem className="w-4 h-4 text-[#FF0000]" />
+            <Gem className="w-4 h-4 text-[#FF0000] shrink-0" />
             <span>[OBSCURITY & HIPSTER INDEX]</span>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1 break-words">
             How Underground Is Your Taste?
           </h3>
         </div>
         <div className="flex items-center gap-3">
-          <span className={`font-mono text-xs font-bold px-3 py-1.5 border-2 border-[#111111] ${tier.badgeBg}`}>
+          <span className={`font-mono text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 py-1.5 border-2 border-[#111111] text-center max-w-full break-words ${tier.badgeBg}`}>
             {tier.title.toUpperCase()}
           </span>
         </div>
@@ -86,23 +86,23 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
       {/* Main Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-12 divide-y-4 md:divide-y-0 md:divide-x-4 divide-[#111111]">
         {/* Score gauge (4 cols) */}
-        <div className="md:col-span-4 p-6 bg-[#FFFFFF] flex flex-col justify-between">
+        <div className="md:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
           <div>
             <span className="font-mono text-xs font-bold uppercase text-[#808080] block">
               OBSCURITY SCORE
             </span>
             <div className="flex items-baseline gap-2 mt-2">
-              <span className="text-5xl font-bold font-mono text-[#111111]">
+              <span className="text-4xl sm:text-5xl font-bold font-mono text-[#111111]">
                 {obscurityScore}
               </span>
-              <span className="font-mono text-lg text-[#808080]">/ 100</span>
+              <span className="font-mono text-base sm:text-lg text-[#808080]">/ 100</span>
             </div>
             <p className="text-xs text-[#808080] mt-1 font-mono">
               (Higher = more indie & underground)
             </p>
           </div>
 
-          <div className="my-6">
+          <div className="my-5 sm:my-6">
             <div className="h-5 w-full border-2 border-[#111111] bg-[#FFFFFF] relative">
               <div
                 style={{ width: `${obscurityScore}%` }}
@@ -115,41 +115,41 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
             </div>
           </div>
 
-          <p className="text-xs text-[#111111] font-medium leading-relaxed border-t-2 border-[#111111] pt-3">
+          <p className="text-xs text-[#111111] font-medium leading-relaxed border-t-2 border-[#111111] pt-3 break-words">
             {tier.desc}
           </p>
         </div>
 
         {/* Most Underground Track (4 cols) */}
-        <div className="md:col-span-4 p-6 bg-[#FFFFFF] flex flex-col justify-between">
+        <div className="md:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-2 border-b-2 border-[#111111]">
-              <span className="font-mono text-xs font-bold uppercase text-[#0000FF] flex items-center gap-1.5">
-                <Gem className="w-3.5 h-3.5" />
-                #1 HIDDEN GEM
+              <span className="font-mono text-xs font-bold uppercase text-[#0000FF] flex items-center gap-1.5 truncate pr-2">
+                <Gem className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">#1 HIDDEN GEM</span>
               </span>
               {mostUndergroundTrack?.popularity !== undefined && (
-                <span className="font-mono text-xs font-bold px-1.5 bg-[#111111] text-[#FFFF00]">
+                <span className="font-mono text-xs font-bold px-1.5 bg-[#111111] text-[#FFFF00] shrink-0">
                   {mostUndergroundTrack.popularity}% POP
                 </span>
               )}
             </div>
 
             {mostUndergroundTrack && (
-              <div className="my-4 flex items-center gap-3.5">
+              <div className="my-3 sm:my-4 flex items-center gap-3 sm:gap-3.5">
                 <img
                   src={mostUndergroundTrack.coverUrl}
                   alt={mostUndergroundTrack.name}
-                  className="w-16 h-16 object-cover border-2 border-[#111111] shrink-0"
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
                 />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <h4 className="font-bold text-sm text-[#111111] truncate">
                     {mostUndergroundTrack.name}
                   </h4>
                   <p className="text-xs text-[#808080] truncate mt-0.5">
                     {mostUndergroundTrack.artist}
                   </p>
-                  <p className="font-mono text-[11px] text-[#0000FF] font-bold mt-1">
+                  <p className="font-mono text-[11px] text-[#0000FF] font-bold mt-1 truncate">
                     {mostUndergroundTrack.minutes.toLocaleString()} MIN PLAYED
                   </p>
                 </div>
@@ -163,35 +163,35 @@ export const ObscurityIndex: React.FC<Props> = ({ stats }) => {
         </div>
 
         {/* Guiltiest Pleasure / Global Hit (4 cols) */}
-        <div className="md:col-span-4 p-6 bg-[#FFFFFF] flex flex-col justify-between">
+        <div className="md:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-2 border-b-2 border-[#111111]">
-              <span className="font-mono text-xs font-bold uppercase text-[#FF0000] flex items-center gap-1.5">
-                <Flame className="w-3.5 h-3.5" />
-                GUILTIEST MAINSTREAM HIT
+              <span className="font-mono text-xs font-bold uppercase text-[#FF0000] flex items-center gap-1.5 truncate pr-2">
+                <Flame className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">GUILTIEST MAINSTREAM HIT</span>
               </span>
               {guiltiestHit?.popularity !== undefined && (
-                <span className="font-mono text-xs font-bold px-1.5 bg-[#FF0000] text-[#FFFFFF]">
+                <span className="font-mono text-xs font-bold px-1.5 bg-[#FF0000] text-[#FFFFFF] shrink-0">
                   {guiltiestHit.popularity}% POP
                 </span>
               )}
             </div>
 
             {guiltiestHit && (
-              <div className="my-4 flex items-center gap-3.5">
+              <div className="my-3 sm:my-4 flex items-center gap-3 sm:gap-3.5">
                 <img
                   src={guiltiestHit.coverUrl}
                   alt={guiltiestHit.name}
-                  className="w-16 h-16 object-cover border-2 border-[#111111] shrink-0"
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
                 />
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <h4 className="font-bold text-sm text-[#111111] truncate">
                     {guiltiestHit.name}
                   </h4>
                   <p className="text-xs text-[#808080] truncate mt-0.5">
                     {guiltiestHit.artist}
                   </p>
-                  <p className="font-mono text-[11px] text-[#FF0000] font-bold mt-1">
+                  <p className="font-mono text-[11px] text-[#FF0000] font-bold mt-1 truncate">
                     {guiltiestHit.minutes.toLocaleString()} MIN PLAYED
                   </p>
                 </div>

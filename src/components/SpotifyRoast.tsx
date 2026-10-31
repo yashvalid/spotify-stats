@@ -445,7 +445,7 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
       </div>
 
       {/* Tone Selector Bar */}
-      <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-1 px-1 sm:mx-0 sm:px-0 sm:flex-wrap">
         {[
           { id: 'ruthless', label: 'RUTHLESS VERDICT', icon: Skull, activeBg: 'bg-[#FF0000] text-[#FFFFFF]' },
           { id: 'pitchfork', label: 'AVANT-GARDE CRITIC', icon: Glasses, activeBg: 'bg-[#0000FF] text-[#FFFFFF]' },
@@ -458,13 +458,13 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
             <button
               key={item.id}
               onClick={() => setTone(item.id as RoastTone)}
-              className={`inline-flex items-center gap-2 rounded-lg border-2 border-[#111111] px-4 py-2 font-mono text-xs font-bold transition-transform duration-200 active:-translate-y-0.5 cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-lg border-2 border-[#111111] px-3 sm:px-4 py-2 font-mono text-xs font-bold transition-transform duration-200 active:-translate-y-0.5 cursor-pointer shrink-0 ${
                 active
                   ? item.activeBg
                   : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
               }`}
             >
-              <Icon className="w-3.5 h-3.5" />
+              <Icon className="w-3.5 h-3.5 shrink-0" />
               <span>{item.label}</span>
             </button>
           );
@@ -473,44 +473,44 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
 
       {/* Main Asymmetric Verdict Grid (8 cols / 4 cols) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
-        <div className="lg:col-span-8 p-5 sm:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] space-y-5 sm:space-y-6">
+        <div className="lg:col-span-8 p-4 sm:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] space-y-4 sm:space-y-6">
           <div>
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#0000FF]">
               [OFFICIAL DIAGNOSIS]
             </span>
-            <h3 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#111111] mt-2 leading-tight">
+            <h3 className="text-xl sm:text-3xl md:text-4xl font-bold text-[#111111] mt-2 leading-tight break-words">
               &ldquo;{roast.headline}&rdquo;
             </h3>
-            <p className="text-xs sm:text-sm text-[#808080] mt-2 font-mono">{roast.subheadline}</p>
+            <p className="text-xs sm:text-sm text-[#808080] mt-2 font-mono break-words">{roast.subheadline}</p>
           </div>
 
-          <div className="border-l-4 border-[#FF0000] bg-[#FFFFFF] pl-4 sm:pl-5 py-2">
-            <p className="text-sm sm:text-base text-[#111111] leading-relaxed">
+          <div className="border-l-4 border-[#FF0000] bg-[#FFFFFF] pl-3.5 sm:pl-5 py-2">
+            <p className="text-sm sm:text-base text-[#111111] leading-relaxed break-words">
               {roast.openingMonologue}
             </p>
           </div>
 
-          <div className="border-2 border-[#111111] bg-[#FFFF00] p-4 flex items-start gap-3">
+          <div className="border-2 border-[#111111] bg-[#FFFF00] p-3.5 sm:p-4 flex items-start gap-3">
             <Flame className="w-5 h-5 text-[#FF0000] shrink-0 mt-0.5" />
-            <div>
-              <span className="font-mono text-xs font-bold uppercase text-[#111111] block">
+            <div className="min-w-0">
+              <span className="font-mono text-[10px] sm:text-xs font-bold uppercase text-[#111111] block">
                 PRIMARY AUDIO RED FLAG
               </span>
-              <p className="text-sm font-bold text-[#111111] mt-0.5">{roast.redFlagLevel}</p>
+              <p className="text-sm font-bold text-[#111111] mt-0.5 break-words">{roast.redFlagLevel}</p>
             </div>
           </div>
         </div>
 
         {/* Right 4-Col Telemetry & Score Stack */}
         <div className="lg:col-span-4 flex flex-col justify-between divide-y-2 divide-[#111111]">
-          <div className="p-5 sm:p-6 bg-[#0000FF] text-[#FFFFFF]">
+          <div className="p-4 sm:p-6 bg-[#0000FF] text-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest block opacity-80">
               [CRITICAL RATING]
             </span>
-            <p className="font-mono text-2xl font-bold mt-2">{roast.tasteRating}</p>
+            <p className="font-mono text-xl sm:text-2xl font-bold mt-2 break-words">{roast.tasteRating}</p>
           </div>
 
-          <div className="p-5 sm:p-6 bg-[#FFFFFF]">
+          <div className="p-4 sm:p-6 bg-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest text-[#808080] block">
               [ALGORITHMIC CONFORMITY]
             </span>
@@ -525,11 +525,11 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
             </div>
           </div>
 
-          <div className="p-5 sm:p-6 bg-[#111111] text-[#FFFFFF]">
+          <div className="p-4 sm:p-6 bg-[#111111] text-[#FFFFFF]">
             <span className="font-mono text-xs uppercase tracking-widest text-[#FFFF00] block">
               [DIRECTIVE]
             </span>
-            <p className="font-mono text-xs leading-relaxed mt-2">{roast.prescription}</p>
+            <p className="font-mono text-xs leading-relaxed mt-2 break-words">{roast.prescription}</p>
           </div>
         </div>
       </div>
@@ -538,29 +538,29 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
       <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
         {/* #1 Artist Featured Indictment (5 cols) */}
         {roast.artistRoasts[0] && (
-          <div className="lg:col-span-5 p-5 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] bg-[#FFFF00] flex flex-col justify-between">
+          <div className="lg:col-span-5 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111] bg-[#FFFF00] flex flex-col justify-between">
             <div>
               <div className="flex items-center justify-between pb-3 border-b-2 border-[#111111]">
-                <span className="font-mono text-xs font-bold uppercase text-[#111111] flex items-center gap-1.5">
-                  <Mic2 className="w-4 h-4 text-[#FF0000]" />
-                  [EXHIBIT 01 - PRIMARY ARTIST]
+                <span className="font-mono text-xs font-bold uppercase text-[#111111] flex items-center gap-1.5 truncate pr-2">
+                  <Mic2 className="w-4 h-4 text-[#FF0000] shrink-0" />
+                  <span className="truncate">[EXHIBIT 01 - PRIMARY ARTIST]</span>
                 </span>
-                <span className="font-mono text-xs font-bold bg-[#111111] text-[#FFFFFF] px-2 py-0.5">
+                <span className="font-mono text-xs font-bold bg-[#111111] text-[#FFFFFF] px-2 py-0.5 shrink-0">
                   #1
                 </span>
               </div>
-              <div className="flex items-center gap-4 my-4">
+              <div className="flex items-center gap-3 sm:gap-4 my-4">
                 <img
                   src={roast.artistRoasts[0].coverUrl}
                   alt={roast.artistRoasts[0].artist}
-                  className="w-16 h-16 object-cover border-2 border-[#111111] shrink-0"
+                  className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
                 />
-                <h4 className="text-2xl font-bold text-[#111111]">
+                <h4 className="text-xl sm:text-2xl font-bold text-[#111111] truncate min-w-0">
                   {roast.artistRoasts[0].artist}
                 </h4>
               </div>
             </div>
-            <p className="text-sm font-medium text-[#111111] leading-relaxed border-t-2 border-[#111111] pt-3">
+            <p className="text-sm font-medium text-[#111111] leading-relaxed border-t-2 border-[#111111] pt-3 break-words">
               {roast.artistRoasts[0].line}
             </p>
           </div>
@@ -569,20 +569,20 @@ export const SpotifyRoast: React.FC<Props> = ({ stats }) => {
         {/* #2 & #3 Artists Stacked (7 cols) */}
         <div className="lg:col-span-7 divide-y-2 divide-[#111111]">
           {roast.artistRoasts.slice(1, 3).map((item, idx) => (
-            <div key={item.artist} className="p-4 sm:p-6 bg-[#FFFFFF] flex flex-col sm:flex-row items-start gap-4">
+            <div key={item.artist} className="p-4 sm:p-6 bg-[#FFFFFF] flex flex-col sm:flex-row items-start gap-3.5 sm:gap-4">
               <img
                 src={item.coverUrl}
                 alt={item.artist}
                 className="w-12 h-12 sm:w-14 sm:h-14 object-cover border-2 border-[#111111] shrink-0"
               />
-              <div className="min-w-0 flex-1">
+              <div className="min-w-0 flex-1 w-full sm:w-auto">
                 <div className="flex items-center justify-between gap-2">
-                  <h5 className="text-base sm:text-lg font-bold text-[#111111]">{item.artist}</h5>
-                  <span className="font-mono text-xs font-bold bg-[#0000FF] text-[#FFFFFF] px-2 py-0.5 border border-[#111111]">
+                  <h5 className="text-base sm:text-lg font-bold text-[#111111] truncate min-w-0">{item.artist}</h5>
+                  <span className="font-mono text-xs font-bold bg-[#0000FF] text-[#FFFFFF] px-2 py-0.5 border border-[#111111] shrink-0">
                     #{idx + 2} ARTIST
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-[#111111] mt-2 leading-relaxed">{item.line}</p>
+                <p className="text-xs sm:text-sm text-[#111111] mt-2 leading-relaxed break-words">{item.line}</p>
               </div>
             </div>
           ))}

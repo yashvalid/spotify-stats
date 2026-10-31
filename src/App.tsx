@@ -280,22 +280,22 @@ export default function App() {
   if (initializing || (sourceMode === 'spotify_api' && loadingLive && !stats)) {
     return (
       <div className="min-h-[100dvh] bg-[#FFFFFF] text-[#111111] flex flex-col justify-center">
-        <div className="mx-auto w-full max-w-[1280px] px-6 py-12">
+        <div className="mx-auto w-full max-w-[1280px] px-3.5 sm:px-6 py-8 sm:py-12">
           <div className="border-4 border-[#111111] bg-[#FFFFFF]">
             <div className="grid grid-cols-1 md:grid-cols-12 border-b-4 border-[#111111]">
-              <div className="md:col-span-8 p-8 bg-[#FF0000] text-[#FFFFFF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-shimmer">
+              <div className="md:col-span-8 p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-shimmer">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest block">
                   [CONNECTING TELEMETRY]
                 </span>
-                <h2 className="text-3xl font-bold mt-2">
+                <h2 className="text-2xl sm:text-3xl font-bold mt-2 break-words">
                   Syncing your Spotify listening data...
                 </h2>
               </div>
-              <div className="md:col-span-4 p-8 bg-[#FFFF00] animate-shimmer" />
+              <div className="md:col-span-4 p-5 sm:p-8 bg-[#FFFF00] animate-shimmer" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12">
-              <div className="md:col-span-5 h-56 bg-[#0000FF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-shimmer" />
-              <div className="md:col-span-7 p-8 space-y-4">
+              <div className="md:col-span-5 h-44 sm:h-56 bg-[#0000FF] border-b-4 md:border-b-0 md:border-r-4 border-[#111111] animate-shimmer" />
+              <div className="md:col-span-7 p-5 sm:p-8 space-y-4">
                 <div className="h-6 w-2/3 bg-[#111111] animate-shimmer" />
                 <div className="h-4 w-1/2 bg-[#808080] animate-shimmer" />
                 <div className="h-24 w-full border-2 border-[#111111] bg-[#FFFF00] animate-shimmer" />
@@ -313,20 +313,21 @@ export default function App() {
       <div className="min-h-[100dvh] bg-[#FFFFFF] text-[#111111] flex flex-col justify-between">
         {/* Navigation Bar */}
         <header className="border-b-4 border-[#111111] bg-[#FFFFFF]">
-          <div className="mx-auto max-w-[1280px] px-6 h-16 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <MondrianMark className="w-8 h-8" />
-              <span className="text-xl font-bold tracking-tight text-[#111111]">
+          <div className="mx-auto max-w-[1280px] px-3.5 sm:px-6 h-16 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
+              <MondrianMark className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-[#111111]">
                 STATIFY
               </span>
             </div>
 
             <button
               onClick={() => landingFileInputRef.current?.click()}
-              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] px-3.5 py-1.5 font-mono text-xs font-bold text-[#111111] transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] px-3 sm:px-3.5 py-1.5 font-mono text-xs font-bold text-[#111111] transition-colors duration-200 cursor-pointer shrink-0"
             >
               <FileJson className="w-3.5 h-3.5 text-[#0000FF]" />
-              <span>IMPORT ARCHIVE (.ZIP)</span>
+              <span className="hidden sm:inline">IMPORT ARCHIVE (.ZIP)</span>
+              <span className="sm:hidden">IMPORT .ZIP</span>
             </button>
             <input
               ref={landingFileInputRef}
@@ -434,12 +435,12 @@ export default function App() {
                     handleLandingFiles(e.dataTransfer.files);
                   }}
                   onClick={() => landingFileInputRef.current?.click()}
-                  className={`p-5 text-center cursor-pointer transition-colors duration-200 ${isDraggingLanding ? 'bg-[#FF0000] text-[#FFFFFF]' : 'bg-[#FFFFFF] hover:bg-[#FFFF00]'
+                  className={`p-4 sm:p-5 text-center cursor-pointer transition-colors duration-200 ${isDraggingLanding ? 'bg-[#FF0000] text-[#FFFFFF]' : 'bg-[#FFFFFF] hover:bg-[#FFFF00]'
                     }`}
                 >
-                  <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold text-[#111111]">
-                    <Upload className="w-4 h-4 text-[#FF0000]" />
-                    <span>HAVE A SPOTIFY .ZIP EXPORT? DROP IT HERE</span>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 font-mono text-xs font-bold text-[#111111]">
+                    <Upload className="w-4 h-4 text-[#FF0000] shrink-0" />
+                    <span className="text-center break-words">HAVE A SPOTIFY .ZIP EXPORT? DROP IT HERE</span>
                   </div>
                 </div>
 
@@ -498,32 +499,90 @@ export default function App() {
     <div className="min-h-[100dvh] bg-[#FFFFFF] text-[#111111] flex flex-col justify-between">
       {/* Navigation Bar */}
       <header className="sticky top-0 z-[100] border-b-4 border-[#111111] bg-[#FFFFFF]">
-        <div className="mx-auto max-w-[1280px] px-3 sm:px-6 py-2.5 sm:py-3 flex flex-wrap items-center justify-between gap-2.5 sm:gap-3">
-          {/* Brand + Status */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <MondrianMark className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
-            <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg font-bold tracking-tight text-[#111111]">STATIFY</span>
-              <span
-                className={`border border-[#111111] px-1.5 sm:px-2 py-0.5 font-mono text-[10px] sm:text-[11px] font-bold ${sourceMode === 'history'
-                  ? 'bg-[#0000FF] text-[#FFFFFF]'
-                  : ''
+        <div className="mx-auto max-w-[1280px] px-3 sm:px-6 py-2 sm:py-3 flex flex-col md:flex-row md:items-center justify-between gap-2.5 sm:gap-3">
+          {/* Top Row on Mobile: Brand + Mobile Action Buttons */}
+          <div className="flex items-center justify-between gap-2 w-full md:w-auto">
+            {/* Brand + Status */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <MondrianMark className="w-7 h-7 sm:w-8 sm:h-8 shrink-0" />
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="text-base sm:text-lg font-bold tracking-tight text-[#111111]">STATIFY</span>
+                <span
+                  className={`border border-[#111111] px-1.5 sm:px-2 py-0.5 font-mono text-[10px] sm:text-[11px] font-bold ${sourceMode === 'history'
+                    ? 'bg-[#0000FF] text-[#FFFFFF]'
+                    : ''
+                    }`}
+                >
+                  {sourceMode === 'history' ? 'ARCHIVE' : 'LIVE'}
+                </span>
+              </div>
+            </div>
+
+            {/* Mobile Action Controls (compact icons + roast button) */}
+            <div className="flex items-center gap-1 sm:gap-1.5 md:hidden">
+              <button
+                onClick={() => setShowPlaylistModal(true)}
+                title="Save as Spotify Playlist"
+                className="inline-flex items-center justify-center rounded-lg border-2 border-[#111111] bg-[#0000FF] hover:bg-[#111111] p-1.5 text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
+              >
+                <ListPlus className="w-3.5 h-3.5 text-[#FFFF00]" />
+              </button>
+
+              <button
+                onClick={() => setShowFriendModal(true)}
+                title="Friend Taste Blend Card"
+                className="inline-flex items-center justify-center rounded-lg border-2 border-[#111111] bg-[#FFFF00] hover:bg-[#111111] hover:text-[#FFFFFF] p-1.5 text-[#111111] transition-colors duration-200 cursor-pointer"
+              >
+                <Users className="w-3.5 h-3.5 text-[#FF0000]" />
+              </button>
+
+              <button
+                onClick={() => setActiveTab('roast')}
+                title="Taste Roast"
+                className={`inline-flex items-center gap-1 rounded-lg border-2 border-[#111111] px-2 py-1 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer ${activeTab === 'roast'
+                  ? 'bg-[#111111] text-[#FFFF00]'
+                  : 'bg-[#FF0000] text-[#FFFFFF] hover:bg-[#111111]'
                   }`}
               >
-                {sourceMode === 'history' ? 'ARCHIVE' : ''}
-              </span>
+                <Flame className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-bold">ROAST</span>
+              </button>
+
+              <button
+                onClick={() => setShowWrappedModal(true)}
+                title="Poster"
+                className="inline-flex items-center justify-center rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#111111] hover:text-[#FFFFFF] p-1.5 text-[#111111] transition-colors duration-200 cursor-pointer"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                onClick={() => setShowSourceModal(true)}
+                title="Data Source Settings"
+                className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] p-1.5 text-[#111111] transition-colors duration-200 cursor-pointer"
+              >
+                <Settings2 className="w-3.5 h-3.5" />
+              </button>
+
+              <button
+                onClick={handleDisconnectAll}
+                title="Log out"
+                className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#FF0000] hover:text-[#FFFFFF] p-1.5 text-[#111111] transition-colors duration-200 cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
 
           {/* Time Range Filter Chips */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 w-full md:w-auto shrink-0 justify-start md:justify-center">
             {TIME_RANGES.map((tr) => {
               const active = timeRange === tr.id;
               return (
                 <button
                   key={tr.id}
                   onClick={() => setTimeRange(tr.id)}
-                  className={`rounded-lg border-2 border-[#111111] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer whitespace-nowrap ${active
+                  className={`flex-1 sm:flex-initial rounded-lg border-2 border-[#111111] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold transition-colors duration-200 cursor-pointer whitespace-nowrap text-center ${active
                     ? 'bg-[#FF0000] text-[#FFFFFF]'
                     : 'bg-[#FFFFFF] text-[#111111] hover:bg-[#FFFF00]'
                     }`}
@@ -535,15 +594,15 @@ export default function App() {
             })}
           </div>
 
-          {/* Right Action Controls */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* Right Action Controls for desktop */}
+          <div className="hidden md:flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
               onClick={() => setShowPlaylistModal(true)}
               title="Save as Spotify Playlist"
               className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#0000FF] hover:bg-[#111111] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
             >
               <ListPlus className="w-3.5 h-3.5 text-[#FFFF00]" />
-              <span className="hidden md:inline">PLAYLIST</span>
+              <span>PLAYLIST</span>
             </button>
 
             <button
@@ -552,7 +611,7 @@ export default function App() {
               className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#FFFF00] hover:bg-[#111111] hover:text-[#FFFFFF] px-2.5 sm:px-3 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#111111] transition-colors duration-200 cursor-pointer"
             >
               <Users className="w-3.5 h-3.5 text-[#FF0000]" />
-              <span className="hidden md:inline">BLEND</span>
+              <span>BLEND</span>
             </button>
 
             <button
@@ -571,7 +630,7 @@ export default function App() {
               className="inline-flex items-center gap-1.5 rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:bg-[#111111] hover:text-[#FFFFFF] px-2.5 sm:px-3.5 py-1 sm:py-1.5 font-mono text-xs font-bold text-[#111111] transition-colors duration-200 cursor-pointer"
             >
               <Share2 className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">POSTER</span>
+              <span>POSTER</span>
             </button>
 
             <button
@@ -595,7 +654,7 @@ export default function App() {
         {/* Sub-Navigation Bar */}
         <div className="border-t-2 border-[#111111] bg-[#FFFFFF]">
           <div className="mx-auto max-w-[1280px] px-3 sm:px-6 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-            <nav className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            <nav className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 w-full min-w-0">
               {navItems.map((item) => {
                 const Icon = item.icon;
                 const active = activeTab === item.id;
@@ -620,7 +679,7 @@ export default function App() {
 
             {/* Filter Search */}
             {(activeTab === 'albums' || activeTab === 'artists' || activeTab === 'tracks') && (
-              <div className="relative w-full sm:w-auto">
+              <div className="relative w-full sm:w-auto shrink-0">
                 <Search className="w-3.5 h-3.5 text-[#808080] absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
@@ -660,40 +719,40 @@ export default function App() {
           <section className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF] animate-fade-enter">
             {/* Left: User Profile & Minutes */}
             <div className="lg:col-span-5 flex flex-col justify-between border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
-              <div className="p-6 bg-[#FFFFFF] border-b-4 border-[#111111] flex items-center gap-4">
+              <div className="p-4 sm:p-6 bg-[#FFFFFF] border-b-4 border-[#111111] flex items-center gap-3 sm:gap-4">
                 {heroAvatar && (
                   <img
                     src={heroAvatar}
                     alt={stats.userName}
-                    className="w-16 h-16 object-cover border-2 border-[#111111] shrink-0"
+                    className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
                   />
                 )}
-                <div className="min-w-0">
-                  <span className="font-mono text-xs font-bold uppercase text-[#0000FF] block">
+                <div className="min-w-0 flex-1">
+                  <span className="font-mono text-xs font-bold uppercase text-[#0000FF] block truncate">
                     [{stats.dateRangeLabel}]
                   </span>
-                  <h1 className="text-2xl font-bold text-[#111111] truncate mt-0.5">
+                  <h1 className="text-xl sm:text-2xl font-bold text-[#111111] truncate mt-0.5">
                     {stats.userName}
                   </h1>
-                  <span className="font-mono text-xs text-[#808080] block mt-0.5">
+                  <span className="font-mono text-[11px] sm:text-xs text-[#808080] block mt-0.5 truncate">
                     {stats.isExactMinutes ? '100% Exact Stream History' : 'Live Spotify Account'}
                   </span>
                 </div>
               </div>
 
-              <div className="p-6 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
+              <div className="p-5 sm:p-8 bg-[#FF0000] text-[#FFFFFF] flex-1 flex flex-col justify-between">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest">
                   [MINUTES LISTENED]
                 </span>
-                <div className="my-4">
-                  <p className="text-4xl sm:text-6xl font-bold tracking-tight">
+                <div className="my-3 sm:my-4">
+                  <p className="text-4xl sm:text-6xl font-bold tracking-tight break-words">
                     {stats.totalMinutes.toLocaleString()}
                   </p>
-                  <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2">
+                  <p className="font-mono text-xs sm:text-sm font-bold text-[#FFFF00] mt-2 break-words">
                     {stats.totalHours.toLocaleString()} HOURS • {stats.totalDaysEquivalent} FULL DAYS
                   </p>
                 </div>
-                <div className="pt-3 border-t border-[#FFFFFF]/40 flex items-center justify-between font-mono text-xs">
+                <div className="pt-3 border-t border-[#FFFFFF]/40 flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
                   <span>DAILY AVG: {stats.dailyAverageMinutes}M</span>
                   <span>{stats.totalPlays.toLocaleString()} STREAMS</span>
                 </div>
@@ -704,21 +763,21 @@ export default function App() {
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-12">
               <div
                 onClick={() => setActiveTab('albums')}
-                className="sm:col-span-7 p-6 border-b-4 sm:border-r-4 border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
+                className="sm:col-span-7 p-4 sm:p-6 border-b-4 sm:border-r-4 border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold text-[#111111]">
                   <span>[TOP ALBUM]</span>
                   <Disc3 className="w-4 h-4 text-[#FF0000]" />
                 </div>
                 {stats.topAlbums[0] ? (
-                  <div className="my-4 flex items-center gap-4">
+                  <div className="my-3 sm:my-4 flex items-center gap-3 sm:gap-4">
                     <img
                       src={stats.topAlbums[0].coverUrl}
                       alt={stats.topAlbums[0].name}
-                      className="w-16 h-16 object-cover border-2 border-[#111111] shrink-0"
+                      className="w-14 h-14 sm:w-16 sm:h-16 object-cover border-2 border-[#111111] shrink-0"
                     />
-                    <div className="min-w-0">
-                      <p className="text-base font-bold text-[#111111] truncate">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm sm:text-base font-bold text-[#111111] truncate">
                         {stats.topAlbums[0].name}
                       </p>
                       <p className="text-xs text-[#808080] truncate">{stats.topAlbums[0].artist}</p>
@@ -730,7 +789,7 @@ export default function App() {
                 ) : (
                   <p className="font-mono text-xs text-[#808080] my-4">NO ALBUM DATA</p>
                 )}
-                <div className="font-mono text-xs text-[#111111] font-bold flex items-center justify-between pt-2 border-t border-[#111111]">
+                <div className="font-mono text-xs text-[#111111] font-bold flex flex-wrap items-center justify-between gap-1 pt-2 border-t border-[#111111]">
                   <span>{stats.uniqueAlbums} UNIQUE ALBUMS</span>
                   <span>VIEW ALL →</span>
                 </div>
@@ -738,14 +797,14 @@ export default function App() {
 
               <div
                 onClick={() => setActiveTab('activity')}
-                className="sm:col-span-5 p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] cursor-pointer flex flex-col justify-between"
+                className="sm:col-span-5 p-4 sm:p-6 border-b-4 border-[#111111] bg-[#FFFF00] text-[#111111] cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold">
                   <span>[STREAK]</span>
                   <Flame className="w-4 h-4 text-[#FF0000]" />
                 </div>
-                <div className="my-4">
-                  <p className="text-3xl font-bold">
+                <div className="my-3 sm:my-4">
+                  <p className="text-2xl sm:text-3xl font-bold">
                     {stats.longestStreakDays} DAYS
                   </p>
                   <p className="font-mono text-xs font-bold mt-1">
@@ -759,21 +818,21 @@ export default function App() {
 
               <div
                 onClick={() => setActiveTab('artists')}
-                className="sm:col-span-5 p-6 border-b-4 sm:border-b-0 sm:border-r-4 border-[#111111] bg-[#0000FF] text-[#FFFFFF] cursor-pointer flex flex-col justify-between"
+                className="sm:col-span-5 p-4 sm:p-6 border-b-4 sm:border-b-0 sm:border-r-4 border-[#111111] bg-[#0000FF] text-[#FFFFFF] cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold">
                   <span>[TOP ARTIST]</span>
                   <Mic2 className="w-4 h-4 text-[#FFFF00]" />
                 </div>
                 {stats.topArtists[0] ? (
-                  <div className="my-4 flex items-center gap-3">
+                  <div className="my-3 sm:my-4 flex items-center gap-3">
                     <img
                       src={stats.topArtists[0].coverUrl}
                       alt={stats.topArtists[0].name}
-                      className="w-14 h-14 object-cover border-2 border-[#FFFFFF] shrink-0"
+                      className="w-12 h-12 sm:w-14 sm:h-14 object-cover border-2 border-[#FFFFFF] shrink-0"
                     />
-                    <div className="min-w-0">
-                      <p className="text-base font-bold truncate">{stats.topArtists[0].name}</p>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm sm:text-base font-bold truncate">{stats.topArtists[0].name}</p>
                       <p className="font-mono text-xs text-[#FFFF00] mt-0.5">
                         {stats.topArtists[0].minutes.toLocaleString()} MIN
                       </p>
@@ -782,7 +841,7 @@ export default function App() {
                 ) : (
                   <p className="font-mono text-xs my-4">NO ARTIST DATA</p>
                 )}
-                <div className="font-mono text-xs font-bold flex items-center justify-between pt-2 border-t border-[#FFFFFF]/40">
+                <div className="font-mono text-xs font-bold flex flex-wrap items-center justify-between gap-1 pt-2 border-t border-[#FFFFFF]/40">
                   <span>{stats.uniqueArtists} ARTISTS</span>
                   <span>VIEW ALL →</span>
                 </div>
@@ -790,28 +849,28 @@ export default function App() {
 
               <div
                 onClick={() => setActiveTab('tracks')}
-                className="sm:col-span-7 p-6 bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
+                className="sm:col-span-7 p-4 sm:p-6 bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between font-mono text-xs font-bold text-[#111111]">
                   <span>[#1 TRACK]</span>
                   <Layers className="w-4 h-4 text-[#0000FF]" />
                 </div>
                 {stats.topTracks[0] ? (
-                  <div className="my-4 flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-base font-bold text-[#111111] truncate">
+                  <div className="my-3 sm:my-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm sm:text-base font-bold text-[#111111] truncate">
                         {stats.topTracks[0].name}
                       </p>
                       <p className="text-xs text-[#808080] truncate">{stats.topTracks[0].artist}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="font-mono text-lg font-bold text-[#FF0000] block">
+                      <span className="font-mono text-base sm:text-lg font-bold text-[#FF0000] block">
                         {stats.topTracks[0].minutes.toLocaleString()}M
                       </span>
                     </div>
                   </div>
                 ) : null}
-                <div className="font-mono text-xs text-[#111111] font-bold flex items-center justify-between pt-2 border-t border-[#111111]">
+                <div className="font-mono text-xs text-[#111111] font-bold flex flex-wrap items-center justify-between gap-1 pt-2 border-t border-[#111111]">
                   <span>CATALOG: {stats.uniqueTracks.toLocaleString()} SONGS</span>
                   <span>TOP 50 TRACKS →</span>
                 </div>
@@ -822,12 +881,12 @@ export default function App() {
 
         {/* TAB 1: OVERVIEW */}
         {activeTab === 'overview' && (
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {/* Top Albums & Top Artists */}
             <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
-              <div className="lg:col-span-7 p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
-                <div className="flex items-center justify-between pb-4 border-b-2 border-[#111111] mb-5">
-                  <h2 className="text-2xl font-bold text-[#111111]">Top Albums</h2>
+              <div className="lg:col-span-7 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b-2 border-[#111111] mb-5">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">Top Albums</h2>
                   <button
                     onClick={() => setActiveTab('albums')}
                     className="rounded-lg border border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] px-3 py-1 font-mono text-xs font-bold text-[#111111] cursor-pointer"
@@ -836,14 +895,14 @@ export default function App() {
                   </button>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   {sortedAlbums.slice(0, 6).map((album, idx) => (
                     <div
                       key={album.id}
                       onClick={() => setActiveTab('albums')}
-                      className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:-translate-y-0.5 transition-transform duration-200 p-3.5 flex items-center gap-3.5 cursor-pointer"
+                      className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] hover:-translate-y-0.5 transition-transform duration-200 p-3 sm:p-3.5 flex items-center gap-3 sm:gap-3.5 cursor-pointer"
                     >
-                      <div className="relative w-14 h-14 shrink-0 border border-[#111111]">
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 shrink-0 border border-[#111111]">
                         <img
                           src={album.coverUrl}
                           alt={album.name}
@@ -865,9 +924,9 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="lg:col-span-5 p-6 bg-[#FFFFFF]">
-                <div className="flex items-center justify-between pb-4 border-b-2 border-[#111111] mb-5">
-                  <h2 className="text-2xl font-bold text-[#111111]">Top Artists</h2>
+              <div className="lg:col-span-5 p-4 sm:p-6 bg-[#FFFFFF]">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b-2 border-[#111111] mb-5">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">Top Artists</h2>
                   <button
                     onClick={() => setActiveTab('artists')}
                     className="rounded-lg border border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] px-3 py-1 font-mono text-xs font-bold text-[#111111] cursor-pointer"
@@ -881,10 +940,10 @@ export default function App() {
                     <div
                       key={artist.id}
                       onClick={() => setActiveTab('artists')}
-                      className="p-3 flex items-center justify-between gap-3 bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer"
+                      className="p-2.5 sm:p-3 flex items-center justify-between gap-2.5 sm:gap-3 bg-[#FFFFFF] hover:bg-[#FFFF00] transition-colors duration-200 cursor-pointer"
                     >
-                      <div className="flex items-center gap-3 min-w-0">
-                        <span className="font-mono text-xs font-bold text-[#111111] w-5">
+                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+                        <span className="font-mono text-xs font-bold text-[#111111] w-5 shrink-0">
                           0{idx + 1}
                         </span>
                         <img
@@ -892,7 +951,7 @@ export default function App() {
                           alt={artist.name}
                           className="w-10 h-10 object-cover border border-[#111111] shrink-0"
                         />
-                        <div className="min-w-0">
+                        <div className="min-w-0 flex-1">
                           <h3 className="text-sm font-bold text-[#111111] truncate">
                             {artist.name}
                           </h3>
@@ -901,7 +960,7 @@ export default function App() {
                           </p>
                         </div>
                       </div>
-                      <span className="font-mono text-xs font-bold text-[#FF0000]">
+                      <span className="font-mono text-xs font-bold text-[#FF0000] shrink-0">
                         {artist.minutes.toLocaleString()}M
                       </span>
                     </div>
@@ -912,9 +971,9 @@ export default function App() {
 
             {/* Top Tracks & Top Genres */}
             <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
-              <div className="lg:col-span-8 p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
-                <div className="flex items-center justify-between pb-4 border-b-2 border-[#111111] mb-4">
-                  <h2 className="text-2xl font-bold text-[#111111]">Most Streamed Songs</h2>
+              <div className="lg:col-span-8 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b-2 border-[#111111] mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">Most Streamed Songs</h2>
                   <button
                     onClick={() => setActiveTab('tracks')}
                     className="rounded-lg border border-[#111111] bg-[#FFFFFF] hover:bg-[#FFFF00] px-3 py-1 font-mono text-xs font-bold text-[#111111] cursor-pointer"
@@ -927,9 +986,9 @@ export default function App() {
                   {sortedTracks.slice(0, 8).map((track, idx) => (
                     <div
                       key={track.id}
-                      className="p-3 bg-[#FFFFFF] hover:bg-[#FFFF00]/40 transition-colors flex items-center gap-3"
+                      className="p-2.5 sm:p-3 bg-[#FFFFFF] hover:bg-[#FFFF00]/40 transition-colors flex items-center gap-2.5 sm:gap-3"
                     >
-                      <span className="font-mono text-xs font-bold text-[#111111] w-6 text-center">
+                      <span className="font-mono text-xs font-bold text-[#111111] w-5 sm:w-6 text-center shrink-0">
                         {String(idx + 1).padStart(2, '0')}
                       </span>
                       <img
@@ -953,10 +1012,10 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="lg:col-span-4 p-6 bg-[#FFFFFF] flex flex-col justify-between">
+              <div className="lg:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between pb-4 border-b-2 border-[#111111] mb-4">
-                    <h2 className="text-2xl font-bold text-[#111111]">Top Genres</h2>
+                    <h2 className="text-xl sm:text-2xl font-bold text-[#111111]">Top Genres</h2>
                     <button
                       onClick={() => setActiveTab('genres')}
                       className="font-mono text-xs font-bold text-[#0000FF] underline cursor-pointer"
@@ -969,10 +1028,10 @@ export default function App() {
                     {stats.topGenres.slice(0, 6).map((genre, idx) => (
                       <div key={genre.name}>
                         <div className="flex items-center justify-between font-mono text-xs mb-1">
-                          <span className="font-bold text-[#111111]">
+                          <span className="font-bold text-[#111111] truncate pr-2">
                             0{idx + 1} {genre.name}
                           </span>
-                          <span className="text-[#808080]">{genre.minutes.toLocaleString()}M</span>
+                          <span className="text-[#808080] shrink-0">{genre.minutes.toLocaleString()}M</span>
                         </div>
                         <div className="h-2.5 w-full border border-[#111111] bg-[#FFFFFF]">
                           <div
@@ -991,10 +1050,10 @@ export default function App() {
                   <span className="font-mono text-[10px] font-bold uppercase text-[#111111] block">
                     [AURA]
                   </span>
-                  <p className="text-base font-bold text-[#111111] mt-0.5">
+                  <p className="text-base font-bold text-[#111111] mt-0.5 break-words">
                     {stats.vibe.personaTitle}
                   </p>
-                  <p className="text-xs text-[#111111] mt-1">{stats.vibe.personaSubtitle}</p>
+                  <p className="text-xs text-[#111111] mt-1 break-words">{stats.vibe.personaSubtitle}</p>
                 </div>
               </div>
             </div>
@@ -1009,24 +1068,24 @@ export default function App() {
 
         {/* TAB 2: TOP ALBUMS */}
         {activeTab === 'albums' && (
-          <div className="border-2 border-[#111111] bg-[#FFFFFF] p-6">
-            <h2 className="text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
+          <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
               Top Albums ({sortedAlbums.length})
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {sortedAlbums.map((album, idx) => (
                 <div
                   key={album.id}
-                  className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-4 flex items-center gap-4"
+                  className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-3 sm:p-4 flex items-center gap-3 sm:gap-4"
                 >
-                  <span className="font-mono text-sm font-bold text-[#111111] w-7 text-center">
+                  <span className="font-mono text-xs sm:text-sm font-bold text-[#111111] w-6 sm:w-7 text-center shrink-0">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                   <img
                     src={album.coverUrl}
                     alt={album.name}
-                    className="w-16 h-16 object-cover border border-[#111111] shrink-0"
+                    className="w-14 h-14 sm:w-16 sm:h-16 object-cover border border-[#111111] shrink-0"
                   />
                   <div className="min-w-0 flex-1">
                     <h3 className="text-sm font-bold text-[#111111] truncate">{album.name}</h3>
@@ -1043,24 +1102,24 @@ export default function App() {
 
         {/* TAB 3: TOP ARTISTS */}
         {activeTab === 'artists' && (
-          <div className="border-2 border-[#111111] bg-[#FFFFFF] p-6">
-            <h2 className="text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
+          <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
               Top Artists ({sortedArtists.length})
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {sortedArtists.map((artist, idx) => (
                 <div
                   key={artist.id}
-                  className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-4 flex items-center gap-4"
+                  className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-3 sm:p-4 flex items-center gap-3 sm:gap-4"
                 >
-                  <span className="font-mono text-sm font-bold text-[#111111] w-7 text-center">
+                  <span className="font-mono text-xs sm:text-sm font-bold text-[#111111] w-6 sm:w-7 text-center shrink-0">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                   <img
                     src={artist.coverUrl}
                     alt={artist.name}
-                    className="w-16 h-16 object-cover border border-[#111111] shrink-0"
+                    className="w-14 h-14 sm:w-16 sm:h-16 object-cover border border-[#111111] shrink-0"
                   />
                   <div className="min-w-0 flex-1">
                     <h3 className="text-sm font-bold text-[#111111] truncate">{artist.name}</h3>
@@ -1079,8 +1138,8 @@ export default function App() {
 
         {/* TAB 4: TOP TRACKS */}
         {activeTab === 'tracks' && (
-          <div className="border-2 border-[#111111] bg-[#FFFFFF] p-6">
-            <h2 className="text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
+          <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
               Top Tracks ({sortedTracks.length})
             </h2>
 
@@ -1088,25 +1147,25 @@ export default function App() {
               {sortedTracks.map((track, idx) => (
                 <div
                   key={track.id}
-                  className="p-3.5 bg-[#FFFFFF] hover:bg-[#FFFF00]/35 transition-colors flex items-center gap-4"
+                  className="p-3 sm:p-3.5 bg-[#FFFFFF] hover:bg-[#FFFF00]/35 transition-colors flex items-center gap-3 sm:gap-4"
                 >
-                  <span className="font-mono text-xs font-bold text-[#111111] w-8 text-center">
+                  <span className="font-mono text-xs font-bold text-[#111111] w-6 sm:w-8 text-center shrink-0">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                   <img
                     src={track.coverUrl}
                     alt={track.name}
-                    className="w-12 h-12 object-cover border border-[#111111] shrink-0"
+                    className="w-11 h-11 sm:w-12 sm:h-12 object-cover border border-[#111111] shrink-0"
                   />
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
+                      <div className="min-w-0 flex-1">
                         <h3 className="text-sm font-bold text-[#111111] truncate">{track.name}</h3>
                         <p className="text-xs text-[#808080] truncate">
                           {track.artist} — {track.album}
                         </p>
                       </div>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-start sm:self-auto">
                         <span className="font-mono text-xs font-bold text-[#111111]">
                           {track.minutes.toLocaleString()} MIN
                         </span>
@@ -1133,18 +1192,18 @@ export default function App() {
         {/* TAB 5: GENRES & RATIO */}
         {activeTab === 'genres' && (
           <div className="grid grid-cols-1 lg:grid-cols-12 border-2 border-[#111111] bg-[#FFFFFF]">
-            <div className="lg:col-span-7 p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
-              <h2 className="text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
+            <div className="lg:col-span-7 p-4 sm:p-6 border-b-2 lg:border-b-0 lg:border-r-2 border-[#111111]">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-6">
                 Genre Distribution
               </h2>
               <div className="space-y-4">
                 {stats.topGenres.map((g, idx) => (
-                  <div key={g.name} className="border-2 border-[#111111] p-4 bg-[#FFFFFF]">
+                  <div key={g.name} className="border-2 border-[#111111] p-3.5 sm:p-4 bg-[#FFFFFF]">
                     <div className="flex items-center justify-between font-mono text-xs mb-2">
-                      <span className="font-bold text-[#111111]">
+                      <span className="font-bold text-[#111111] truncate pr-2">
                         0{idx + 1} - {g.name.toUpperCase()}
                       </span>
-                      <span className="font-bold text-[#0000FF]">{g.minutes.toLocaleString()}M</span>
+                      <span className="font-bold text-[#0000FF] shrink-0">{g.minutes.toLocaleString()}M</span>
                     </div>
                     <div className="h-3 w-full border border-[#111111] bg-[#FFFFFF] mb-2">
                       <div
@@ -1154,7 +1213,7 @@ export default function App() {
                         className="h-full bg-[#FF0000]"
                       />
                     </div>
-                    <p className="font-mono text-xs text-[#808080]">
+                    <p className="font-mono text-xs text-[#808080] break-words">
                       KEY ARTISTS: <span className="text-[#111111]">{g.topArtists.join(', ')}</span>
                     </p>
                   </div>
@@ -1162,16 +1221,16 @@ export default function App() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 p-6 bg-[#FFFFFF] flex flex-col justify-between">
+            <div className="lg:col-span-5 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
               <div>
-                <div className="border-2 border-[#111111] bg-[#FFFF00] p-5 mb-6">
+                <div className="border-2 border-[#111111] bg-[#FFFF00] p-4 sm:p-5 mb-6">
                   <span className="font-mono text-xs font-bold uppercase text-[#111111]">
                     [SONIC DNA]
                   </span>
-                  <h3 className="text-2xl font-bold text-[#111111] mt-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-[#111111] mt-1 break-words">
                     {stats.vibe.personaTitle}
                   </h3>
-                  <p className="text-sm text-[#111111] mt-2 leading-relaxed">
+                  <p className="text-sm text-[#111111] mt-2 leading-relaxed break-words">
                     {stats.vibe.personaSubtitle}
                   </p>
                 </div>
@@ -1185,8 +1244,8 @@ export default function App() {
                   ].map((item) => (
                     <div key={item.label}>
                       <div className="flex items-center justify-between font-mono text-xs mb-1">
-                        <span className="font-bold text-[#111111]">{item.label}</span>
-                        <span className="font-bold text-[#111111]">{item.val}%</span>
+                        <span className="font-bold text-[#111111] truncate pr-2">{item.label}</span>
+                        <span className="font-bold text-[#111111] shrink-0">{item.val}%</span>
                       </div>
                       <div className="h-3 w-full border border-[#111111] bg-[#FFFFFF]">
                         <div
@@ -1207,11 +1266,11 @@ export default function App() {
 
         {/* TAB 6: CIRCADIAN GRID */}
         {activeTab === 'activity' && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <ActivityCharts stats={stats} />
 
-            <div className="border-2 border-[#111111] bg-[#FFFFFF] p-6">
-              <h3 className="text-xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-4">
+            <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
+              <h3 className="text-lg sm:text-xl font-bold text-[#111111] pb-4 border-b-2 border-[#111111] mb-4">
                 Recent Listening Stream
               </h3>
 
@@ -1219,22 +1278,22 @@ export default function App() {
                 {stats.recentPlays.map((rp, i) => (
                   <div
                     key={`${rp.playedAt}-${i}`}
-                    className="p-3 flex items-center justify-between gap-3 bg-[#FFFFFF] hover:bg-[#FFFF00]/30"
+                    className="p-2.5 sm:p-3 flex items-center justify-between gap-2.5 sm:gap-3 bg-[#FFFFFF] hover:bg-[#FFFF00]/30"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
+                    <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                       <img
                         src={rp.coverUrl}
                         alt={rp.trackName}
                         className="w-10 h-10 object-cover border border-[#111111] shrink-0"
                       />
-                      <div className="min-w-0">
+                      <div className="min-w-0 flex-1">
                         <p className="text-sm font-bold text-[#111111] truncate">{rp.trackName}</p>
                         <p className="text-xs text-[#808080] truncate">
                           {rp.artistName} • {rp.albumName}
                         </p>
                       </div>
                     </div>
-                    <span className="font-mono text-xs font-bold text-[#FF0000]">
+                    <span className="font-mono text-[11px] sm:text-xs font-bold text-[#FF0000] shrink-0 text-right">
                       {new Date(rp.playedAt).toLocaleString([], {
                         month: 'short',
                         day: 'numeric',

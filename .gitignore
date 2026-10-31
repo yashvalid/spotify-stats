@@ -31,4 +31,7 @@ dist-ssr
 .env.*
 !.env.example
 
+# Agent skills
+.agents/
+
 

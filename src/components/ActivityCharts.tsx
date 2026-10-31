@@ -61,31 +61,33 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
           </div>
 
           {stats.monthlyTimeline.length > 0 ? (
-            <div className="h-56 flex items-end gap-2 pt-8 pb-2">
-              {stats.monthlyTimeline.slice(-14).map((m, i) => {
-                const heightPct = Math.max(8, Math.round((m.minutes / maxMonthMin) * 100));
-                const barColor =
-                  i % 3 === 0 ? 'bg-[#FF0000]' : i % 3 === 1 ? 'bg-[#0000FF]' : 'bg-[#111111]';
-                return (
-                  <div
-                    key={m.month}
-                    className="flex-1 flex flex-col items-center justify-end h-full group relative"
-                  >
-                    <div className="opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 absolute -top-9 z-10 whitespace-nowrap bg-[#111111] text-[#FFFFFF] border border-[#111111] px-2 py-1 text-[11px] font-mono">
-                      {m.label}: {m.minutes.toLocaleString()}m ({m.plays}x)
+            <div className="overflow-x-auto no-scrollbar pb-2">
+              <div className="h-56 flex items-end gap-1.5 sm:gap-2 pt-8 pb-2 min-w-[300px] sm:min-w-0">
+                {stats.monthlyTimeline.slice(-14).map((m, i) => {
+                  const heightPct = Math.max(8, Math.round((m.minutes / maxMonthMin) * 100));
+                  const barColor =
+                    i % 3 === 0 ? 'bg-[#FF0000]' : i % 3 === 1 ? 'bg-[#0000FF]' : 'bg-[#111111]';
+                  return (
+                    <div
+                      key={m.month}
+                      className="flex-1 flex flex-col items-center justify-end h-full group relative"
+                    >
+                      <div className="opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 absolute -top-9 z-10 whitespace-nowrap bg-[#111111] text-[#FFFFFF] border border-[#111111] px-2 py-1 text-[11px] font-mono">
+                        {m.label}: {m.minutes.toLocaleString()}m ({m.plays}x)
+                      </div>
+                      <div className="w-full flex-1 flex items-end border-b border-[#111111]">
+                        <div
+                          style={{ height: `${heightPct}%` }}
+                          className={`w-full border border-[#111111] ${barColor} transition-transform duration-200 group-hover:-translate-y-0.5`}
+                        />
+                      </div>
+                      <span className="font-mono text-[10px] text-[#111111] font-bold mt-2 truncate max-w-full uppercase">
+                        {m.label.split(' ')[0]}
+                      </span>
                     </div>
-                    <div className="w-full flex-1 flex items-end border-b border-[#111111]">
-                      <div
-                        style={{ height: `${heightPct}%` }}
-                        className={`w-full border border-[#111111] ${barColor} transition-transform duration-200 group-hover:-translate-y-0.5`}
-                      />
-                    </div>
-                    <span className="font-mono text-[10px] text-[#111111] font-bold mt-2 truncate max-w-full uppercase">
-                      {m.label.split(' ')[0]}
-                    </span>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           ) : (
             <div className="h-48 flex items-center justify-center font-mono text-xs text-[#808080] border border-[#111111] p-4">
@@ -160,44 +162,46 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
           <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-[#111111] mb-6">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#111111]">
-                <Clock className="w-4 h-4 text-[#FF0000]" />
+                <Clock className="w-4 h-4 text-[#FF0000] shrink-0" />
                 <span>[GRID 03] CIRCADIAN AXIS (24H)</span>
               </div>
-              <h3 className="text-xl font-bold text-[#111111] mt-1">Listening by Hour of Day</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">Listening by Hour of Day</h3>
             </div>
-            <div className="font-mono text-xs bg-[#FF0000] text-[#FFFFFF] border border-[#111111] px-3 py-1 font-bold">
+            <div className="font-mono text-xs bg-[#FF0000] text-[#FFFFFF] border border-[#111111] px-2.5 sm:px-3 py-1 font-bold shrink-0">
               PEAK: {formatHour(stats.peakHour)} ({stats.hourlyMinutes[stats.peakHour]?.toLocaleString() || 0}M)
             </div>
           </div>
 
-          <div className="h-44 flex items-end gap-1 sm:gap-1.5 pt-4 pb-1">
-            {stats.hourlyMinutes.map((min, hr) => {
-              const pct = Math.max(6, Math.round((min / maxHourMin) * 100));
-              const isPeak = hr === stats.peakHour;
-              return (
-                <div
-                  key={hr}
-                  className="flex-1 flex flex-col items-center justify-end h-full group relative"
-                >
-                  <div className="opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 absolute -top-8 z-10 whitespace-nowrap bg-[#111111] text-[#FFFFFF] px-2 py-0.5 text-[10px] font-mono">
-                    {formatHour(hr)}: {min.toLocaleString()}m
+          <div className="overflow-x-auto no-scrollbar pb-1">
+            <div className="h-44 flex items-end gap-0.5 sm:gap-1.5 pt-4 pb-1 min-w-[300px] sm:min-w-0">
+              {stats.hourlyMinutes.map((min, hr) => {
+                const pct = Math.max(6, Math.round((min / maxHourMin) * 100));
+                const isPeak = hr === stats.peakHour;
+                return (
+                  <div
+                    key={hr}
+                    className="flex-1 flex flex-col items-center justify-end h-full group relative"
+                  >
+                    <div className="opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 absolute -top-8 z-10 whitespace-nowrap bg-[#111111] text-[#FFFFFF] px-2 py-0.5 text-[10px] font-mono">
+                      {formatHour(hr)}: {min.toLocaleString()}m
+                    </div>
+                    <div className="w-full flex-1 flex items-end border-b border-[#111111]">
+                      <div
+                        style={{ height: `${pct}%` }}
+                        className={`w-full border border-[#111111] transition-colors duration-200 ${
+                          isPeak
+                            ? 'bg-[#FF0000]'
+                            : 'bg-[#0000FF] group-hover:bg-[#FFFF00]'
+                        }`}
+                      />
+                    </div>
+                    <span className="font-mono text-[9px] text-[#111111] font-bold mt-1.5">
+                      {hr % 3 === 0 ? `${String(hr).padStart(2, '0')}H` : ''}
+                    </span>
                   </div>
-                  <div className="w-full flex-1 flex items-end border-b border-[#111111]">
-                    <div
-                      style={{ height: `${pct}%` }}
-                      className={`w-full border border-[#111111] transition-colors duration-200 ${
-                        isPeak
-                          ? 'bg-[#FF0000]'
-                          : 'bg-[#0000FF] group-hover:bg-[#FFFF00]'
-                      }`}
-                    />
-                  </div>
-                  <span className="font-mono text-[9px] text-[#111111] font-bold mt-1.5">
-                    {hr % 3 === 0 ? `${String(hr).padStart(2, '0')}H` : ''}
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -206,12 +210,12 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
           <div className="flex items-center justify-between pb-4 border-b border-[#111111] mb-5">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#0000FF]">
-                <Calendar className="w-4 h-4" />
+                <Calendar className="w-4 h-4 shrink-0" />
                 <span>[GRID 04] 7-DAY CADENCE</span>
               </div>
-              <h3 className="text-xl font-bold text-[#111111] mt-1">Day of Week</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">Day of Week</h3>
             </div>
-            <span className="font-mono text-xs bg-[#0000FF] text-[#FFFFFF] border border-[#111111] px-2.5 py-1 font-bold">
+            <span className="font-mono text-xs bg-[#0000FF] text-[#FFFFFF] border border-[#111111] px-2.5 py-1 font-bold shrink-0">
               {WEEKDAYS[stats.peakWeekday]}
             </span>
           </div>
@@ -222,8 +226,8 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
               const pct = Math.max(6, Math.round((min / maxWeekMin) * 100));
               const isPeak = idx === stats.peakWeekday;
               return (
-                <div key={day} className="flex items-center gap-3">
-                  <span className="w-10 font-mono text-xs font-bold text-[#111111]">{day}</span>
+                <div key={day} className="flex items-center gap-2 sm:gap-3">
+                  <span className="w-8 sm:w-10 font-mono text-xs font-bold text-[#111111] shrink-0">{day}</span>
                   <div className="flex-1 h-4 border border-[#111111] bg-[#FFFFFF]">
                     <div
                       style={{ width: `${pct}%` }}
@@ -232,7 +236,7 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
                       }`}
                     />
                   </div>
-                  <span className="w-16 text-right font-mono text-xs font-bold text-[#111111]">
+                  <span className="w-14 sm:w-16 text-right font-mono text-xs font-bold text-[#111111] shrink-0">
                     {min.toLocaleString()}m
                   </span>
                 </div>
@@ -244,33 +248,38 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
 
       {/* Row 3: 20-Week Mondrian Daily Consistency Matrix */}
       <div className="border-2 border-[#111111] bg-[#FFFFFF] p-4 sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b-2 border-[#111111] mb-6">
-          <div>
+        <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-4 border-b-2 border-[#111111] mb-6">
+          <div className="min-w-0">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FF0000]">
-              <Flame className="w-4 h-4" />
+              <Flame className="w-4 h-4 shrink-0" />
               <span>[GRID 05] DAILY LISTENING STREAK MATRIX</span>
             </div>
-            <h3 className="text-xl font-bold text-[#111111] mt-1">
+            <h3 className="text-lg sm:text-xl font-bold text-[#111111] mt-1">
               Daily Listening Grid (140 Days)
             </h3>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="border-2 border-[#111111] bg-[#FFFF00] px-4 py-2">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+            <div className="border-2 border-[#111111] bg-[#FFFF00] px-3 sm:px-4 py-2 flex-1 sm:flex-initial">
               <span className="font-mono text-[10px] font-bold uppercase text-[#111111] block">
                 ACTIVE STREAK
               </span>
-              <span className="font-mono text-lg font-bold text-[#111111]">
+              <span className="font-mono text-base sm:text-lg font-bold text-[#111111]">
                 {stats.currentStreakDays} DAYS
               </span>
             </div>
-            <div className="border-2 border-[#111111] bg-[#FF0000] text-[#FFFFFF] px-4 py-2">
-              <span className="font-mono text-[10px] font-bold uppercase block">
-                PEAK STREAK ({stats.longestStreakRange})
+            <div className="border-2 border-[#111111] bg-[#FF0000] text-[#FFFFFF] px-3 sm:px-4 py-2 flex-1 sm:flex-initial min-w-0">
+              <span className="font-mono text-[10px] font-bold uppercase block truncate">
+                PEAK STREAK
               </span>
-              <span className="font-mono text-lg font-bold">
+              <span className="font-mono text-base sm:text-lg font-bold">
                 {stats.longestStreakDays} DAYS
               </span>
+              {stats.longestStreakRange && (
+                <span className="font-mono text-[9px] opacity-80 block truncate mt-0.5">
+                  {stats.longestStreakRange}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -297,12 +306,12 @@ export const ActivityCharts: React.FC<Props> = ({ stats }) => {
                 );
               })}
             </div>
-            <div className="flex items-center justify-between font-mono text-xs text-[#808080] mt-4 pt-3 border-t border-[#111111]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 font-mono text-xs text-[#808080] mt-4 pt-3 border-t border-[#111111]">
               <span className="inline-flex items-center gap-1.5 text-[#111111]">
-                <Activity className="w-3.5 h-3.5 text-[#FF0000]" />
-                Inspect any rectangle for daily minutes
+                <Activity className="w-3.5 h-3.5 text-[#FF0000] shrink-0" />
+                <span>Inspect any rectangle for daily minutes</span>
               </span>
-              <div className="flex items-center gap-2 text-[#111111] font-bold">
+              <div className="flex items-center gap-2 text-[#111111] font-bold self-end sm:self-auto">
                 <span>0M</span>
                 <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FFFFFF] inline-block" />
                 <span className="w-3.5 h-3.5 border border-[#111111] bg-[#FFFF00] inline-block" />

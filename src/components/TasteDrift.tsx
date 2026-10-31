@@ -45,7 +45,7 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
     <div className="space-y-6 sm:space-y-8 animate-fade-enter">
       {/* Hero Banner */}
       <div className="grid grid-cols-1 lg:grid-cols-12 border-4 border-[#111111] bg-[#FFFFFF]">
-        <div className="lg:col-span-8 p-6 sm:p-8 bg-[#FFFF00] border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
+        <div className="lg:col-span-8 p-4 sm:p-8 bg-[#FFFF00] border-b-4 lg:border-b-0 lg:border-r-4 border-[#111111]">
           <div className="inline-flex items-center gap-2 border border-[#111111] bg-[#111111] text-[#FFFF00] px-3 py-1 font-mono text-xs font-bold uppercase mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>[TEMPORAL TASTE EVOLUTION]</span>
@@ -53,23 +53,23 @@ export const TasteDrift: React.FC<Props> = ({ stats }) => {
           <h2 className="text-2xl sm:text-4xl font-bold text-[#111111] tracking-tight">
             Taste Drift & Velocity
           </h2>
-          <p className="text-xs sm:text-sm text-[#111111] mt-2 max-w-2xl font-medium leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#111111] mt-2 max-w-2xl font-medium leading-relaxed break-words">
             How your listening taste is shifting over time. Track which artists are surging into your daily queue, which remain your immutable core, and which are cooling off.
           </p>
         </div>
 
-        <div className="lg:col-span-4 p-6 bg-[#FFFFFF] flex flex-col justify-between">
+        <div className="lg:col-span-4 p-4 sm:p-6 bg-[#FFFFFF] flex flex-col justify-between">
           <div>
             <span className="font-mono text-xs font-bold uppercase text-[#808080] block">
               CURRENT TIMEFRAME
             </span>
-            <p className="font-mono text-xl font-bold text-[#0000FF] mt-1">
+            <p className="font-mono text-xl font-bold text-[#0000FF] mt-1 break-words">
               {stats.dateRangeLabel.toUpperCase()}
             </p>
           </div>
-          <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between font-mono text-xs">
-            <span className="text-[#808080]">ROTATION INDEX:</span>
-            <span className="font-bold text-[#111111]">{stats.uniqueArtists} ARTISTS ACTIVE</span>
+          <div className="pt-4 border-t-2 border-[#111111] flex items-center justify-between font-mono text-xs gap-2">
+            <span className="text-[#808080] shrink-0">ROTATION INDEX:</span>
+            <span className="font-bold text-[#111111] text-right">{stats.uniqueArtists} ARTISTS ACTIVE</span>
           </div>
         </div>
       </div>

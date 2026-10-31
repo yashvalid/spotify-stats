@@ -78,53 +78,53 @@ export const DataSourceModal: React.FC<Props> = ({
     >
       <div className="relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-lg border-4 border-[#111111] bg-[#FFFFFF] shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between border-b-4 border-[#111111] bg-[#FFFF00] px-6 py-4 shrink-0">
-          <h2 className="text-xl font-bold text-[#111111]">
+        <div className="flex items-center justify-between border-b-4 border-[#111111] bg-[#FFFF00] px-4 sm:px-6 py-3.5 sm:py-4 shrink-0">
+          <h2 className="text-lg sm:text-xl font-bold text-[#111111] truncate pr-2">
             Data Source Settings
           </h2>
           <button
             onClick={onClose}
-            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-2 text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer"
+            className="rounded-lg border-2 border-[#111111] bg-[#FFFFFF] p-1.5 text-[#111111] hover:bg-[#FF0000] hover:text-[#FFFFFF] transition-colors duration-200 cursor-pointer shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-6 sm:p-8 space-y-6 overflow-y-auto flex-1 min-h-0">
+        <div className="p-4 sm:p-8 space-y-5 sm:space-y-6 overflow-y-auto flex-1 min-h-0">
           {error && (
-            <div className="border-2 border-[#111111] bg-[#FF0000] p-4 text-xs font-bold text-[#FFFFFF]">
+            <div className="border-2 border-[#111111] bg-[#FF0000] p-3.5 sm:p-4 text-xs font-bold text-[#FFFFFF] break-words">
               {error}
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {/* Live Spotify Account Card */}
             <div
-              className={`p-6 border-2 border-[#111111] flex flex-col justify-between ${
+              className={`p-4 sm:p-6 border-2 border-[#111111] flex flex-col justify-between ${
                 activeMode === 'spotify_api' ? 'bg-[#FFFF00]/20 border-t-8 border-t-[#0000FF]' : 'bg-[#FFFFFF]'
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs font-bold uppercase text-[#0000FF] flex items-center gap-1.5">
-                    <Radio className="w-4 h-4" />
-                    [LIVE SPOTIFY ACCOUNT]
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="font-mono text-xs font-bold uppercase text-[#0000FF] flex items-center gap-1.5 truncate">
+                    <Radio className="w-4 h-4 shrink-0" />
+                    <span>[LIVE SPOTIFY ACCOUNT]</span>
                   </span>
                   {activeMode === 'spotify_api' && (
-                    <span className="font-mono text-xs font-bold text-[#0000FF] flex items-center gap-1">
+                    <span className="font-mono text-xs font-bold text-[#0000FF] flex items-center gap-1 shrink-0">
                       <CheckCircle2 className="w-3.5 h-3.5" /> ACTIVE
                     </span>
                   )}
                 </div>
-                <h3 className="text-lg font-bold text-[#111111]">Direct Spotify Sign-In</h3>
+                <h3 className="text-base sm:text-lg font-bold text-[#111111]">Direct Spotify Sign-In</h3>
                 <p className="text-xs text-[#808080] mt-1 leading-relaxed">
                   Real-time sync of your Top 50 Songs, Artists, and Albums across 4 weeks, 6 months, and all time.
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#111111] flex items-center justify-between">
+              <div className="mt-5 sm:mt-6 pt-4 border-t border-[#111111] flex flex-wrap items-center justify-between gap-2">
                 {isSpotifyConnected ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2 w-full justify-between">
                     {activeMode !== 'spotify_api' && (
                       <button
                         onClick={() => {
@@ -141,7 +141,7 @@ export const DataSourceModal: React.FC<Props> = ({
                         disconnectSpotify();
                         onDisconnectSpotify();
                       }}
-                      className="font-mono text-xs font-bold text-[#FF0000] underline cursor-pointer"
+                      className="font-mono text-xs font-bold text-[#FF0000] underline cursor-pointer ml-auto"
                     >
                       LOG OUT
                     </button>
@@ -159,39 +159,39 @@ export const DataSourceModal: React.FC<Props> = ({
 
             {/* Extended Streaming History Archive Card */}
             <div
-              className={`p-6 border-2 border-[#111111] flex flex-col justify-between ${
+              className={`p-4 sm:p-6 border-2 border-[#111111] flex flex-col justify-between ${
                 activeMode === 'history' ? 'bg-[#FFFF00]/20 border-t-8 border-t-[#FF0000]' : 'bg-[#FFFFFF]'
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs font-bold uppercase text-[#FF0000] flex items-center gap-1.5">
-                    <FileJson className="w-4 h-4" />
-                    [ARCHIVE FILE]
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="font-mono text-xs font-bold uppercase text-[#FF0000] flex items-center gap-1.5 truncate">
+                    <FileJson className="w-4 h-4 shrink-0" />
+                    <span>[ARCHIVE FILE]</span>
                   </span>
                   {activeMode === 'history' && (
-                    <span className="font-mono text-xs font-bold text-[#FF0000] flex items-center gap-1">
+                    <span className="font-mono text-xs font-bold text-[#FF0000] flex items-center gap-1 shrink-0">
                       <CheckCircle2 className="w-3.5 h-3.5" /> ACTIVE
                     </span>
                   )}
                 </div>
-                <h3 className="text-lg font-bold text-[#111111]">Streaming History</h3>
+                <h3 className="text-base sm:text-lg font-bold text-[#111111]">Streaming History</h3>
                 <p className="text-xs text-[#808080] mt-1 leading-relaxed">
                   Upload your Spotify privacy export (<code className="font-mono font-bold">.zip</code> or <code className="font-mono font-bold">.json</code>) for exact historical minutes.
                 </p>
                 <button
                   type="button"
                   onClick={() => setShowGuide(true)}
-                  className="mt-2 inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#0000FF] hover:text-[#FF0000] underline cursor-pointer"
+                  className="mt-2 inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#0000FF] hover:text-[#FF0000] underline cursor-pointer text-left"
                 >
-                  <HelpCircle className="w-3.5 h-3.5" />
+                  <HelpCircle className="w-3.5 h-3.5 shrink-0" />
                   <span>How to request your Spotify privacy data?</span>
                 </button>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#111111]">
+              <div className="mt-5 sm:mt-6 pt-4 border-t border-[#111111]">
                 {hasUploadedHistory ? (
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-mono text-xs font-bold text-[#111111]">
                       {uploadedRecordCount.toLocaleString()} STREAMS
                     </span>
@@ -234,7 +234,7 @@ export const DataSourceModal: React.FC<Props> = ({
                     }`}
                   >
                     <Upload className="w-5 h-5 mx-auto mb-1 text-[#FF0000]" />
-                    <span className="font-mono text-xs font-bold text-[#111111]">
+                    <span className="font-mono text-xs font-bold text-[#111111] block break-words">
                       {uploading ? 'PARSING...' : 'DROP .ZIP OR .JSON'}
                     </span>
                     <input
